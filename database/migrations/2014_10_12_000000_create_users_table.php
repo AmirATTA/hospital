@@ -54,7 +54,6 @@ return new class extends Migration
             'name' => 'Admin',
             'label' => 'ادمین'
         ]);
-        $testUser->assignRole($admin);
 
         $doctor = Role::create([
             'name' => 'Doctor',

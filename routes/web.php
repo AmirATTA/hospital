@@ -29,6 +29,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
 
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::resource('users', UserController::class);
-    
+
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 })->name('admin');
