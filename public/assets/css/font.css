@@ -1,0 +1,10 @@
+@font-face {
+    font-family: yekan;
+    src: url('../fonts/yekan-bakh-regular.ttf')  format('truetype');
+}
+body {
+    font-family: yekan, sans-serif !important;
+}
+h1, h2, h3 {
+    font-family: yekan, sans-serif;
+}

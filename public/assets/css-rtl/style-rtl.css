@@ -1,0 +1,187 @@
+@font-face {
+    font-family: yekan;
+    src: url('../fonts/yekan-bakh-regular.ttf')  format('truetype');
+}
+body {
+    font-family: yekan !important;
+    color: #363438;
+}
+h1,h2,h3,h4,h5,h6,p,span,label {
+    font-family: yekan !important;
+}
+
+.color-menu .app-sidebar {
+    background: #363438 !important;
+}
+
+.color-menu .app-sidebar .side-menu .slide a.active, .color-menu .app-sidebar .side-menu .slide a:hover {
+    color: #fff !important;
+    background: #1f8bcb !important;
+}
+.color-menu .app-sidebar .side-menu .slide.is-expanded a.slide-item.active , .color-menu .app-sidebar .side-menu .sub-slide a:hover ,.color-menu .app-sidebar .side-menu .slide.is-expanded a.slide-item:hover {
+    color: #1f8bcb !important;
+    background: 0 0 !important;
+}
+.side-menu__item {
+    margin: 5px 0;
+}
+.app-sidebar__user .user-pic .avatar-xxl {
+    border: 3px solid #2c4669;
+}
+.side-menu {
+    padding: 10px;
+}
+
+.color-menu .app-sidebar .side-menu__item.active::before {
+    border-left: unset;
+}
+.color-menu .app-sidebar .app-sidebar__user .app-sidebar__user-name.text-muted {
+    color: #9ba5ca !important;
+}
+.side-menu__item {
+    padding: 12px 15px 12px 15px;
+}
+.color-menu .app-sidebar .Annoucement_card {
+    background: #1c2f48;
+}
+.calendar-icon {
+    font-size: 1.5rem;
+    color: black;
+    cursor: pointer;
+    transition: .1s ease;
+    position: relative;
+    top: -31.5px;
+}
+.calendar-icon:hover {
+    opacity: .6;
+}
+.tags-input {
+    border: 1px solid #d3dfea;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+.news-btn {
+    position: absolute;
+    top: 120px;
+    left: 24px;
+    font-size: 1rem;
+}
+.header-brand-img {
+    position: relative;
+    width: 150px;
+    bottom: 30px;
+}
+
+.sortable {
+    cursor: grab;
+    padding-right: 60px;
+}
+.sortable:hover {
+    background: #e6e6e6;
+}
+.sortable:active {
+    cursor: grabbing;
+}
+.sortable-actions {
+    width: 85px;
+    margin-right: auto;
+    margin-top: -23px;
+}
+.sortable-icons {
+    display: inline-block;
+}
+.sortable-status {
+    margin: auto;
+    display: grid;
+    width: 50px;
+    margin-top: -23px;
+}
+.sortable-grib {
+    display: revert;
+    color: #0000004d;
+    font-size: 1.5rem;
+    margin: -57px;
+    position: absolute;
+    top: 72px;
+}
+
+.item_title {
+    width: 40%;
+    display: inline-block;
+}
+
+.menu-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 10px; /* spacing between cards */
+}
+
+.menu-group-actions {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item1 a {
+    color: #46c8bc;
+}
+.breadcrumb-item1:hover a {
+    color: #1f8bcb;
+}
+
+.spin-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.spinner {
+    background: #46c8bc;
+}
+
+.card .card-header .card-title:before {
+    background: #1f8bcb;
+}
+
+.bg-primary {
+    background: #1f8bcb !important;
+}
+
+.img-cover {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.app-sidebar .app-sidebar3 {
+    margin-top: 135px;
+}
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 33%;
+    }
+}
+
+.form-group.required .form-label:after { 
+    content:"*";
+    color:red;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.custom-controls-stacked {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+.custom-controls-stacked .custom-control {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.select-all {
+    width: 123px;
+    margin: auto;
+    padding: 10px 27px;
+}
