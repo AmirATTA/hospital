@@ -27,30 +27,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    // =========================================
-    // Creating admin routes and middlewares
-    // Index
-    Route::group(['middleware' => ['permission:view user']], function () {
-        Route::get('users', [UserController::class, 'index'])->name('users.index');
-    });
-
-    // Create
-    Route::group(['middleware' => ['permission:create user']], function () {
-        Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-        Route::post('users', [UserController::class, 'store'])->name('users.store');
-    });
-
-    // Edit
-    Route::group(['middleware' => ['permission:update user']], function () {
-        Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-        Route::patch('users/{user}', [UserController::class, 'update'])->name('users.update');
-    });
-
-    // Delete
-    Route::group(['middleware' => ['permission:delete user']], function () {
-        Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-    });
-    // =========================================
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::resource('users', UserController::class);
     
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 })->name('admin');

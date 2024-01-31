@@ -25,34 +25,34 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($user as $data)
+							@foreach($users as $data)
 
-							<tr>
-								<td>{{ $loop->iteration }}</td>
-								<td>{{ $data->name }}</td>
-								<td>{{ $data->mobile }}</td>
-								<td>{{ $data->email }}</td>
-								<td>{{ $data->created_at->diffForHumans(); }}</td>
-								<td>
-									<div class="d-flex">
-										<a href="{{ route('users.edit', $data->id) }}" class="action-btns1">
-											<i class="feather feather-edit-2  text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
-										</a>
-										<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-user" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
-											<i class="feather feather-trash-2 text-danger"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
+								<tr>
+									<td>{{ $loop->iteration }}</td>
+									<td>{{ $data->name }}</td>
+									<td>{{ $data->mobile }}</td>
+									<td>{{ $data->email }}</td>
+									<td>{{ $data->created_at->diffForHumans(); }}</td>
+									<td>
+										<div class="d-flex">
+											<a href="{{ route('users.edit', $data->id) }}" class="action-btns1">
+												<i class="feather feather-edit-2  text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
+											</a>
+											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-user" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
+												<i class="feather feather-trash-2 text-danger"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
 
 							@endforeach
 						</tbody>
 					</table>
-					@if(count($user) === 0)
+					@if(count($users) === 0)
 						<div class="text-center text-danger" style="font-family: unset;">هیچ داده ای وجود ندارد</div>
 					@endif
 				</div>
-				{!! $user->links('vendor.pagination.bootstrap-4') !!}
+				{!! $users->links('vendor.pagination.bootstrap-4') !!}
 			</div>
 		</div>
 	</div>

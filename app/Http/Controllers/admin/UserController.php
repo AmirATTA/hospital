@@ -13,18 +13,27 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UserUpdateRequest;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserController extends Controller
 {
+    /**
+     * MiddleWares.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:view user')->only('index');
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $user = User::orderBy('id', 'desc')->paginate(15);
-
+        $superAdmin = User::role('Super Admin')->first();
+        $users = User::orderBy('id', 'desc')->whereNotIn('id', [$superAdmin->id])->paginate(15);
         return view('admin.user.index')->with([
-            'user' => $user
+            'users' => $users,
         ]);
     }
 
