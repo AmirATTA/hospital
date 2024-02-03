@@ -5,9 +5,13 @@
 	<link href="{{ asset('assets/plugins/sweet-alert/sweetalert.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
-<a href="{{ route('users.create') }}"><button class="btn btn-primary news-btn">کاربر جدید +</button></a>
+
+@can('create users')
+	<a href="{{ route('users.create') }}"><button class="btn btn-primary news-btn">کاربر جدید +</button></a>
+@endcan
+
 <!-- Row -->
-@can('view user')
+@can('view users')
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\auth\LoginController;
+use App\Http\Controllers\admin\SpecialityController;
 use App\Http\Controllers\admin\auth\LogoutController;
 use App\Http\Controllers\admin\auth\PasswordController;
 
@@ -29,6 +30,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
 
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::resource('users', UserController::class);
+
+
+    Route::delete('specialities/{user}', [SpecialityController::class, 'destroy'])->name('specialities.destroy');
+    Route::resource('specialities', SpecialityController::class);
+
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 })->name('admin');

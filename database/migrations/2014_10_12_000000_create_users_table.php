@@ -9,6 +9,9 @@ use Spatie\Permission\Models\Permission;
 
 return new class extends Migration
 {
+    use \App\Traits\HasPermission;
+
+
     /**
      * Run the migrations.
      */
@@ -25,18 +28,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // OOOOOOOOOOOOOOOO============---------------============OOOOOOOOOOOOOOOO
-        // OOOOOOOOOOOOOOOO============---------------============OOOOOOOOOOOOOOOO
-        // OOOOOOOOOOOOOOOO============---------------============OOOOOOOOOOOOOOOO
-        // OOOOOOOOOOOOOOOO============---------------============OOOOOOOOOOOOOOOO
-
-        // Create super admin
+        // Create roles
         $user = User::create([
             'name' => 'admin',
             'mobile' => '09924533026',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin'),
         ]);
+
         $testUser = User::create([
             'name' => 'admin2',
             'mobile' => '0992453302',
@@ -44,52 +43,30 @@ return new class extends Migration
             'password' => bcrypt('admin'),
         ]);
 
-        $superAdmin = Role::create([
-            'name' => 'Super Admin',
-            'label' => 'فوق ادمین'
-        ]);
-        $user->assignRole($superAdmin);
-        
-        $admin = Role::create([
-            'name' => 'Admin',
-            'label' => 'ادمین'
-        ]);
+        $roles = [
+            'Super Admin' => 'مدیر ارشد',
+            'Admin' => 'مدیر',
+            'Doctor' => 'دکتر',
+        ];
 
-        $doctor = Role::create([
-            'name' => 'Doctor',
-            'label' => 'دکتر'
-        ]);
+        foreach ($roles as $name => $label) {
+            $role = new Role();
+            $role->label = $label;
+            $role->name = $name;
+            $role->save();
+        }
 
-        // Create permissions for user`s page
-        $viewUser = Permission::create([
-            'name' => 'view user',
-            'label' => 'بازدید کاربران',
-        ]);
-        $admin->givePermissionTo($viewUser);
+        $user->assignRole('Super Admin');
 
-        $createUser = Permission::create([
-            'name' => 'create user',
-            'label' => 'ساخت کاربر',
-        ]);
-        $admin->givePermissionTo($createUser);
+        // Create permissions for users
+        $permissions = [
+            'view users' => 'نمایش کاربران',
+            'create users' => 'ایجاد کاربران',
+            'edit users' => 'ویرایش کاربران',
+            'delete users' => 'حذف کاربران',
+        ];
 
-        $updateUser = Permission::create([
-            'name' => 'update user',
-            'label' => 'ویرایش کاربر',
-        ]);
-        $admin->givePermissionTo($updateUser)
-        ;
-        $deleteUser = Permission::create([
-            'name' => 'delete user',
-            'label' => 'حذف کاربر',
-        ]); 
-        $admin->givePermissionTo($deleteUser);
-
-
-        // OOOOOOOOOOOOOOOO============---------------============OOOOOOOOOOOOOOOO
-        // OOOOOOOOOOOOOOOO============---------------============OOOOOOOOOOOOOOOO
-        // OOOOOOOOOOOOOOOO============---------------============OOOOOOOOOOOOOOOO
-        // OOOOOOOOOOOOOOOO============---------------============OOOOOOOOOOOOOOOO
+        $permissionNames = $this->createPermissions($permissions);
     }
 
     /**

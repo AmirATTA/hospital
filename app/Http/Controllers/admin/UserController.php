@@ -22,9 +22,9 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:view user')->only('index');
+        $this->middleware('permission:view users')->only('index');
 
-        $this->middleware('permission:create user')->only('create');
+        $this->middleware('permission:create users')->only('create');
     }
 
     /**
@@ -156,9 +156,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if($user->id == auth()->user()->id) {
-            return response()->json(true);
-        }
         $user->syncPermissions([]);
         $user->delete();
     }

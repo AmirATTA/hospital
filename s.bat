@@ -14,6 +14,10 @@ IF "%1" == "c" (
     echo Creating Controller...
     php artisan make:controller %2
 )
+IF "%1" == "cr" (
+    echo Creating Controller with resource...
+    php artisan make:controller %2 --resource
+)
 
 IF "%1" == "r" (
     echo Creating Request...

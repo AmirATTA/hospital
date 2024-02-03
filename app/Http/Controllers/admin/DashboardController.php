@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
     public function test()
     {
-        // auth()->user()->givePermissionTo('view user');
-        // dd(auth()->user()->getAllPermissions());
+        auth()->user()->givePermissionTo('view specialities');
+        // auth()->user()->revokePermissionTo('create user');
     }
 }
