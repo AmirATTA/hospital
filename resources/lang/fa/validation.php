@@ -195,6 +195,7 @@ return [
         'email' => 'ایمیل',
         'first_name' => 'نام',
         'last_name' => 'نام خانوادگی',
+        'old_password' => 'رمز عبور قبلی',
         'password' => 'رمز عبور',
         'password_confirmation' => 'تاییدیه رمز عبور',
     ],

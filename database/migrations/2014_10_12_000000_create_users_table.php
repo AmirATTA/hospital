@@ -11,7 +11,6 @@ return new class extends Migration
 {
     use \App\Traits\HasPermission;
 
-
     /**
      * Run the migrations.
      */
@@ -20,7 +19,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('mobile')->unique();
+            $table->string('mobile', 20)->unique();
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -54,6 +53,9 @@ return new class extends Migration
             $role->label = $label;
             $role->name = $name;
             $role->save();
+            if($name = 'Admin') {
+                $admin = $role;
+            }
         }
 
         $user->assignRole('Super Admin');
@@ -67,6 +69,8 @@ return new class extends Migration
         ];
 
         $permissionNames = $this->createPermissions($permissions);
+        $rolePermissions = $this->assignPermissions($permissions, 'Admin');
+
     }
 
     /**

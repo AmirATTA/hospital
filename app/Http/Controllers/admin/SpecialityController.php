@@ -48,7 +48,7 @@ class SpecialityController extends Controller
         if(!$speciality) {
             return redirect(route('specialities.create'))->with('error', 'عملیان انجام نشد');
         } else {
-            return redirect(route('specialities.index'))->with('success', 'دسته بندی ساخته شد!');
+            return redirect(route('specialities.index'))->with('success', 'عملیات با موفقیت انجام شد.');
         }
     }
 
@@ -79,7 +79,7 @@ class SpecialityController extends Controller
 
         $speciality->update($request->validated());
 
-        return redirect()->route('specialities.index')->with('success', 'خبر با موفقیت بروزرسانی شد');
+        return redirect()->route('specialities.index')->with('success', 'عملیات با موفیقت انجام شد.');
     }
 
     /**

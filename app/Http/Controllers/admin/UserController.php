@@ -70,7 +70,7 @@ class UserController extends Controller
         if(!$user) {
             return redirect(route('users.create'))->with('error', 'عملیان انجام نشد');
         } else {
-            return redirect(route('users.index'))->with('success', 'دسته بندی ساخته شد!');
+            return redirect(route('users.index'))->with('success', 'عملیات با موفقیت انجام شد.');
         }
     }
 

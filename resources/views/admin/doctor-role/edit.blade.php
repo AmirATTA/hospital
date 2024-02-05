@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title', 'ویرایش تخصص')
+@section('title', 'ویرایش نقش')
 @section('content')
 <!-- Row -->
 <div class="row">
@@ -8,7 +8,7 @@
 		<x-errors></x-errors>
 		
 		<div class="card">
-			<form action="{{ route('specialities.update', $specialities->id) }}" id="Speciality" name="Speciality" method="post">
+			<form action="{{ route('doctor-roles.update', $doctorRole->id) }}" id="Doctor-role" name="Doctor-role" method="post">
 				@csrf
 				@method('PATCH')
 				<div class="card-body">
@@ -16,18 +16,18 @@
 						<div class="col-md-6">
 							<div class="form-group required">
 								<label class="form-label">عنوان</label>
-								<input class="form-control" value="{{ $specialities->title }}" placeholder="عنوان" name="title">
+								<input class="form-control" value="{{ $doctorRole->title }}" placeholder="عنوان" name="title">
 							</div>
 						</div>
 					</div>
 					<div class="custom-controls-stacked d-md-flex">
 						<label class="form-label mt-1 ml-5">وضعیت :</label>
 						<label class="custom-control custom-radio success ml-4">
-							<input type="radio" class="custom-control-input" name="status" value="1" @if($specialities->status == '1') checked @endif>
+							<input type="radio" class="custom-control-input" name="status" value="1" @if($doctorRole->status == '1') checked @endif>
 							<span class="custom-control-label">فعال</span>
 						</label>
 						<label class="custom-control custom-radio success ml-4">
-							<input type="radio" class="custom-control-input" name="status" value="0" @if($specialities->status == '0') checked @endif>
+							<input type="radio" class="custom-control-input" name="status" value="0" @if($doctorRole->status == '0') checked @endif>
 							<span class="custom-control-label">غیر فعال</span>
 						</label>
 					</div>

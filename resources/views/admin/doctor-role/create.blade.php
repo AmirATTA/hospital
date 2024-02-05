@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title', 'ویرایش تخصص')
+@section('title', 'نقش جدید')
 @section('content')
 <!-- Row -->
 <div class="row">
@@ -8,33 +8,32 @@
 		<x-errors></x-errors>
 		
 		<div class="card">
-			<form action="{{ route('specialities.update', $specialities->id) }}" id="Speciality" name="Speciality" method="post">
+			<form action="{{ route('doctor-roles.store') }}" id="Doctor-roles" name="Doctor-roles" method="post" >
 				@csrf
-				@method('PATCH')
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group required">
 								<label class="form-label">عنوان</label>
-								<input class="form-control" value="{{ $specialities->title }}" placeholder="عنوان" name="title">
+								<input class="form-control" value="{{ old('title') }}" placeholder="عنوان" name="title">
 							</div>
 						</div>
 					</div>
-					<div class="custom-controls-stacked d-md-flex">
+					<div class="custom-controls-stacked d-md-flex my-4">
 						<label class="form-label mt-1 ml-5">وضعیت :</label>
 						<label class="custom-control custom-radio success ml-4">
-							<input type="radio" class="custom-control-input" name="status" value="1" @if($specialities->status == '1') checked @endif>
+							<input type="radio" class="custom-control-input" name="status" value="1" checked>
 							<span class="custom-control-label">فعال</span>
 						</label>
 						<label class="custom-control custom-radio success ml-4">
-							<input type="radio" class="custom-control-input" name="status" value="0" @if($specialities->status == '0') checked @endif>
+							<input type="radio" class="custom-control-input" name="status" value="0">
 							<span class="custom-control-label">غیر فعال</span>
 						</label>
 					</div>
 				</div>
 				<div class="card-footer text-left">
 					<a onclick="window.history.back();" class="btn btn-danger btn-lg">برگشت</a>
-					<button type="submit" class="btn btn-success btn-lg">بروزرسانی</button>
+					<button type="submit" class="btn btn-success btn-lg">ثبت</button>
 				</div>
 			</form>
 		</div>

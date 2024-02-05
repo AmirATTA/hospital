@@ -35,7 +35,12 @@
 					<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow animated">
 						<div class="p-3 text-center border-bottom">
 							<span class="text-center user pb-0 font-weight-bold">{{ Auth::User()->name }}</span>
-							<p class="text-center user-semi-title">مدیر سایت</p>
+
+							<?php
+								$roleLabel = Spatie\Permission\Models\Role::where('name', Auth::User()->getRoleNames())->first();
+							?>
+							<p class="text-center user-semi-title">{{ $roleLabel->label }}</p>
+
 						</div>
 						<a class="dropdown-item d-flex" href="#">
 							<i class="feather feather-user ml-3 fs-16 my-auto"></i>

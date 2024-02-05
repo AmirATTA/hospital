@@ -14,7 +14,7 @@ class PasswordController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'new_password' => 'required',
+            'old_password' => 'required',
             'password' => 'required|confirmed',
         ]);
         
@@ -28,7 +28,7 @@ class PasswordController extends Controller
 
         $user = Auth::user();
         
-        if (Hash::check($request->new_password, $user->password)) {
+        if (Hash::check($request->old_password, $user->password)) {
             $user->password = Hash::make($request->password);
             $user->save();
             Auth::logout();

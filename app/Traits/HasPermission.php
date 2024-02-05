@@ -25,8 +25,8 @@ trait HasPermission
     public function assignPermissions(array $permissionNames, string $role): void
     {
         $role = Role::query()->where('name', $role)->first();
-        foreach ($permissionNames as $permissionName) {
-            $role->givePermissionTo($permissionName);
+        foreach ($permissionNames as $name => $label) {
+            $role->givePermissionTo($name);
         }
     }
 }

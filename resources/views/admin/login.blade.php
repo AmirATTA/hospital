@@ -23,12 +23,16 @@
 		<link href="{{ asset('assets/css-rtl/dark.css') }}" rel="stylesheet" />
 		<link href="{{ asset('assets/css-rtl/skin-modes.css') }}" rel="stylesheet" />
 		<link href="{{ asset('assets/css/font.css') }}" rel="stylesheet" />
+		<link href="{{ asset('assets/css-rtl/util.css') }}" rel="stylesheet" />
+		<link href="{{ asset('assets/css-rtl/login.css') }}" rel="stylesheet" />
 
 		<!-- Animate css -->
 		<link href="{{ asset('assets/css-rtl/animated.css') }}" rel="stylesheet" />
 
 		<!---Icons css-->
 		<link href="{{ asset('assets/css-rtl/icons.css') }}" rel="stylesheet" />
+		<link href="{{ asset('assets/plugins/iconfonts/font-awesome/css/fontawesome.min.css') }}" rel="stylesheet" />
+		<link href="{{ asset('assets/plugins/iconfonts/font-awesome/css/all.min.css') }}" rel="stylesheet" />
 
 		<!-- Select2 css -->
 		<link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
@@ -43,10 +47,42 @@
 	</head>
 
 	<body>
-
-		<div class="page login-bg">
+		<div class="page">
 			<div class="page-single">
-				<div class="container">
+				<div class="container-login100">
+					<div class="wrap-login100">
+						<form action="{{ route('login.post') }}" class="login100-form validate-form" id="login" name="login" method="post">
+						@csrf
+							<span class="login100-form-logo">
+								<img src="{{ asset('assets/images/hospital_logo.png') }}" class="header-brand-img dark-logo" alt="Dayonelogo">
+							</span>
+
+							<span class="login100-form-title p-b-34 p-t-27">
+								برنامه بیمارستان
+							</span>
+
+								<x-errors></x-errors>
+
+							<div class="wrap-input100 validate-input" data-validate = "Enter username">
+								<input class="input100" type="text" name="mobile" placeholder="شماره موبايل" value="{{ old('mobile') }}">
+								<i class="fa-solid focus-input100" data-placeholder="&#x1F4DE;"></i>
+							</div>
+
+							<div class="wrap-input100 validate-input" data-validate="Enter password">
+								<input class="input100" type="password" name="password" placeholder="رمز عبور">
+								<i class="fa-solid focus-input100" data-placeholder="&#x1F512;"></i>
+							</div>
+
+							<div class="container-login100-form-btn">
+								<button class="login100-form-btn">
+									ورود
+								</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<!-- <div class="container">
 					<div class="row">
 						<div class="col mx-auto">
 							<div class="row justify-content-center">
@@ -57,9 +93,7 @@
 											<p class="text-muted">ورود به برنامه</p>
 										</div>
 
-										<div class="p-5">
-											<x-errors></x-errors>
-										</div>
+										
 
 										<form action="{{ route('login.post') }}" class="card-body pt-3" id="login" name="login" method="post">
 										@csrf
@@ -80,7 +114,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
