@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    use \App\Traits\HasPermission;
-
     /**
      * Run the migrations.
      */
@@ -28,17 +26,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        
-        // Create permissions for doctors
-        $permissions = [
-            'view doctors' => 'نمایش دکتر ها',
-            'create doctors' => 'ایجاد دکتر ها',
-            'edit doctors' => 'ویرایش دکتر ها',
-            'delete doctors' => 'حذف دکتر ها',
-        ];
-
-        $permissionNames = $this->createPermissions($permissions);
-        $rolePermissions = $this->assignPermissions($permissions, 'Doctor');
     }
 
     /**

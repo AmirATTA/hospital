@@ -20,16 +20,13 @@
 						<i class="feather feather-minimize fullscreen-button exit-fullscreen header-icons"></i>
 					</a>
 				</div>
-				<!-- <div class="dropdown header-notify">
-					<a class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
-						<i class="feather feather-bell header-icon"></i>
-						<span class="bg-dot"></span>
-					</a>
-				</div> -->
 				<div class="dropdown profile-dropdown">
 					<a href="#" class="nav-link pr-1 pl-0 leading-none" data-toggle="dropdown">
 						<span>
-							<img src="{{ asset('assets/images/admin_logo.png') }}" alt="img" class="avatar avatar-md bradius">
+							<?php 
+								$profile = 'assets/images/' . Auth::User()->getRoleNames()[0] . '.png'; 
+							?>
+							<img src="{{ asset($profile) }}" alt="img" class="avatar avatar-md bradius">
 						</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow animated">
@@ -42,7 +39,7 @@
 							<p class="text-center user-semi-title">{{ $roleLabel->label }}</p>
 
 						</div>
-						<a class="dropdown-item d-flex" href="#">
+						<a class="dropdown-item d-flex" href="{{ route('profile.index') }}">
 							<i class="feather feather-user ml-3 fs-16 my-auto"></i>
 							<div class="mt-1">پروفایل</div>
 						</a>

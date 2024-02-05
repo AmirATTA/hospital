@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\DoctorController;
+use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\InsuranceController;
 use App\Http\Controllers\admin\OperationController;
 use App\Http\Controllers\admin\auth\LoginController;
 use App\Http\Controllers\admin\DoctorRoleController;
@@ -29,6 +31,8 @@ Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::get('test', [DashboardController::class, 'test'])->name('test');
 
+    Route::resource('profile', ProfileController::class);
+
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
@@ -47,5 +51,50 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('operations/{operation}', [OperationController::class, 'destroy'])->name('operations.destroy');
     Route::resource('operations', OperationController::class);
 
+    Route::delete('insurances/{insurance}', [InsuranceController::class, 'destroy'])->name('insurances.destroy');
+    Route::resource('insurances', InsuranceController::class);
+
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 })->name('admin');
+
+
+// <div class="col-md-12">
+// 	<div class="form-group m-0">
+// 		<label class="form-label">مجوز ها</label>
+// 		<div class="custom-controls-stacked">
+// 			@foreach($permissions as $id => $label)
+// 				<label class="custom-control custom-checkbox">
+// 					<input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $id }}">
+// 					<span class="custom-control-label">{{ $label }}</span>
+// 				</label>
+// 			@endforeach
+// 		</div>
+// 		<label class="custom-control custom-checkbox select-all">
+// 			<input type="checkbox" class="custom-control-input" id="select_all">
+// 			<span class="custom-control-label">انتخاب همه</span>
+// 		</label>
+// 	</div>
+// </div>
+
+
+
+// <div class="row">
+//     <div class="col-md-12">
+//         <div class="form-group m-0">
+//             <label class="form-label">مجوز ها</label>
+//             <div class="custom-controls-stacked">
+//                 @foreach($permissions as $id => $label)
+//                     <label class="custom-control custom-checkbox">
+//                         <input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $id }}" 
+//                         @if (in_array($id, $userPermissions)) checked @endif>
+//                         <span class="custom-control-label">{{ $label }}</span>
+//                     </label>
+//                 @endforeach
+//             </div>
+//             <label class="custom-control custom-checkbox select-all">
+//                 <input type="checkbox" class="custom-control-input" id="select_all">
+//                 <span class="custom-control-label">انتخاب همه</span>
+//             </label>
+//         </div>
+//     </div>
+// </div>

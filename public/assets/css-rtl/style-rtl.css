@@ -13,8 +13,14 @@ h1,h2,h3,h4,h5,h6,p,span,label {
 .user-semi-title {
     font-size: 1.2rem;
 }
-span,div {
+span,div,.form-label {
     font-size: 1.2rem;
+}
+.slide-item {
+    font-size: 1rem;
+}
+.breadcrumb-item1 a {
+    font-size: 0.8rem;
 }
 
 .color-menu .app-sidebar {
@@ -35,6 +41,11 @@ span,div {
 .app-sidebar__user .user-pic .avatar-xxl {
     border: 3px solid #2c4669;
 }
+
+.avatar {
+    border-radius: 50%;
+}
+
 .side-menu {
     padding: 10px;
 }
@@ -76,7 +87,7 @@ span,div {
 }
 .header-brand-img {
     position: relative;
-    bottom: 12px;
+    bottom: 20px;
 
     font-size: 60px; 
     color: #333333;
@@ -88,8 +99,8 @@ span,div {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background-color: #fff;
     margin: 0 auto;
@@ -176,7 +187,7 @@ span,div {
 }
 
 .app-sidebar .app-sidebar3 {
-    margin-top: 135px;
+    margin-top: 100px;
 }
 
 @media (min-width: 768px) {
@@ -211,4 +222,47 @@ span,div {
 
 .footer-texts {
     font-size: 1rem;
+}
+
+input[type="range"] {
+    display: block;
+    -webkit-appearance: none;
+    background-color: #bdc3c7;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+    margin: 20px 0;
+    outline: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #e74c3c;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}​
+input[type="range"]::-webkit-slider-thumb:hover {
+    background-color: white;
+    border: 2px solid #e74c3c;
+}
+input[type="range"]::-webkit-slider-thumb:active {
+    transform: scale(1.6);
+}
+
+#discount_label {
+    position: relative;
+    bottom: 0px; right: 0px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.role-table .dataTables_wrapper .row {
+    justify-content: space-between;
+}
+
+.role-table .dataTables_wrapper .row * {
+    font-size: unset;
 }

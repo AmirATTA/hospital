@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DoctorRequest extends FormRequest
+class InsuranceRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,9 +15,9 @@ class DoctorRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'speciality_id' => 'required',
-            'mobile' => 'required|unique:users,mobile',
-            'password' => 'required|confirmed',
+            'type' => 'required',
+            'discount' => 'required',
+            'status' => 'required',
         ];
     }
 }

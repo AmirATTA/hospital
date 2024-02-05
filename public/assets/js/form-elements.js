@@ -73,3 +73,24 @@ $(function(){
 	})
 
  });
+
+const discountLabel = document.querySelector("#discount_label");
+const discountInput = document.querySelector("#discount_input");
+
+const inputWidth = discountInput.clientWidth;
+const inputMax = parseInt(discountInput.max);
+const inputValue = parseInt(discountInput.value);
+const labelWidth = discountLabel.clientWidth;
+const offset = inputValue / inputMax * (inputWidth - labelWidth);
+discountLabel.style.right = `${offset}px`;
+discountLabel.innerHTML = inputValue + "%";
+
+discountInput.addEventListener("input", (event) => {
+	const inputWidth = discountInput.clientWidth;
+	const inputMax = parseInt(discountInput.max);
+	const inputValue = parseInt(discountInput.value);
+	const labelWidth = discountLabel.clientWidth;
+	const offset = inputValue / inputMax * (inputWidth - labelWidth);
+	discountLabel.style.right = `${offset}px`;
+	discountLabel.innerHTML = inputValue + "%";
+});

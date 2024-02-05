@@ -44,26 +44,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group m-0">
-								<label class="form-label">مجوز ها</label>
-								<div class="custom-controls-stacked">
-									@foreach($permissions as $id => $label)
-										<label class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $id }}" 
-											@if (in_array($id, $userPermissions)) checked @endif>
-											<span class="custom-control-label">{{ $label }}</span>
-										</label>
-									@endforeach
-								</div>
-								<label class="custom-control custom-checkbox select-all">
-									<input type="checkbox" class="custom-control-input" id="select_all">
-									<span class="custom-control-label">انتخاب همه</span>
-								</label>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 				<div class="card-footer text-left">
 					<a onclick="window.history.back();" class="btn btn-danger btn-lg">برگشت</a>

@@ -45,10 +45,13 @@ class UserController extends Controller
     public function create()
     {
         $adminPermissions = Role::where('name', 'Admin')->first();
-        $permissions = $adminPermissions->permissions->pluck('label', 'id');
+        $permissions = $adminPermissions->permissions->pluck('id');
+
+        $originalArray = $permissions->toArray();
+        $chunkedArray = array_chunk($originalArray, 4, true);
 
         return view('admin.user.create')->with([
-            'permissions' => $permissions
+            'permissions' => $chunkedArray
         ]);
     }
 
@@ -57,10 +60,15 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
+        $permission_ids = explode(',', $request->permission_ids);
+        $ids = array_filter($permission_ids, function($value) {
+            return $value !== '';
+        });
+        
         $validated = array_merge($request->validated(), ['password' => Hash::make($request->input('password'))]);
         $user = User::create($validated);
 
-        if(!empty($request->permissions)) {
+        if(!empty($permission_ids)) {
             $permissions = Permission::whereIn('id', $request->permissions)->get()->pluck('name');
             foreach ($permissions as $permission) {
                 $user->givePermissionTo($permission);

@@ -85,6 +85,7 @@
 						<ol class="breadcrumb1" style="position:absolute;top:80px;margin-right:-15px;margin-top: 20px;">
 							<li class="breadcrumb-item1"><a href="{{ route('dashboard.index') }}"><i class="feather feather-home"></i> Dashboard</a></li>
 							<?php $segments = ''; ?>
+
 							@foreach(Request::segments() as $segment)
 								@if($segment != 'admin' 
 									&& $segment != 'dashboard' 

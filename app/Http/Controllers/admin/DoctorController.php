@@ -41,11 +41,7 @@ class DoctorController extends Controller
     {
         $specialities = Speciality::get();
 
-        $doctorPermissions = Role::where('name', 'Doctor')->first();
-        $permissions = $doctorPermissions->permissions->pluck('label', 'id');
-
         return view('admin.doctor.create')->with([
-            'permissions' => $permissions,
             'specialities' => $specialities,
         ]);
     }
@@ -57,16 +53,11 @@ class DoctorController extends Controller
     {
         $validated = array_merge($request->validated(), [
             'password' => Hash::make($request->input('password')), 
-            'speciality_id' => $request->speciality_id
+            'speciality_id' => $request->speciality_id,
+            'national_code' => $request->national_code,
+            'medical_number' => $request->medical_number,
         ]);
         $doctor = Doctor::create($validated);
-
-        if(!empty($request->permissions)) {
-            $permissions = Permission::whereIn('id', $request->permissions)->get()->pluck('name');
-            foreach ($permissions as $permission) {
-                $user->givePermissionTo($permission);
-            }
-        }
 
         if(!$doctor) {
             return redirect(route('doctors.create'))->with('error', 'عملیان انجام نشد');

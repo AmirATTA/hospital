@@ -24,28 +24,31 @@ $(function(e){
 	});
 
 
-	//______________
-	$(".role").on("click", function(e){
-		swal({
-			title: "Are you sure?",
-			text: "Once deleted, you will not be able to recover this file!",
-			icon: "warning",
-			buttons: true,
-			dangerMode: true,
-		})
-		.then((willDelete) => {
-			if (willDelete) {
-			swal({
-				title: "Success",
-				text: "Successfully Updated",
-				icon: "success",
-			});
-			} else {
-			swal("Your  file is safe!");
-			}
-		});
-	});
 	
- });
+});
 
- 
+
+function addPermission(event, parent) {
+    event.preventDefault(); // Prevent the default behavior
+
+    var permissionIdsInput = document.getElementById('permission_ids');
+    var permissionId = parent.dataset.id;
+
+    if (parent.dataset.statue == '0') {
+        parent.dataset.statue = 1;
+        var span = parent.getElementsByTagName('span');
+        for (var i = 0; i < span.length; i++) {
+            span[i].className = 'feather feather-check text-success icon-style-circle bg-success-transparent';
+        }
+        // Add the permission ID to the hidden input value
+        permissionIdsInput.value += permissionId + ',';
+    } else {
+        parent.dataset.statue = 0;
+        var span = parent.getElementsByTagName('span');
+        for (var i = 0; i < span.length; i++) {
+            span[i].className = 'feather feather-x text-danger icon-style-circle bg-danger-transparent';
+        }
+        // Remove the permission ID from the hidden input value
+        permissionIdsInput.value = permissionIdsInput.value.replace(permissionId + ',', '');
+    }
+}

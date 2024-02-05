@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    use \App\Traits\HasPermission;
-
-
     /**
      * Run the migrations.
      */
@@ -20,16 +17,6 @@ return new class extends Migration
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
-
-        // Create permissions for specialities
-        $permissions = [
-            'view specialities' => 'نمایش تخصص',
-            'create specialities' => 'ایجاد تخصص',
-            'edit specialities' => 'ویرایش تخصص',
-            'delete specialities' => 'حذف تخصص',
-        ];
-
-        $permissionNames = $this->createPermissions($permissions);
     }
 
     /**

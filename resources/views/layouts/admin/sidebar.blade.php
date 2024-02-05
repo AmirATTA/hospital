@@ -99,6 +99,25 @@
 									</ul>
 								</li>
 							@endif
+
+							@if($user->can('view insurances') || $user->can('create insurances') || $user->can('update insurances') || $user->can('delete insurances'))
+								<li class="slide">
+									<a class="side-menu__item" data-toggle="slide" href="#">
+										<i class="fa-solid fa-hospital sidemenu_icon"></i>
+										<span class="side-menu__label">بيمه ها</span><i class="angle fa fa-angle-left"></i>
+									</a>
+									<ul class="slide-menu">
+										<li class="sub-slide">
+											@can('create insurances')
+												<li><a href="{{ route('insurances.create') }}" class="slide-item">بيمه جدید</a></li>
+											@endcan
+											@can('view insurances')
+												<li><a href="{{ route('insurances.index') }}" class="slide-item">لیست بيمه ها</a></li>
+											@endcan
+										</li>
+									</ul>
+								</li>
+							@endif
 						</ul>
 					</div>
 				</aside>

@@ -22,13 +22,25 @@
 							</div>
 						</div>
 						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">کد ملی</label>
+								<input class="form-control" value="{{ old('national_code') }}" type="number" placeholder="کد ملی" name="national_code">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">شماره نظام پزشکی</label>
+								<input class="form-control" value="{{ old('medical_number') }}" type="number" placeholder="شماره نظام پزشکی" name="medical_number">
+							</div>
+						</div>
+						<div class="col-md-6">
 							<div class="form-group required">
 								<label class="form-label">شماره موبایل</label>
 								<input class="form-control" value="{{ old('mobile') }}" type="number" placeholder="شماره موبایل" name="mobile">
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="form-group">
+							<div class="form-group required">
 								<label class="form-label">تخصص</label>
 								<select class="form-control custom-select select2" name="speciality_id" data-placeholder="انتخاب تخصص">
 									<option label="انتخاب نوع تخصص"></option>
@@ -38,6 +50,8 @@
 								</select>
 							</div>
 						</div>
+					</div>
+					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group required">
 								<label class="form-label">کلمه عبور</label>
@@ -48,25 +62,6 @@
 							<div class="form-group required">
 								<label class="form-label">تکرار کلمه عبور</label>
 								<input class="form-control" type="password" placeholder="تکرار کلمه عبور" name="password_confirmation">
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group m-0">
-								<label class="form-label">مجوز ها</label>
-								<div class="custom-controls-stacked">
-									@foreach($permissions as $id => $label)
-										<label class="custom-control custom-checkbox">
-											<input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $id }}">
-											<span class="custom-control-label">{{ $label }}</span>
-										</label>
-									@endforeach
-								</div>
-								<label class="custom-control custom-checkbox select-all">
-									<input type="checkbox" class="custom-control-input" id="select_all">
-									<span class="custom-control-label">انتخاب همه</span>
-								</label>
 							</div>
 						</div>
 					</div>
