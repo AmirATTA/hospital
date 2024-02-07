@@ -22,7 +22,7 @@
 						<div class="col-md-6">
 							<div class="form-group required">
 								<label class="form-label">قیمت</label>
-								<input class="form-control" value="{{ $operation->price }}" placeholder="قیمت" name="price">
+								<input class="form-control comma" value="{{ $operation->price }}" placeholder="قیمت" name="price">
 							</div>
 						</div>
 					</div>
@@ -50,4 +50,6 @@
 @endsection
 @section('scripts')
 	<script src="{{ asset('assets/js/checkbox.js') }}"></script>
+
+	<script src="{{ asset('assets/js/comma.js') }}"></script>
 @endsection

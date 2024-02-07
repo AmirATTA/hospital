@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class DoctorUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,12 +16,13 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:doctors,name',
+            'speciality_id' => 'required',
             'mobile' => [
-                'required',
-                Rule::unique('users')->ignore($user->id),
+                'required|unique:doctors,mobile',
+                Rule::unique('doctors')->ignore($user->id),
             ],
-            'email' => 'nullable',
+            'doctorRoles' => 'required',
             'password' => 'nullable|confirmed',
         ];
     }

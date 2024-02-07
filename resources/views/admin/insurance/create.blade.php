@@ -31,7 +31,7 @@
 						<div class="col-md-6">
 							<div class="form-group required">
 								<label class="form-label">تخفیف</label>
-								<input class="form-control-range" id="discount_input" type="range" name="discount" max="100" min="0" value="0" step="1">
+								<input class="form-control-range" id="discount_input" type="range" name="discount" max="100" min="1" value="0" step="1">
 								<span id="discount_label">0%</span>
 							</div>
 						</div>

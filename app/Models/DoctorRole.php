@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DoctorRole extends Model
 {
@@ -13,4 +13,9 @@ class DoctorRole extends Model
         'title',
         'status',
     ];
+    
+    public function doctors()
+    {
+        return $this->belongsToMany(Doctor::class);
+    }
 }

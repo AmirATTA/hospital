@@ -14,9 +14,10 @@ class DoctorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:doctors,name',
             'speciality_id' => 'required',
-            'mobile' => 'required|unique:users,mobile',
+            'mobile' => 'required|unique:doctors,mobile',
+            'doctorRoles' => 'required',
             'password' => 'required|confirmed',
         ];
     }

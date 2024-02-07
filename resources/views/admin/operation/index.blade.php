@@ -33,7 +33,7 @@
 								<tr>
 									<td>{{ $loop->iteration }}</td>
 									<td>{{ $data->name }}</td>
-									<td>{{ $data->price }}</td>
+									<td class="comma">{{ $data->price }}</td>
 									@if ($data->status == '1')
 										<td>
 											<span class="badge badge-success">فعال</span>
@@ -71,7 +71,9 @@
 <!-- End Row -->
 @endsection
 @section('scripts')
-		<script src="{{ asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.js') }}"></script>
-		<script src="{{ asset('assets/plugins/sweet-alert/sweetalert.min.js') }}"></script>
-		<script src="{{ asset('assets/js/sweet-alert.js') }}"></script>
+	<script src="{{ asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.js') }}"></script>
+	<script src="{{ asset('assets/plugins/sweet-alert/sweetalert.min.js') }}"></script>
+	<script src="{{ asset('assets/js/sweet-alert.js') }}"></script>
+	
+	<script src="{{ asset('assets/js/comma.js') }}"></script>
 @endsection

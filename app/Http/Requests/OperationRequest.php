@@ -14,7 +14,7 @@ class OperationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:operations,name',
             'price' => 'required',
             'status' => 'required',
         ];

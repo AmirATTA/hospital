@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctors_doctor_role', function (Blueprint $table) {
+        Schema::create('doctor_doctor_role', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctors_id')->constrained()->onDelete('cascade');
+            $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
             $table->foreignId('doctor_role_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

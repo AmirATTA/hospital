@@ -43,7 +43,11 @@ class OperationController extends Controller
      */
     public function store(OperationRequest $request)
     {
-        $operation = Operation::create($request->validated());
+        $validated = array_merge($request->validated(), [
+            'price' => str_replace(',', '', $request->input('price')), 
+        ]);
+
+        $operation = Operation::create($validated);
 
         if(!$operation) {
             return redirect(route('operations.create'))->with('error', 'عملیان انجام نشد');
@@ -77,7 +81,11 @@ class OperationController extends Controller
     {
         $operation = Operation::findOrFail($id);
 
-        $operation->update($request->validated());
+        $validated = array_merge($request->validated(), [
+            'price' => str_replace(',', '', $request->input('price')), 
+        ]);
+        
+        $operation->update($validated);
 
         return redirect()->route('operations.index')->with('success', 'خبر با موفقیت بروزرسانی شد');
     }

@@ -38,7 +38,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::resource('users', UserController::class);
 
-
     Route::delete('specialities/{speciality}', [SpecialityController::class, 'destroy'])->name('specialities.destroy');
     Route::resource('specialities', SpecialityController::class);
 

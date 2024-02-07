@@ -14,7 +14,7 @@ class InsuranceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:insurances,name',
             'type' => 'required',
             'discount' => 'required',
             'status' => 'required',
