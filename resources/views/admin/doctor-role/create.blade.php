@@ -20,6 +20,17 @@
 						</div>
 					</div>
 					<div class="custom-controls-stacked d-md-flex my-4">
+						<label class="form-label mt-1 ml-5">ضروری :</label>
+						<label class="custom-control custom-radio success ml-4">
+							<input type="radio" class="custom-control-input" name="required" value="1" checked>
+							<span class="custom-control-label">فعال</span>
+						</label>
+						<label class="custom-control custom-radio success ml-4">
+							<input type="radio" class="custom-control-input" name="required" value="0">
+							<span class="custom-control-label">غیر فعال</span>
+						</label>
+					</div>
+					<div class="custom-controls-stacked d-md-flex my-4">
 						<label class="form-label mt-1 ml-5">وضعیت :</label>
 						<label class="custom-control custom-radio success ml-4">
 							<input type="radio" class="custom-control-input" name="status" value="1" checked>

@@ -39,7 +39,7 @@
 							<p class="text-center user-semi-title">{{ $roleLabel->label }}</p>
 
 						</div>
-						<a class="dropdown-item d-flex" href="{{ route('profile.index') }}">
+						<a class="dropdown-item d-flex" href="{{ route('profile.edit', Auth::id()) }}">
 							<i class="feather feather-user ml-3 fs-16 my-auto"></i>
 							<div class="mt-1">پروفایل</div>
 						</a>

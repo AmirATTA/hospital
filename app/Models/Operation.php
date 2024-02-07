@@ -14,4 +14,9 @@ class Operation extends Model
         'price',
         'status',
     ];
+        
+    public function surgeries()
+    {
+        return $this->belongsToMany(Surgery::class);
+    }
 }

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Models\DoctorRole;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DoctorRoleRequest;
+use App\Http\Requests\DoctorRoleStoreRequest;
+use App\Http\Requests\DoctorRoleUpdateRequest;
 
 class DoctorRoleController extends Controller
 {
@@ -41,7 +42,7 @@ class DoctorRoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(DoctorRoleRequest $request)
+    public function store(DoctorRoleStoreRequest $request)
     {
         $doctorRole = DoctorRole::create($request->validated());
 
@@ -73,7 +74,7 @@ class DoctorRoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(DoctorRoleRequest $request, string $id)
+    public function update(DoctorRoleUpdateRequest $request, string $id)
     {
         $doctorRole = DoctorRole::findOrFail($id);
 

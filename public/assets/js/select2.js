@@ -1,4 +1,9 @@
-$(".tags").select2({
+$(".operations").select2({
+	tags: false,
+	tokenSeparators: [',', ' ']
+})
+
+$(".doctorRoles").select2({
 	tags: false,
 	tokenSeparators: [',', ' ']
 })

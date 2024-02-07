@@ -4,8 +4,16 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DoctorRoleRequest extends FormRequest
+class SurgeryUpdateRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return false;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -14,8 +22,7 @@ class DoctorRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|unique:doctor_roles,title',
-            'status' => 'required',
+            //
         ];
     }
 }

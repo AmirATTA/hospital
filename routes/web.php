@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\DoctorController;
 use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\admin\SurgeryController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\InsuranceController;
 use App\Http\Controllers\admin\OperationController;
@@ -31,7 +32,8 @@ Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::get('test', [DashboardController::class, 'test'])->name('test');
 
-    Route::resource('profile', ProfileController::class);
+    Route::get('profile/{profile}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('profile/{profile}', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -52,6 +54,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
 
     Route::delete('insurances/{insurance}', [InsuranceController::class, 'destroy'])->name('insurances.destroy');
     Route::resource('insurances', InsuranceController::class);
+
+    Route::delete('surgeries/{surgery}', [SurgeryController::class, 'destroy'])->name('surgeries.destroy');
+    Route::resource('surgeries', SurgeryController::class);
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 })->name('admin');

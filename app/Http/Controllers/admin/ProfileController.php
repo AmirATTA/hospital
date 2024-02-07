@@ -15,11 +15,7 @@ class ProfileController extends Controller
      * Display a listing of the resource.
      */
     public function index() {
-        $user = Auth::User();
-        
-        return view('admin.profile')->with([
-            'user' => $user,
-        ]);
+        //
     }
 
     /**
@@ -51,7 +47,11 @@ class ProfileController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = Auth::User();
+        
+        return view('admin.profile')->with([
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -60,14 +60,10 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request, string $id)
     {
         $user = User::findOrFail($id);
-        
-        $validated = array_merge($request->validated(), [
-            'password' => Hash::make($request->input('password')), 
-        ]);
-        dd($validated);
+
         $user->update($validated);
 
-        return redirect()->route('profile.index')->with('success', 'عملیات با موفقیت بروزرسانی شد');
+        return redirect()->route('profile.edit', $user)->with('success', 'عملیات با موفقیت بروزرسانی شد');
     }
 
     /**

@@ -9,12 +9,10 @@
                 </ul>
             </div>
         @endif
-    @endif
-
-    
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
     @endif
 </div>

@@ -93,6 +93,11 @@ return new class extends Migration
             'edit insurances' => 'ویرایش بیمه ها',
             'delete insurances' => 'حذف بیمه ها',
             
+            'view surguries' => 'نمایش عمل جراحی ها',
+            'create surguries' => 'ایجاد عمل جراحی ها',
+            'edit surguries' => 'ویرایش عمل جراحی ها',
+            'delete surguries' => 'حذف عمل جراحی ها',
+            
         ];
 
         $permissionNames = $this->createPermissions($permissions);

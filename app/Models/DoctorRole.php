@@ -11,6 +11,7 @@ class DoctorRole extends Model
 
     protected $fillable = [
         'title',
+        'required',
         'status',
     ];
     

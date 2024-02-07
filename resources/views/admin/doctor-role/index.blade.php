@@ -22,6 +22,7 @@
 							<tr>
 								<th class="border-bottom-0">ردیف</th>
 								<th class="border-bottom-0">عنوان</th>
+								<th class="border-bottom-0">ضروری</th>
 								<th class="border-bottom-0">وضعیت</th>
 								<th class="border-bottom-0">اقدامات</th>
 							</tr>
@@ -32,6 +33,15 @@
 								<tr>
 									<td>{{ $loop->iteration }}</td>
 									<td>{{ $data->title }}</td>
+									@if ($data->required == '1')
+										<td>
+											<span class="badge badge-warning">ضروری</span>
+										</td>
+									@else
+										<td>
+											<span class="badge badge-info">غیر ضروری</span>
+										</td>
+									@endif
 									@if ($data->status == '1')
 										<td>
 											<span class="badge badge-success">فعال</span>

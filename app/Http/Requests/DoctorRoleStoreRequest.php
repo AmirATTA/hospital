@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InsuranceRequest extends FormRequest
+class DoctorRoleStoreRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,9 +14,8 @@ class InsuranceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:insurances,name',
-            'type' => 'required',
-            'discount' => 'required',
+            'title' => 'required|unique:doctor_roles,title',
+            'required' => 'required',
             'status' => 'required',
         ];
     }

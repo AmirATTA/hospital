@@ -10,6 +10,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "morilog/jalali": "3.*",
         "spatie/laravel-activitylog": "^4.7",
         "spatie/laravel-permission": "^6.3"
     },
@@ -32,7 +33,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers/DateHelper.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

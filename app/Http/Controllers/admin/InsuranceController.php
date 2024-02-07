@@ -5,7 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Models\Insurance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\InsuranceRequest;
+use App\Http\Requests\InsuranceStoreRequest;
+use App\Http\Requests\InsuranceUpdateRequest;
 
 class InsuranceController extends Controller
 {
@@ -41,7 +42,7 @@ class InsuranceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(InsuranceRequest $request)
+    public function store(InsuranceStoreRequest $request)
     {
         $insurance = Insurance::create($request->validated());
 
@@ -73,7 +74,7 @@ class InsuranceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(InsuranceRequest $request, string $id)
+    public function update(InsuranceUpdateRequest $request, string $id)
     {
         $insurance = Insurance::findOrFail($id);
 

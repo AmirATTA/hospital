@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title', 'ویرایش کاربر')
+@section('title', 'ویرایش عمل')
 @section('content')
 <!-- Row -->
 <div class="row">

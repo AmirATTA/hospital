@@ -16,11 +16,11 @@ class DoctorUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:doctors,name',
+            'name' => 'required',
             'speciality_id' => 'required',
             'mobile' => [
-                'required|unique:doctors,mobile',
-                Rule::unique('doctors')->ignore($user->id),
+                'required',
+                Rule::unique('doctors')->ignore($this->route('doctor'))
             ],
             'doctorRoles' => 'required',
             'password' => 'nullable|confirmed',

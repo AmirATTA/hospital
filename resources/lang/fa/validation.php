@@ -198,6 +198,7 @@ return [
         'old_password' => 'رمز عبور قبلی',
         'password' => 'رمز عبور',
         'password_confirmation' => 'تاییدیه رمز عبور',
+        'required' => 'ضروری',
     ],
 
 ];

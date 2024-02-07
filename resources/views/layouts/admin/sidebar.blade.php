@@ -118,6 +118,25 @@
 									</ul>
 								</li>
 							@endif
+
+							@if($user->can('view surgeries') || $user->can('create surgeries') || $user->can('update surgeries') || $user->can('delete surgeries'))
+								<li class="slide">
+									<a class="side-menu__item" data-toggle="slide" href="#">
+										<i class="fa-solid fa-stethoscope sidemenu_icon"></i>
+										<span class="side-menu__label">عمل جراحی ها</span><i class="angle fa fa-angle-left"></i>
+									</a>
+									<ul class="slide-menu">
+										<li class="sub-slide">
+											@can('create surgeries')
+												<li><a href="{{ route('surgeries.create') }}" class="slide-item">عمل جراحی جدید</a></li>
+											@endcan
+											@can('view surgeries')
+												<li><a href="{{ route('surgeries.index') }}" class="slide-item">لیست عمل ها</a></li>
+											@endcan
+										</li>
+									</ul>
+								</li>
+							@endif
 						</ul>
 					</div>
 				</aside>

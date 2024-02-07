@@ -23,6 +23,17 @@
 					<div class="custom-controls-stacked d-md-flex">
 						<label class="form-label mt-1 ml-5">وضعیت :</label>
 						<label class="custom-control custom-radio success ml-4">
+							<input type="radio" class="custom-control-input" name="required" value="1" @if($doctorRole->required == '1') checked @endif>
+							<span class="custom-control-label">فعال</span>
+						</label>
+						<label class="custom-control custom-radio success ml-4">
+							<input type="radio" class="custom-control-input" name="required" value="0" @if($doctorRole->required == '0') checked @endif>
+							<span class="custom-control-label">غیر فعال</span>
+						</label>
+					</div>
+					<div class="custom-controls-stacked d-md-flex">
+						<label class="form-label mt-1 ml-5">وضعیت :</label>
+						<label class="custom-control custom-radio success ml-4">
 							<input type="radio" class="custom-control-input" name="status" value="1" @if($doctorRole->status == '1') checked @endif>
 							<span class="custom-control-label">فعال</span>
 						</label>

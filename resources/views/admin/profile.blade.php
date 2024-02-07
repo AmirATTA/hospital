@@ -29,18 +29,6 @@
                                     <input class="form-control" value="{{ $user->email }}" type="email" placeholder="ایمیل" name="email">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group required">
-                                    <label class="form-label">کلمه عبور</label>
-                                    <input class="form-control" type="password" placeholder="کلمه عبور" name="password">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group required">
-                                    <label class="form-label">تکرار کلمه عبور</label>
-                                    <input class="form-control" type="password" placeholder="تکرار کلمه عبور" name="password_confirmation">
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="card-footer text-left">

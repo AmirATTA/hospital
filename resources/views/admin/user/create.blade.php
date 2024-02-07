@@ -144,6 +144,19 @@
 														</td>
 													@endforeach
 												</tr>
+
+												<tr>
+													<td class="text-center">7</td>
+													<td>مدیر</td>
+													<td>7. عمل جراحی ها</td>
+													@foreach($permissions[6] as $permission)
+														<td class="text-center">
+															<a href="#" data-id="{{ $permission }}" data-statue="0" onclick="addPermission(event, this)" class="access-icon role">
+																<span class="feather feather-x text-danger icon-style-circle bg-danger-transparent"></span>
+															</a>
+														</td>
+													@endforeach
+												</tr>
 											</tbody>
 										</table>
 

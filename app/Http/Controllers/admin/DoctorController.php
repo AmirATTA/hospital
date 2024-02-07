@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\DoctorStoreRequest;
+use App\Http\Requests\DoctorUpdateRequest;
 
 class DoctorController extends Controller
 {
@@ -101,43 +102,17 @@ class DoctorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DoctorUpdateRequest $request, string $id)
     {
         $doctor = Doctor::findOrFail($id);
 
         $doctorRoles = $request->input('doctorRoles');
 
-        $validatedData = $request->except('password');
+        $validated = array_merge($request->validated(), [
+            'password' => Hash::make($request->input('password')), 
+        ]);
 
-        if ($request->filled('password')) {
-            $validatedData = $request->validate([
-                'name' => 'required|unique:doctors,name',
-                'speciality_id' => 'required',
-                'mobile' => [
-                    'required',
-                    Rule::unique('doctors')->ignore($doctor->id),
-                ],
-                'doctorRoles' => 'required',
-                'password' => 'nullable|confirmed',
-            ]);
-        } else {
-            $validatedData = $request->validate([
-                'name' => 'required|unique:doctors,name',
-                'speciality_id' => 'required',
-                'mobile' => [
-                    'required',
-                    Rule::unique('doctors')->ignore($doctor->id),
-                ],
-                'doctorRoles' => 'required',
-            ]);
-        }
-
-        if ($request->filled('password')) {
-            $validatedData['password'] = Hash::make($request->input('password'));
-        }
-
-
-        $doctor->update($validatedData);
+        $doctor->update($validated);
 
         $doctor->attachRoles($doctorRoles);
 

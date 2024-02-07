@@ -5,7 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Models\Operation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OperationRequest;
+use App\Http\Requests\OperationStoreRequest;
+use App\Http\Requests\OperationUpdateRequest;
 
 class OperationController extends Controller
 {
@@ -41,7 +42,7 @@ class OperationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(OperationRequest $request)
+    public function store(OperationStoreRequest $request)
     {
         $validated = array_merge($request->validated(), [
             'price' => str_replace(',', '', $request->input('price')), 
@@ -77,7 +78,7 @@ class OperationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(OperationRequest $request, string $id)
+    public function update(OperationUpdateRequest $request, string $id)
     {
         $operation = Operation::findOrFail($id);
 

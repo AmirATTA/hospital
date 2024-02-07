@@ -17,7 +17,7 @@ class PasswordController extends Controller
             'old_password' => 'required',
             'password' => 'required|confirmed',
         ]);
-        
+    
         if ($validator->fails()) {
             return redirect()
                         ->back()
@@ -25,16 +25,16 @@ class PasswordController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
+    
         $user = Auth::user();
-        
+    
         if (Hash::check($request->old_password, $user->password)) {
             $user->password = Hash::make($request->password);
             $user->save();
             Auth::logout();
             return redirect()->route('login')->with('password-error', 'success');
         } else {
-            return back()->with('password-error', 'wrong');
+            return redirect()->back()->with('password-error', 'wrong')->with('error', 'رمز عبور قبلی شما صحیح نمیباشد');
         }
     }
 }

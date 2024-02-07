@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProfileRequest extends FormRequest
@@ -15,9 +17,12 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'mobile' => 'required|unique:users,mobile',
+            'mobile' => [
+                'required',
+                Rule::unique('users')->ignore($this->route('user', Auth::id()))
+            ],
             'email' => 'required|email',
-            'password' => 'required|confirmed',
+            'password' => 'nullable|confirmed',
         ];
     }
 }
