@@ -21,6 +21,7 @@ class Surgery extends Model
         'released_at',
     ];
 
+    // creating record in operation_surgery table
     public function attachOperations(?array $operationNames, $onUpdate = false)
     {
         if($operationNames != null) {
@@ -43,5 +44,44 @@ class Surgery extends Model
     public function operations()
     {
         return $this->belongsToMany(Operation::class);
+    }
+
+
+    // creating record in doctor_surgery table
+    public function attachDoctors(?array $ids, $onUpdate = false)
+    {
+        if($ids != null) {
+            $doctorIds = [];
+            $doctorRoleIds = [];
+            foreach ($ids as $value) {
+                if($value != null) {
+                    [$firstNumber, $secondNumber] = explode(", ", $value);
+                    $doctorIds[] = $firstNumber;
+                    $doctorRoleIds[] = $secondNumber;
+                }
+            }
+            
+            $doctorsWithRoles = [];
+
+            foreach ($doctorIds as $index => $doctorId) {
+                $doctorsWithRoles[$doctorId][] = $doctorRoleIds[$index];
+            }
+            
+            foreach ($doctorsWithRoles as $doctorId => $doctorRoleIds) {
+                if($onUpdate == true) {
+                    $this->doctors()->sync($doctorId, ['doctor_role_id' => $doctorRoleId]);
+                } else {
+                    foreach ($doctorRoleIds as $doctorRoleId) {
+                        $this->doctors()->attach($doctorId, ['doctor_role_id' => $doctorRoleId]);
+                    }
+                }
+            }
+
+        }
+    }
+
+    public function doctors()
+    {
+        return $this->belongsToMany(Doctor::class);
     }
 }

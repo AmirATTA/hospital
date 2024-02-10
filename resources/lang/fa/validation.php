@@ -199,6 +199,11 @@ return [
         'password' => 'رمز عبور',
         'password_confirmation' => 'تاییدیه رمز عبور',
         'required' => 'ضروری',
+        'document_number' => 'شماره سند',
+        'patient_name' => 'نام و نام خانوداگی بیمار',
+        'patient_national_code' => 'کد ملی بیمار',
+        'surgeried_at' => 'زمان جراحی',
+        'released_at' => 'زمان مرخصی',
     ],
 
 ];

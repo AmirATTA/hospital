@@ -25,7 +25,13 @@ class Doctor extends Model
         'password' => 'hashed',
     ];
 
-    
+     
+    public function surgeries()
+    {
+        return $this->belongsToMany(Surgery::class);
+    }
+
+
     public function attachRoles(?array $roleNames, $onUpdate = false)
     {
         if($roleNames != null) {

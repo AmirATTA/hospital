@@ -98,10 +98,10 @@
 							<div class="col-md-6">
 								<div class="form-group @if($roles->required == '1') required @endif">
 									<label class="form-label">{{ $roles->title }}</label>
-									<select class="form-control custom-select select2" name="doctorRoles" data-placeholder="انتخاب {{ $roles->title }}">
+									<select class="form-control custom-select select2" name="doctorsInput[]" data-placeholder="انتخاب {{ $roles->title }}">
 										<option label="انتخاب {{ $roles->title }}"></option>
 										@foreach($roles->doctors as $doctor)										
-											<option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+											<option value="{{ $doctor->id }}, {{ $roles->id }}">{{ $doctor->name }}</option>
 										@endforeach
 									</select>
 								</div>

@@ -37,6 +37,9 @@
 									<td>{{ \App\Models\Speciality::find($data->speciality_id)->title }}</td>
 									<td>
 										<div class="d-flex">
+											<a href="{{ route('doctors.show', $data->id) }}" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="نمایش">
+													<i class="feather feather-eye text-primary"></i>
+												</a>
 											<a href="{{ route('doctors.edit', $data->id) }}" class="action-btns1">
 												<i class="feather feather-edit-2  text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
 											</a>

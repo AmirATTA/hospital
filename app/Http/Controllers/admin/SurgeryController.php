@@ -57,6 +57,7 @@ class SurgeryController extends Controller
     public function store(SurgeryStoreRequest $request)
     {
         $operations = $request->input('operations');
+        $doctorsInput = $request->input('doctorsInput');
 
         if($request->insurance != null) {
             $insurance = Insurance::where('id', $request->insurance)->first();
@@ -79,6 +80,7 @@ class SurgeryController extends Controller
 
         $surgery = surgery::create($validated);
         $surgery->attachOperations($operations);
+        $surgery->attachDoctors($doctorsInput);
 
         if(!$surgery) {
             return redirect(route('surgeries.create'))->with('error', 'عملیان انجام نشد');
@@ -92,7 +94,30 @@ class SurgeryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $surgery = Surgery::findOrFail($id);
+
+        $operations = $surgery->operations()->select('name', 'price')->get()->toArray();
+
+        $insuranceId = $surgery->basic_insurance_id != null ? $surgery->basic_insurance_id : $surgery->supp_insurance_id;
+        if($insuranceId != null) {
+            $insurance = Insurance::findOrFail($insuranceId);
+            $discountedPrice = $operations[0]['price'] - ($operations[0]['price'] * ($insurance->discount / 100));
+            $insuranceType = $insurance->type == 'supplementary' ? 'تکمیلی' : 'پایه';
+        }
+
+        $doctors = $surgery->doctors;
+
+        return view('admin.surgery.show')->with([
+            'surgery' => $surgery,
+
+            'operations' => $operations,
+            
+            'insurance' => $insurance,
+            'discountedPrice' => $discountedPrice,
+            'insuranceType' => $insuranceType,
+
+            'doctors' => $doctors,
+        ]);
     }
 
     /**
@@ -116,6 +141,7 @@ class SurgeryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $surgery = Surgery::findOrFail($id);
+        $surgery->delete();
     }
 }

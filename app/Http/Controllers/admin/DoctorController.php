@@ -79,7 +79,17 @@ class DoctorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+
+        $speciality = Speciality::findOrFail($doctor->speciality_id);
+
+        $doctorRoles = $doctor->doctorRoles;
+
+        return view('admin.doctor.show')->with([
+            'doctor' => $doctor,
+            'doctorRoles' => $doctorRoles,
+            'speciality' => $speciality,
+        ]);
     }
 
     /**
@@ -128,6 +138,7 @@ class DoctorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $doctor = Doctor::findOrFail($id);
+        $doctor->delete();
     }
 }
