@@ -57,7 +57,9 @@ class SurgeryController extends Controller
     public function store(SurgeryStoreRequest $request)
     {
         $operations = $request->input('operations');
-        $doctorsInput = $request->input('doctorsInput');
+        $doctorsInputRequired = $request->input('doctorsInputRequired');
+        $doctorsInputNotRequired = $request->input('doctorsInput');
+        $doctorsInput = array_merge($doctorsInputRequired, $doctorsInputNotRequired);
 
         if($request->insurance != null) {
             $insurance = Insurance::where('id', $request->insurance)->first();
@@ -103,6 +105,10 @@ class SurgeryController extends Controller
             $insurance = Insurance::findOrFail($insuranceId);
             $discountedPrice = $operations[0]['price'] - ($operations[0]['price'] * ($insurance->discount / 100));
             $insuranceType = $insurance->type == 'supplementary' ? 'تکمیلی' : 'پایه';
+        } else {
+            $insurance = null;
+            $discountedPrice = null;
+            $insuranceType = null   ;
         }
 
         $doctors = $surgery->doctors;
@@ -125,7 +131,31 @@ class SurgeryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $surgery = Surgery::findOrFail($id);
+
+        $doctorRoles = DoctorRole::orderBy('title', 'desc')->with('doctors')->get();
+        $insurances = Insurance::orderBy('type', 'desc')->get();
+        $operations = Operation::where('status', '1')->get();
+
+        $insurance = $surgery->basic_insurance_id != null ? $surgery->basic_insurance_id : $surgery->supp_insurance_id;
+
+        $operationIds = $surgery->operations()->pluck('operations.id')->toArray();
+
+        $doctors = $surgery->doctors()->pluck('doctors.id')->toArray();
+
+        return view('admin.surgery.edit')->with([
+            'surgery' => $surgery,
+
+            'insurance' => $insurance,
+            'operations' => $operations,
+            'doctorRoles' => $doctorRoles,
+
+            'insurances' => $insurances,
+
+            'operationIds' => $operationIds,
+
+            'doctors' => $doctors,
+        ]);
     }
 
     /**
@@ -133,7 +163,38 @@ class SurgeryController extends Controller
      */
     public function update(SurgeryUpdateRequest $request, string $id)
     {
-        //
+        $surgery = Surgery::findOrFail($id);
+
+        $operations = $request->input('operations');
+        $doctorsInputRequired = $request->input('doctorsInputRequired');
+        $doctorsInputNotRequired = $request->input('doctorsInput');
+        $doctorsInput = array_merge($doctorsInputRequired, $doctorsInputNotRequired);
+
+        if($request->insurance != null) {
+            $insurance = Insurance::where('id', $request->insurance)->first();
+
+            if($insurance->type == 'basic') {
+                $validated = array_merge($request->validated(), [
+                    'basic_insurance_id' => $insurance->id, 
+                ]);
+            } else if($insurance->type == 'supplementary') {
+                $validated = array_merge($request->validated(), [
+                    'supp_insurance_id' => $insurance->id, 
+                ]);
+            }
+
+            Arr::forget($validated, 'insurance');
+        } else {
+            $validated = array_merge($request->validated());
+        }
+
+
+        $surgery->update($validated);
+        $surgery->attachOperations($operations, true);
+        $surgery->attachDoctors($doctorsInput, true);
+        
+
+        return redirect()->route('surgeries.index')->with('success', 'خبر با موفقیت بروزرسانی شد');
     }
 
     /**

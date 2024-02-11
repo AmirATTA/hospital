@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
+use App\Rules\DateGreaterThanOrEqual;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SurgeryStoreRequest extends FormRequest
@@ -23,8 +24,23 @@ class SurgeryStoreRequest extends FormRequest
             'patient_national_code' => 'required',
             'insurance' => 'nullable',
             'description' => 'nullable',
-            'surgeried_at' => 'required',
-            'released_at' => 'required',
+            'doctorsInputRequired' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if ($value[0] == null) {
+                        $fail("لطفا براي نقش هاي مورد نطر یک دكتر انتخاب كنيد");
+                    }
+                },
+            ],
+            'doctorsInput' => 'nullable',   
+            'surgeried_at' => [
+                'required',
+                new DateGreaterThanOrEqual
+            ],
+            'released_at' => [
+                'required',
+                new DateGreaterThanOrEqual
+            ],
         ];
     }
 }

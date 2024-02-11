@@ -193,6 +193,9 @@ span,div,.form-label {
 .app-sidebar .app-sidebar3 {
     margin-top: 100px;
 }
+.app-sidebar {
+    border-radius: 20px;
+}
 
 @media (min-width: 768px) {
     .col-md-6 {
@@ -269,4 +272,8 @@ input[type="range"]::-webkit-slider-thumb:active {
 
 .role-table .dataTables_wrapper .row * {
     font-size: unset;
+}
+
+.feather-chevrons-up {
+    margin-top: 13px;
 }

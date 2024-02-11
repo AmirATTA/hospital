@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('national_code', 20)->nullable();
             $table->string('medical_number')->nullable();
+            $table->string('email')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('mobile', 20)->unique();
             $table->string('password');
             $table->boolean('status')->default(1);

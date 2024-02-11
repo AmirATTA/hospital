@@ -73,7 +73,7 @@
 							</tbody>
 						</table>
 						@if(count($surgeries) === 0)
-							<div class="text-center text-danger" style="font-family: unset;">هیچ داده ای وجود ندارد</div>
+							<div class="text-center text-danger">هیچ داده ای وجود ندارد</div>
 						@endif
 					</div>
 					{!! $surgeries->links('vendor.pagination.bootstrap-4') !!}

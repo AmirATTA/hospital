@@ -74,8 +74,8 @@
 										<div class="input-group-text" id="dp-surgeried">
 											<span class="feather feather-calendar"></span>
 										</div>
-									</div><input class="form-control fc-datepicker hasDatepicker" id="dp-surgeried-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
-									<input type="hidden" id="dp-surgeried-date" name="surgeried_at" aria-label="date11" aria-describedby="date11">
+									</div><input class="form-control fc-datepicker hasDatepicker" value="{{ old('surgeried_at') }}" id="dp-surgeried-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
+									<input type="hidden" value="{{ old('surgeried_at') }}" id="dp-surgeried-date" name="surgeried_at" aria-label="date11" aria-describedby="date11">
 								</div>
 							</div>
 						</div>
@@ -87,8 +87,8 @@
 										<div class="input-group-text" id="dp-released">
 											<span class="feather feather-calendar"></span>
 										</div>
-									</div><input class="form-control fc-datepicker hasDatepicker" id="dp-released-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
-									<input type="hidden" id="dp-released-date" name="released_at" aria-label="date11" aria-describedby="date11">
+									</div><input class="form-control fc-datepicker hasDatepicker" value="{{ old('released_at') }}" id="dp-released-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
+									<input type="hidden" value="{{ old('released_at') }}" id="dp-released-date" name="released_at" aria-label="date11" aria-describedby="date11">
 								</div>
 							</div>
 						</div>
@@ -98,7 +98,11 @@
 							<div class="col-md-6">
 								<div class="form-group @if($roles->required == '1') required @endif">
 									<label class="form-label">{{ $roles->title }}</label>
-									<select class="form-control custom-select select2" name="doctorsInput[]" data-placeholder="انتخاب {{ $roles->title }}">
+
+									<select class="form-control custom-select select2" 
+									name="@if($roles->required == '1') doctorsInputRequired[] @else doctorsInput[] @endif" 
+									data-placeholder="انتخاب {{ $roles->title }}">
+									
 										<option label="انتخاب {{ $roles->title }}"></option>
 										@foreach($roles->doctors as $doctor)										
 											<option value="{{ $doctor->id }}, {{ $roles->id }}">{{ $doctor->name }}</option>

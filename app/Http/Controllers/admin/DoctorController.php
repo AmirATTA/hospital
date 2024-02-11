@@ -124,7 +124,7 @@ class DoctorController extends Controller
 
         $doctor->update($validated);
 
-        $doctor->attachRoles($doctorRoles);
+        $doctor->attachRoles($doctorRoles, true);
 
         if(!$doctor) {
             return redirect(route('doctors.create'))->with('error', 'عملیان انجام نشد');

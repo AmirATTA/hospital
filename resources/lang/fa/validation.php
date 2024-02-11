@@ -204,6 +204,8 @@ return [
         'patient_national_code' => 'کد ملی بیمار',
         'surgeried_at' => 'زمان جراحی',
         'released_at' => 'زمان مرخصی',
+        'doctorsInputRequired' => 'نقش دكتر ها',
+        'doctorsInput' => 'نقش دكتر ها',
     ],
 
 ];

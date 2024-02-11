@@ -2,10 +2,6 @@
 @section('title', 'ویرایش دکتر')
 @section('links')
 	<link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet"/>
-
-	<link href="{{ asset('assets/css/jquery.md.bootstrap.datetimepicker.style.css') }}" rel="stylesheet"/>
-
-	<link href="{{ asset('assets/plugins/wysiwyag/rte_theme_default.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
 <!-- Row -->
@@ -58,7 +54,7 @@
 						<div class="col-md-6 tags-input">
 							<div class="form-group required">
 								<label class="form-label">نقش</label>
-								<select class="form-control tags" multiple="multiple" name="doctorRoles[]">
+								<select class="form-control doctorRoles" multiple="multiple" name="doctorRoles[]">
 									@foreach($doctorRoles as $item)										
 										<option @if(in_array($item->id, $doctorRoleIds)) selected="selected" @endif>{{ $item->title }}</option>
 									@endforeach

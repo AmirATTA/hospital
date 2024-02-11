@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Models\Operation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Surgery extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     
     protected $fillable = [
         'patient_name',
@@ -20,6 +22,11 @@ class Surgery extends Model
         'surgeried_at',
         'released_at',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logOnly($this->fillable);
+    }
 
     // creating record in operation_surgery table
     public function attachOperations(?array $operationNames, $onUpdate = false)
@@ -69,7 +76,9 @@ class Surgery extends Model
             
             foreach ($doctorsWithRoles as $doctorId => $doctorRoleIds) {
                 if($onUpdate == true) {
-                    $this->doctors()->sync($doctorId, ['doctor_role_id' => $doctorRoleId]);
+                    foreach ($doctorRoleIds as $doctorRoleId) {
+                        $this->doctors()->sync($doctorId, ['doctor_role_id' => $doctorRoleId]);
+                    }
                 } else {
                     foreach ($doctorRoleIds as $doctorRoleId) {
                         $this->doctors()->attach($doctorId, ['doctor_role_id' => $doctorRoleId]);

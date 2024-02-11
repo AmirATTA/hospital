@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Doctor extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     
     protected $fillable = [
         'name',
@@ -15,6 +17,7 @@ class Doctor extends Model
         'medical_number',
         'mobile',
         'speciality_id',
+        'email',
         'status',
         'password',
     ];
@@ -24,6 +27,11 @@ class Doctor extends Model
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()->logOnly($this->fillable);
+    }
 
      
     public function surgeries()
@@ -41,7 +49,7 @@ class Doctor extends Model
                 $role = DoctorRole::firstOrCreate(['title' => $roleName]);
     
                 $roleIds[] = $role->id;
-                
+
                 if($onUpdate == true) {
                     $this->doctorRoles()->sync($roleIds);
                 } else {

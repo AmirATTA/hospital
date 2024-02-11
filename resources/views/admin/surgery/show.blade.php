@@ -118,28 +118,30 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
-                <div class="mb-4">
-                    <div class="mb-1">
-                        <h3 style="font-size:2rem;">بیمه</h3>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table row table-borderless w-100 m-0 text-nowrap">
-                            <tbody class="col-lg-12 col-xl-6 p-0">
-                                <tr>
-                                    <td><span class="font-weight-semibold">نام :</span> {{ $insurance->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="font-weight-semibold">نوع :</span> {{ $insuranceType }}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="font-weight-semibold">تخفیف :</span> {{ $insurance->discount }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            @if($insurance != null)
+                <div class="card-body">
+                    <div class="mb-4">
+                        <div class="mb-1">
+                            <h3 style="font-size:2rem;">بیمه</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table row table-borderless w-100 m-0 text-nowrap">
+                                <tbody class="col-lg-12 col-xl-6 p-0">
+                                    <tr>
+                                        <td><span class="font-weight-semibold">نام :</span> {{ $insurance->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="font-weight-semibold">نوع :</span> {{ $insuranceType }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="font-weight-semibold">تخفیف :</span> {{ $insurance->discount }}%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>
