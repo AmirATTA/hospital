@@ -57,9 +57,25 @@ class SurgeryController extends Controller
     public function store(SurgeryStoreRequest $request)
     {
         $operations = $request->input('operations');
-        $doctorsInputRequired = $request->input('doctorsInputRequired');
-        $doctorsInputNotRequired = $request->input('doctorsInput');
+        $doctorsInputRequired = $request->input('doctorsInputRequired') != null ? $request->input('doctorsInputRequired') : [];
+        $doctorsInputNotRequired = $request->input('doctorsInput') != null ? $request->input('doctorsInput') : [];
         $doctorsInput = array_merge($doctorsInputRequired, $doctorsInputNotRequired);
+
+        $doctorIds = [];
+        $doctorRoleIds = [];
+        foreach ($doctorsInput as $value) {
+            if($value != null) {
+                [$firstNumber, $secondNumber] = explode(", ", $value);
+                $doctorIds[] = $firstNumber;
+                $doctorRoleIds[] = $secondNumber;
+            }
+        }
+
+        $repeatedDoctors = array_unique($doctorIds);
+
+        if (count($doctorIds) !== count($repeatedDoctors)) {
+            return redirect()->back()->with('error', 'شما نمیتوانید یک دکتر را برای چند نقش مختلف انتخاب کنید');
+        }
 
         if($request->insurance != null) {
             $insurance = Insurance::where('id', $request->insurance)->first();

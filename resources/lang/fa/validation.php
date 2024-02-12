@@ -206,6 +206,7 @@ return [
         'released_at' => 'زمان مرخصی',
         'doctorsInputRequired' => 'نقش دكتر ها',
         'doctorsInput' => 'نقش دكتر ها',
+        'regex' => 'نقش دكتر ها',
     ],
 
 ];

@@ -17,7 +17,14 @@ class UserStoreRequest extends FormRequest
             'name' => 'required',
             'mobile' => 'required|unique:users,mobile',
             'email' => 'nullable',
-            'password' => 'required|confirmed',
+            'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'password.regex' => 'کلمه عبور باید حتما حداقل دارای یک حروف کوچک و یک حروف بزرگ و یک عدد باشد',
         ];
     }
 }

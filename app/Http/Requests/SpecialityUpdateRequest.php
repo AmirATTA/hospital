@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class SpecialityRequest extends FormRequest
+class SpecialityUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +15,10 @@ class SpecialityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|unique:specialities,title',
+            'title' => [
+                'required',
+                Rule::unique('specialities')->ignore($this->route('speciality'))
+            ],
             'status' => 'required',
         ];
     }

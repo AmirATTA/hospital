@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Doctor;
+use App\Mail\DoctorEmail;
 use App\Models\DoctorRole;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\DoctorStoreRequest;
 use App\Http\Requests\DoctorUpdateRequest;
@@ -57,7 +59,7 @@ class DoctorController extends Controller
     public function store(DoctorStoreRequest $request)
     {
         $doctorRoles = $request->input('doctorRoles');
-
+        
         $validated = array_merge($request->validated(), [
             'password' => Hash::make($request->input('password')), 
             'speciality_id' => $request->speciality_id,
@@ -66,6 +68,10 @@ class DoctorController extends Controller
         ]);
         $doctor = Doctor::create($validated);
         $doctor->attachRoles($doctorRoles);
+        
+        if(!empty($request->email)) {
+            Mail::to($request->email)->send(new DoctorEmail($request->name, $request->mobile, $request->password));
+        }
 
         if(!$doctor) {
             return redirect(route('doctors.create'))->with('error', 'عملیان انجام نشد');

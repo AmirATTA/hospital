@@ -46,7 +46,7 @@
 								<select class="form-control custom-select select2" name="speciality_id" data-placeholder="انتخاب تخصص">
 									<option label="انتخاب نوع تخصص"></option>
 									@foreach($specialities as $item)										
-										<option value="{{ $item->id }}" @if($doctor->speciality_id == $item->id) selected @endif>{{ $item->title }}</option>
+									<option value="{{ $item->id }}" @if($doctor->speciality_id == $item->id) selected @endif>{{ $item->title }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -56,9 +56,15 @@
 								<label class="form-label">نقش</label>
 								<select class="form-control doctorRoles" multiple="multiple" name="doctorRoles[]">
 									@foreach($doctorRoles as $item)										
-										<option @if(in_array($item->id, $doctorRoleIds)) selected="selected" @endif>{{ $item->title }}</option>
+									<option @if(in_array($item->id, $doctorRoleIds)) selected="selected" @endif>{{ $item->title }}</option>
 									@endforeach
 								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">ایمیل</label>
+								<input class="form-control" value="{{ $doctor->email }}" type="email" placeholder="ایمیل" name="email">
 							</div>
 						</div>
 					</div>

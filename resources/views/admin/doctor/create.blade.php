@@ -60,6 +60,12 @@
 								</select>
 							</div>
 						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="form-label">ایمیل</label>
+								<input class="form-control" value="{{ old('email') }}" type="email" placeholder="ایمیل" name="email">
+							</div>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">

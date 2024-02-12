@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class OperationStoreRequest extends FormRequest
+class SpecialityStoreRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,11 +15,10 @@ class OperationStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
+            'title' => [
                 'required',
-                Rule::unique('operations')->ignore($this->route('operation'))
+                Rule::unique('specialities')->ignore($this->route('speciality'))
             ],
-            'price' => 'required',
             'status' => 'required',
         ];
     }

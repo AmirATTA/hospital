@@ -611,6 +611,7 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Rules\\DateGreaterThanOrEqual' => __DIR__ . '/../..' . '/app/Rules/DateGreaterThanOrEqual.php',
         'App\\Traits\\HasPermission' => __DIR__ . '/../..' . '/app/Traits/HasPermission.php',
         'App\\View\\Components\\errors' => __DIR__ . '/../..' . '/app/View/Components/errors.php',
         'App\\View\\Components\\password_error' => __DIR__ . '/../..' . '/app/View/Components/password_error.php',

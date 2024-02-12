@@ -23,7 +23,14 @@ class DoctorUpdateRequest extends FormRequest
                 Rule::unique('doctors')->ignore($this->route('doctor'))
             ],
             'doctorRoles' => 'required',
-            'password' => 'nullable|confirmed',
+            'password' => 'nullable|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/',
+        ];
+    }
+    
+    public function messages()
+    {
+        return [
+            'password.regex' => 'کلمه عبور باید حتما حداقل دارای یک حروف کوچک و یک حروف بزرگ و یک عدد باشد',
         ];
     }
 }

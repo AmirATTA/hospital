@@ -6,9 +6,14 @@ use App\Models\Speciality;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SpecialityRequest;
+use App\Http\Requests\SpecialityStoreRequest;
+use App\Http\Requests\SpecialityUpdateRequest;
+use App\Traits\RedirectNotify;
 
 class SpecialityController extends Controller
 {
+    use RedirectNotify;
+
     /**
      * MiddleWares.
      */
@@ -41,15 +46,17 @@ class SpecialityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SpecialityRequest $request)
+    public function store(SpecialityStoreRequest $request)
     {
         $speciality = Speciality::create($request->validated());
 
         if(!$speciality) {
-            return redirect(route('specialities.create'))->with('error', 'عملیان انجام نشد');
+            return $this->redirectNotify('specialities.create', 'error', 'عملیات به مشکل مواجه شد!');
         } else {
-            return redirect(route('specialities.index'))->with('success', 'عملیات با موفقیت انجام شد.');
+            return $this->redirectNotify('specialities.index', 'success', 'عملیات با موفقیت انجام شد.');
         }
+
+        
     }
 
     /**
@@ -73,7 +80,7 @@ class SpecialityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SpecialityRequest $request, string $id)
+    public function update(SpecialityUpdateRequest $request, string $id)
     {
         $speciality = Speciality::findOrFail($id);
 

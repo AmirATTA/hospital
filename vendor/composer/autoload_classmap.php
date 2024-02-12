@@ -58,6 +58,7 @@ return array(
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\Rules\\DateGreaterThanOrEqual' => $baseDir . '/app/Rules/DateGreaterThanOrEqual.php',
     'App\\Traits\\HasPermission' => $baseDir . '/app/Traits/HasPermission.php',
     'App\\View\\Components\\errors' => $baseDir . '/app/View/Components/errors.php',
     'App\\View\\Components\\password_error' => $baseDir . '/app/View/Components/password_error.php',

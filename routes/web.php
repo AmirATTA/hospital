@@ -24,6 +24,9 @@ use App\Http\Controllers\admin\auth\PasswordController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('test', function(){
+    return view('test');
+});
 
 Route::post('/', [LoginController::class, 'loginPost'])->name('login.post');
 Route::get('/', [LoginController::class, 'index'])->name('login');
@@ -60,45 +63,3 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 })->name('admin');
-
-
-// <div class="col-md-12">
-// 	<div class="form-group m-0">
-// 		<label class="form-label">مجوز ها</label>
-// 		<div class="custom-controls-stacked">
-// 			@foreach($permissions as $id => $label)
-// 				<label class="custom-control custom-checkbox">
-// 					<input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $id }}">
-// 					<span class="custom-control-label">{{ $label }}</span>
-// 				</label>
-// 			@endforeach
-// 		</div>
-// 		<label class="custom-control custom-checkbox select-all">
-// 			<input type="checkbox" class="custom-control-input" id="select_all">
-// 			<span class="custom-control-label">انتخاب همه</span>
-// 		</label>
-// 	</div>
-// </div>
-
-
-
-// <div class="row">
-//     <div class="col-md-12">
-//         <div class="form-group m-0">
-//             <label class="form-label">مجوز ها</label>
-//             <div class="custom-controls-stacked">
-//                 @foreach($permissions as $id => $label)
-//                     <label class="custom-control custom-checkbox">
-//                         <input type="checkbox" class="custom-control-input" name="permissions[]" value="{{ $id }}" 
-//                         @if (in_array($id, $userPermissions)) checked @endif>
-//                         <span class="custom-control-label">{{ $label }}</span>
-//                     </label>
-//                 @endforeach
-//             </div>
-//             <label class="custom-control custom-checkbox select-all">
-//                 <input type="checkbox" class="custom-control-input" id="select_all">
-//                 <span class="custom-control-label">انتخاب همه</span>
-//             </label>
-//         </div>
-//     </div>
-// </div>

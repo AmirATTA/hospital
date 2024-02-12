@@ -44,10 +44,14 @@
 		<!--- INTERNAL jvectormap css-->
 		<link href="{{ asset('assets/plugins/jvectormap/jqvmap.css') }}" rel="stylesheet" />
 
+		<!-- toast notifications -->
+		<link href="{{ asset('assets/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
+
 		<!-- INTERNAL jQuery-countdowntimer css -->
 		<link href="{{ asset('assets/plugins/jQuery-countdowntimer/jQuery.countdownTimer.css') }}" rel="stylesheet" />
 
 		<link href="{{ asset('assets/css-rtl/style-rtl.css') }}" rel="stylesheet" />
+
 
 		<!-- Extentions -->
 		@yield('links')
@@ -201,13 +205,16 @@
 		<!-- P-scroll js-->
 		<script src="{{ asset('assets/plugins/p-scrollbar/p-scrollbar.js') }}"></script>
 		<script src="{{ asset('assets/plugins/p-scrollbar/p-scroll1.js') }}"></script>
-
+		
 		<!--Sidebar js-->
 		<script src="{{ asset('assets/plugins/sidebar/sidebar.js') }}"></script>
-
+		
 		<!-- Select2 js -->
 		<script src="{{ asset('assets/plugins/select2/select2.full.min.js') }}"></script>
-
+		
+		<!-- toast notifications -->
+		<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+		
 		<!-- INTERNAL Vertical-scroll js-->
 		<script src="{{ asset('assets/plugins/vertical-scroll/jquery.bootstrap.newsbox.js') }}"></script>
 		<script src="{{ asset('assets/plugins/vertical-scroll/vertical-scroll.js') }}"></script>
@@ -232,8 +239,34 @@
 		<!-- Custom js-->
 		<script src="{{ asset('assets/js/custom.js') }}"></script>
 
+
 		<!-- Extentions -->
 		@yield('scripts')
 
 	</body>
+
+	<!-- Toast notify script code -->
+	@if(session('toastr'))
+        <script defer>
+			toastr.options = {
+				"closeButton": true,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": true,
+				"positionClass": "toast-top-center",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "3000",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			}
+			Command: toastr["{{ session('toastType') }}"]("{{ session('toastMessage') }}")
+        </script>
+    @endif
+
 </html>

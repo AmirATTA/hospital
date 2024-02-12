@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DoctorStoreRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,13 +16,12 @@ class DoctorStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'speciality_id' => 'required',
             'mobile' => [
                 'required',
-                Rule::unique('doctors')->ignore($this->route('doctor'))
+                Rule::unique('users')->ignore($this->route('user'))
             ],
-            'doctorRoles' => 'required',
-            'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/',
+            'email' => 'nullable',
+            'password' => 'nullable|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/',
         ];
     }
     

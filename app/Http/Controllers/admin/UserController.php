@@ -69,8 +69,12 @@ class UserController extends Controller
         $user = User::create($validated);
 
         if(!empty($permission_ids)) {
-            $permissions = Permission::whereIn('id', $request->permissions)->get()->pluck('name');
-            foreach ($permissions as $permission) {
+            $permNamesArray = [];
+            foreach($ids as $permId) {
+                $permName = Permission::where('id', $permId)->get()->pluck('name');
+                $permNamesArray[] = $permName;
+            }
+            foreach ($permNamesArray as $permission) {
                 $user->givePermissionTo($permission);
             }
         }
@@ -96,8 +100,11 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $adminPermissions = Role::where('name', 'Admin')->first();
-        $permissions = $adminPermissions->permissions->pluck('label', 'id');
-        
+        $permissions = $adminPermissions->permissions->pluck('id');
+
+        $originalArray = $permissions->toArray();
+        $chunkedArray = array_chunk($originalArray, 4, true);
+
         $userPermissions = $user->getDirectPermissions();
         $permissionId = [];
         foreach ($userPermissions as $userData) {
@@ -106,7 +113,7 @@ class UserController extends Controller
         
         return view('admin.user.edit')->with([
             'user' => $user,
-            'permissions' => $permissions,
+            'permissions' => $chunkedArray,
             'userPermissions' => $permissionId,
         ]);
     }
@@ -114,49 +121,36 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateRequest $request, string $id)
     {
         $user = User::findOrFail($id);
 
-        $validatedData = $request->except('password');
+        $permission_ids = explode(',', $request->permission_ids);
+        $ids = array_filter($permission_ids, function($value) {
+            return $value !== '';
+        });
+        
+        $validated = array_merge($request->validated(), [
+            'password' => Hash::make($request->input('password')), 
+        ]);
 
-        if(!empty($request->permissions)) {
-            $permissions = array_map('intval', $validatedData['permissions']);
-        }
+        $user->update($validated);
 
-        if ($request->filled('password')) {
-            $validatedData = $request->validate([
-                'name' => 'required',
-                'mobile' => [
-                    'required',
-                    Rule::unique('users')->ignore($user->id),
-                ],
-                'password' => 'nullable|confirmed',
-                'email' => 'nullable',
-            ]);
+        if(!empty($ids)) {
+            $permNamesArray = [];
+            foreach($ids as $permId) {
+                $permName = Permission::where('id', $permId)->get()->pluck('name');
+                $permNamesArray[] = $permName;
+            }
+            foreach ($permNamesArray as $permission) {
+                $user->syncPermissions($permission);
+            }
         } else {
-            $validatedData = $request->validate([
-                'name' => 'required',
-                'mobile' => [
-                    'required',
-                    Rule::unique('users')->ignore($user->id),
-                ],
-                'email' => 'nullable',
-            ]);
+            $userPermission = $user->getDirectPermissions();
+            $user->revokePermissionTo($userPermission[0]['name']);
         }
 
-        if ($request->filled('password')) {
-            $validatedData['password'] = Hash::make($request->input('password'));
-        }
-
-        $user->update($validatedData);
-        if(!empty($request->permissions)) {
-            $user->syncPermissions($permissions);
-        } else {
-            $user->syncPermissions([]);
-        }
-
-        return redirect()->route('users.index')->with('success', 'خبر با موفقیت بروزرسانی شد');
+        return redirect()->route('users.index')->with('success', 'عملیات با موفقیت انجام شد.');
     }
 
     /**
