@@ -29,11 +29,9 @@ class User extends Authenticatable
     
     public function getActivitylogOptions(): LogOptions
     {
-        $description = 'سلام دنيا';
-
         return LogOptions::defaults()
         ->logOnly($this->fillable)
-        ->setDescriptionForEvent(fn(string $eventName) => $description . ' ' . __('custom.'. $eventName));
+        ->setDescriptionForEvent(fn(string $eventName) => 'کاربر' . ' ' . __('custom.'. $eventName));
     }
 
     /**

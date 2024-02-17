@@ -43,7 +43,7 @@
 								<select class="form-control custom-select select2" name="insurance" data-placeholder="انتخاب بیمه">
 									<option label="انتخاب بیمه"></option>
 									@foreach($insurances as $item)										
-										<option value="{{ $item->id }}">
+										<option value="{{ $item->id }}" @selected(old('insurance') == $item->id)>
 											{{ $item->name }} | @if($item->type == 'basic') پایه @else تکمیلی @endif
 										</option>
 									@endforeach
@@ -135,4 +135,6 @@
 
 	<script src="{{ asset('assets/plugins/select2.min.js') }}"></script>
 	<script src="{{ asset('assets/js/select2.js') }}"></script>
+	
+	<script src="{{ asset('assets/js/publishFormBtn.js') }}"></script>
 @endsection

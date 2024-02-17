@@ -55,4 +55,6 @@
 @endsection
 @section('scripts')
 	<script src="{{ asset('assets/js/checkbox.js') }}"></script>
+		
+	<script src="{{ asset('assets/js/publishFormBtn.js') }}"></script>
 @endsection

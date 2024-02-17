@@ -8,9 +8,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ProfileRequest;
+use App\Traits\RedirectNotify;
 
 class ProfileController extends Controller
 {
+    use RedirectNotify;
+    
     /**
      * Display a listing of the resource.
      */
@@ -61,9 +64,9 @@ class ProfileController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $user->update($validated);
+        $user->update($request->validated());
 
-        return redirect()->route('profile.edit', $user)->with('success', 'عملیات با موفقیت بروزرسانی شد');
+        return $this->redirectNotify('profile.edit', 'success', 'بروزرسانی با موفقیت انجام شد.', $user);
     }
 
     /**

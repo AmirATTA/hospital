@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationStoreRequest;
 use App\Http\Requests\OperationUpdateRequest;
+use App\Traits\RedirectNotify;
 
 class OperationController extends Controller
 {
+    use RedirectNotify;
+    
     /**
      * MiddleWares.
      */
@@ -51,9 +54,9 @@ class OperationController extends Controller
         $operation = Operation::create($validated);
 
         if(!$operation) {
-            return redirect(route('operations.create'))->with('error', 'عملیان انجام نشد');
+            return $this->redirectNotify('operations.create', 'error', 'عملیات به مشکل مواجه شد!');
         } else {
-            return redirect(route('operations.index'))->with('success', 'عملیات با موفقیت انجام شد.');
+            return $this->redirectNotify('operations.index', 'success', 'عملیات با موفقیت انجام شد.');
         }
     }
 
@@ -88,7 +91,7 @@ class OperationController extends Controller
         
         $operation->update($validated);
 
-        return redirect()->route('operations.index')->with('success', 'خبر با موفقیت بروزرسانی شد');
+        return $this->redirectNotify('operations.index', 'success', 'بروزرسانی با موفقیت انجام شد.');
     }
 
     /**

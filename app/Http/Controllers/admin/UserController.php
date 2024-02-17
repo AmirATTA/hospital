@@ -14,9 +14,12 @@ use App\Http\Requests\UserUpdateRequest;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Traits\RedirectNotify;
 
 class UserController extends Controller
 {
+    use RedirectNotify;
+    
     /**
      * MiddleWares.
      */
@@ -80,9 +83,9 @@ class UserController extends Controller
         }
 
         if(!$user) {
-            return redirect(route('users.create'))->with('error', 'عملیان انجام نشد');
+            return $this->redirectNotify('users.create', 'error', 'عملیات به مشکل مواجه شد!');
         } else {
-            return redirect(route('users.index'))->with('success', 'عملیات با موفقیت انجام شد.');
+            return $this->redirectNotify('users.index', 'success', 'عملیات با موفقیت انجام شد.');
         }
     }
 
@@ -142,15 +145,19 @@ class UserController extends Controller
                 $permName = Permission::where('id', $permId)->get()->pluck('name');
                 $permNamesArray[] = $permName;
             }
-            foreach ($permNamesArray as $permission) {
-                $user->syncPermissions($permission);
-            }
+            $user->syncPermissions($permNamesArray);
         } else {
             $userPermission = $user->getDirectPermissions();
-            $user->revokePermissionTo($userPermission[0]['name']);
+            if($userPermission != null) {
+                foreach($userPermission as $permission) {
+                    $user->revokePermissionTo($permission['name']);
+                }
+            } else {
+                $user->revokePermissionTo($userPermission[0]['name']);
+            }
         }
 
-        return redirect()->route('users.index')->with('success', 'عملیات با موفقیت انجام شد.');
+        return $this->redirectNotify('users.index', 'success', 'بروزرسانی با موفیقت انجام شد.');
     }
 
     /**

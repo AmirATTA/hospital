@@ -19,7 +19,9 @@ class DoctorRole extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->logOnly($this->fillable);
+        return LogOptions::defaults()
+        ->logOnly($this->fillable)
+        ->setDescriptionForEvent(fn(string $eventName) => 'نقش دکتر' . ' ' . __('custom.'. $eventName));
     }
     
     public function doctors()

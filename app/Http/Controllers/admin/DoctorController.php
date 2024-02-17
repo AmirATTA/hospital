@@ -15,9 +15,12 @@ use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\DoctorStoreRequest;
 use App\Http\Requests\DoctorUpdateRequest;
+use App\Traits\RedirectNotify;
 
 class DoctorController extends Controller
 {
+    use RedirectNotify;
+
     /**
      * MiddleWares.
      */
@@ -74,9 +77,9 @@ class DoctorController extends Controller
         }
 
         if(!$doctor) {
-            return redirect(route('doctors.create'))->with('error', 'عملیان انجام نشد');
+            return $this->redirectNotify('doctors.create', 'error', 'عملیات به مشکل مواجه شد!');
         } else {
-            return redirect(route('doctors.index'))->with('success', 'عملیات با موفقیت انجام شد.');
+            return $this->redirectNotify('doctors.index', 'success', 'عملیات با موفقیت انجام شد.');
         }
     }
 
@@ -133,9 +136,9 @@ class DoctorController extends Controller
         $doctor->attachRoles($doctorRoles, true);
 
         if(!$doctor) {
-            return redirect(route('doctors.create'))->with('error', 'عملیان انجام نشد');
+            return $this->redirectNotify('doctors.create', 'error', 'بروزرسانی به مشکل مواجه شد!');
         } else {
-            return redirect(route('doctors.index'))->with('success', 'عملیات با موفقیت انجام شد.');
+            return $this->redirectNotify('doctors.index', 'success', 'بروزرسانی با موفقیت انجام شد.');
         }
     }
 

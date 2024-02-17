@@ -98,6 +98,9 @@ return new class extends Migration
             'edit surguries' => 'ویرایش عمل جراحی ها',
             'delete surguries' => 'حذف عمل جراحی ها',
             
+            'view activity-logs' => 'نمایش گزارش فعالیت ها',
+            'delete activity-logs' => 'حذف گزارش فعالیت ها',
+            
         ];
 
         $permissionNames = $this->createPermissions($permissions);

@@ -119,7 +119,7 @@
 								</li>
 							@endif
 
-							@if($user->can('view surgeries') || $user->can('create surgeries') || $user->can('update surgeries') || $user->can('delete surgeries'))
+							@if($user->can('view activity-logs') || $user->can('create surgeries') || $user->can('update surgeries') || $user->can('delete surgeries'))
 								<li class="slide">
 									<a class="side-menu__item" data-toggle="slide" href="#">
 										<i class="fa-solid fa-stethoscope sidemenu_icon"></i>
@@ -135,6 +135,15 @@
 											@endcan
 										</li>
 									</ul>
+								</li>
+							@endif
+
+							@if($user->can('view activity-logs') || $user->can('delete activity-logs'))
+								<li class="slide">
+									<a class="side-menu__item" data-toggle="slide" href="{{ route('activity-logs.index') }}">
+										<i class="fa-solid fa-clock-rotate-left sidemenu_icon"></i>
+										<span class="side-menu__label">گزارش فعالیت ها</span></i>
+									</a>
 								</li>
 							@endif
 						</ul>

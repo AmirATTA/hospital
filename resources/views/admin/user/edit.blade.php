@@ -201,4 +201,6 @@
 
 	<!-- INTERNAL Index js-->
 	<script src="{{ asset('assets/js/superadmin/superadmin-role.js') }}"></script>
+	
+	<script src="{{ asset('assets/js/publishFormBtn.js') }}"></script>
 @endsection

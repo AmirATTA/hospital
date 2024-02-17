@@ -25,7 +25,9 @@ class Surgery extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->logOnly($this->fillable);
+        return LogOptions::defaults()
+        ->logOnly($this->fillable)
+        ->setDescriptionForEvent(fn(string $eventName) => 'جراحی' . ' ' . __('custom.'. $eventName));
     }
 
     // creating record in operation_surgery table

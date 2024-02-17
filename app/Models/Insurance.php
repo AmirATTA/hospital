@@ -20,6 +20,8 @@ class Insurance extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->logOnly($this->fillable);
+        return LogOptions::defaults()
+        ->logOnly($this->fillable)
+        ->setDescriptionForEvent(fn(string $eventName) => 'بیمه' . ' ' . __('custom.'. $eventName));
     }
 }

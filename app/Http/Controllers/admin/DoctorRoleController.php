@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DoctorRoleStoreRequest;
 use App\Http\Requests\DoctorRoleUpdateRequest;
+use App\Traits\RedirectNotify;
 
 class DoctorRoleController extends Controller
 {
-        /**
+    use RedirectNotify;
+
+    /**
      * MiddleWares.
      */
     public function __construct()
@@ -47,9 +50,9 @@ class DoctorRoleController extends Controller
         $doctorRole = DoctorRole::create($request->validated());
 
         if(!$doctorRole) {
-            return redirect(route('doctor-roles.create'))->with('error', 'عملیان انجام نشد');
+            return $this->redirectNotify('doctor-roles.create', 'error', 'عملیات به مشکل مواجه شد!');
         } else {
-            return redirect(route('doctor-roles.index'))->with('success', 'عملیات با موفقیت انجام شد.!');
+            return $this->redirectNotify('doctor-roles.index', 'success', 'عملیات با موفقیت انجام شد.');
         }
     }
 
@@ -80,7 +83,7 @@ class DoctorRoleController extends Controller
 
         $doctorRole->update($request->validated());
 
-        return redirect()->route('doctor-roles.index')->with('success', 'عملیات با موفقیت انجام شد.');
+        return $this->redirectNotify('doctor-roles.index', 'success', 'بروزرسانی با موفقیت انجام شد.');
     }
 
     /**

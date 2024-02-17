@@ -11,9 +11,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SurgeryStoreRequest;
 use App\Http\Requests\SurgeryUpdateRequest;
+use App\Traits\RedirectNotify;
 
 class SurgeryController extends Controller
 {
+    use RedirectNotify;
+
     /**
      * MiddleWares.
      */
@@ -101,9 +104,9 @@ class SurgeryController extends Controller
         $surgery->attachDoctors($doctorsInput);
 
         if(!$surgery) {
-            return redirect(route('surgeries.create'))->with('error', 'عملیان انجام نشد');
+            return $this->redirectNotify('surgeries.create', 'error', 'عملیات به مشکل مواجه شد!');
         } else {
-            return redirect(route('surgeries.index'))->with('success', 'عملیات با موفقیت انجام شد.');
+            return $this->redirectNotify('surgeries.index', 'success', 'عملیات با موفقیت انجام شد.');
         }
     }
 
@@ -209,8 +212,7 @@ class SurgeryController extends Controller
         $surgery->attachOperations($operations, true);
         $surgery->attachDoctors($doctorsInput, true);
         
-
-        return redirect()->route('surgeries.index')->with('success', 'خبر با موفقیت بروزرسانی شد');
+        return $this->redirectNotify('surgeries.index', 'success', 'بروزرسانی با موفیقت انجام شد.');
     }
 
     /**

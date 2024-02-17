@@ -86,7 +86,7 @@ class SpecialityController extends Controller
 
         $speciality->update($request->validated());
 
-        return redirect()->route('specialities.index')->with('success', 'عملیات با موفیقت انجام شد.');
+        return $this->redirectNotify('specialities.index', 'success', 'بروزرسانی با موفیقت انجام شد.');
     }
 
     /**

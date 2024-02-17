@@ -118,6 +118,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="card">
             @if($insurance != null)
                 <div class="card-body">
                     <div class="mb-4">

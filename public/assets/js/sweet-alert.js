@@ -272,5 +272,62 @@ $(function(){
 			}
 		});
 	});
+	
+	
+	
+	//______________
+	$(".role-activity-log").on("click", function(e){
+		var button = $(this);
+		var buttonDataset = button.data();
+		swal({
+			title: "ایا مطمئن هستید؟",
+			text: "پس از حذف، نمی توانید این را بازیابی کنید!",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		})
+		.then((willDelete) => {
+			if (willDelete) {
+				$.ajax({
+					url: '/admin/activity-logs/' + buttonDataset.id,
+					type: "DELETE",
+					data: {
+						_token: csrfToken,
+					},
+					success : function(result){
+						if(result == 'all') {
+							var table = document.querySelector('table');
+
+							var tbody = document.querySelector('tbody');
+							tbody.innerHTML = '';
+
+							var divElement = document.createElement('div');
+							divElement.className = 'text-center text-danger';
+							divElement.textContent = 'هیچ داده ای وجود ندارد';
+						
+							table.insertAdjacentElement('afterend', divElement);
+
+							swal({
+								title: "انجام شد",
+								text: "با موفقیت انجام شد!",
+								icon: "success",
+							});
+							return;	
+						}
+						const div = button.parent();;
+						const parentOfDiv = div.parent();;
+						const parentOfParentOfDiv = parentOfDiv.parent();;
+						parentOfParentOfDiv.remove();
+						
+						swal({
+							title: "انجام شد",
+							text: "با موفقیت انجام شد!",
+							icon: "success",
+						});
+					}
+				});
+			}
+		});
+	});
 });
 

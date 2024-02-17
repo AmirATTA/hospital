@@ -214,6 +214,8 @@
 
 	<!-- INTERNAL Index js-->
 	<script src="{{ asset('assets/js/superadmin/superadmin-role.js') }}"></script>
+	
+	<script src="{{ asset('assets/js/publishFormBtn.js') }}"></script>
 @endsection
 
 <!-- <a href="#" class="access-icon role"><span class="feather feather-check text-success icon-style-circle bg-success-transparent"></span></a> -->

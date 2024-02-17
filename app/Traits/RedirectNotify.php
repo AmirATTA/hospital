@@ -4,8 +4,12 @@ namespace App\Traits;
 
 trait RedirectNotify
 {
-    public function redirectNotify($route, $type, $message)
+    public function redirectNotify($route, $type, $message, $parameter = null)
     {
-        return redirect(route($route))->with('toastr', true)->with('toastType', $type)->with('toastMessage', $message);
+        if ($parameter) {
+            return redirect()->route($route, $parameter)->with('toastr', true)->with('toastType', $type)->with('toastMessage', $message);
+        } else {
+            return redirect()->route($route)->with('toastr', true)->with('toastType', $type)->with('toastMessage', $message);
+        }
     }
 }

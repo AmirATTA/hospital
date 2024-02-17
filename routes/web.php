@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\OperationController;
 use App\Http\Controllers\admin\auth\LoginController;
 use App\Http\Controllers\admin\DoctorRoleController;
 use App\Http\Controllers\admin\SpecialityController;
+use App\Http\Controllers\admin\ActivityLogController;
 use App\Http\Controllers\admin\auth\LogoutController;
 use App\Http\Controllers\admin\auth\PasswordController;
 
@@ -60,6 +61,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
 
     Route::delete('surgeries/{surgery}', [SurgeryController::class, 'destroy'])->name('surgeries.destroy');
     Route::resource('surgeries', SurgeryController::class);
+
+    Route::delete('activity-logs/{activity-log}', [ActivityLogler::class, 'destroy'])->name('activity-logs.destroy');
+    Route::resource('activity-logs', ActivityLogController::class);
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 })->name('admin');

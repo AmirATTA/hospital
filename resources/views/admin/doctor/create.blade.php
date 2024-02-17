@@ -45,7 +45,7 @@
 								<select class="form-control custom-select select2" name="speciality_id" data-placeholder="انتخاب تخصص">
 									<option label="انتخاب نوع تخصص"></option>
 									@foreach($specialities as $item)										
-										<option value="{{ $item->id }}">{{ $item->title }}</option>
+										<option value="{{ $item->id }}" @selected(old('speciality_id') == $item->id)>{{ $item->title }}</option>
 									@endforeach
 								</select>
 							</div>
@@ -97,4 +97,6 @@
 
 	<script src="{{ asset('assets/plugins/select2.min.js') }}"></script>
 	<script src="{{ asset('assets/js/select2.js') }}"></script>
+		
+	<script src="{{ asset('assets/js/publishFormBtn.js') }}"></script>
 @endsection

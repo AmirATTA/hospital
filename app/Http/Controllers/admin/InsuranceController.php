@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InsuranceStoreRequest;
 use App\Http\Requests\InsuranceUpdateRequest;
+use App\Traits\RedirectNotify;
 
 class InsuranceController extends Controller
 {
+    use RedirectNotify;
+    
     /**
      * MiddleWares.
      */
@@ -47,9 +50,9 @@ class InsuranceController extends Controller
         $insurance = Insurance::create($request->validated());
 
         if(!$insurance) {
-            return redirect(route('insurances.create'))->with('error', 'عملیان انجام نشد');
+            return $this->redirectNotify('insurances.create', 'error', 'عملیات به مشکل مواجه شد!');
         } else {
-            return redirect(route('insurances.index'))->with('success', 'عملیات با موفقیت انجام شد.');
+            return $this->redirectNotify('insurances.index', 'success', 'عملیات با موفقیت انجام شد.');
         }
     }
 
@@ -80,7 +83,7 @@ class InsuranceController extends Controller
 
         $insurance->update($request->validated());
 
-        return redirect()->route('insurances.index')->with('success', 'خبر با موفقیت بروزرسانی شد');
+        return $this->redirectNotify('insurances.index', 'success', 'بروزرسانی با موفقیت انجام شد.');
     }
 
     /**

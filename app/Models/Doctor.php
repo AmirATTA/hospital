@@ -30,7 +30,9 @@ class Doctor extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->logOnly($this->fillable);
+        return LogOptions::defaults()
+        ->logOnly($this->fillable)
+        ->setDescriptionForEvent(fn(string $eventName) => 'دکتر' . ' ' . __('custom.'. $eventName));
     }
 
      
