@@ -191,6 +191,7 @@ span,div,.form-label {
 
 .app-sidebar .app-sidebar3 {
     margin-top: 100px;
+    height: 82%;
 }
 .app-sidebar {
     border-radius: 20px;
@@ -358,3 +359,9 @@ input[type="range"]::-webkit-slider-thumb:active {
     }
   }
       
+.properties-list {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    padding: 5px;
+}

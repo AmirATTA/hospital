@@ -7,3 +7,15 @@ $('#dp-released').MdPersianDateTimePicker({
   targetTextSelector: '#dp-released-text',
   targetDateSelector: '#dp-released-date',
 });
+
+
+
+$('#dp-start').MdPersianDateTimePicker({
+  targetTextSelector: '#dp-start-text',
+  targetDateSelector: '#dp-start-date',
+});
+
+$('#dp-end').MdPersianDateTimePicker({
+  targetTextSelector: '#dp-end-text',
+  targetDateSelector: '#dp-end-date',
+});

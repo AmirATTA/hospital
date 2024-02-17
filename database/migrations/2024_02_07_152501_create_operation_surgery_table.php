@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('operation_id')->constrained()->onDelete('cascade');
             $table->foreignId('surgery_id')->constrained()->onDelete('cascade');
+            $table->bigInteger('amount');
             $table->timestamps();
         });
     }

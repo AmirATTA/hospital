@@ -146,6 +146,15 @@
 									</a>
 								</li>
 							@endif
+
+							@if($user->can('view doctor-surgeries') || $user->can('create doctor-surgeries'))
+								<li class="slide">
+									<a class="side-menu__item" data-toggle="slide" href="{{ route('doctor-surgeries.index') }}">
+										<i class="fa-solid fa-file-invoice-dollar sidemenu_icon"></i>
+										<span class="side-menu__label">پرداخت پزشک</span></i>
+									</a>
+								</li>
+							@endif
 						</ul>
 					</div>
 				</aside>

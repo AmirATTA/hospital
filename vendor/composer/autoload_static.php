@@ -50,6 +50,10 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         array (
             'voku\\' => 5,
         ),
+        'Y' => 
+        array (
+            'Ybazli\\Faker\\' => 13,
+        ),
         'W' => 
         array (
             'Whoops\\' => 7,
@@ -193,6 +197,10 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         'voku\\' => 
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
+        ),
+        'Ybazli\\Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ybazli/faker/src',
         ),
         'Whoops\\' => 
         array (
@@ -562,6 +570,7 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\admin\\ActivityLogController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/ActivityLogController.php',
         'App\\Http\\Controllers\\admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/DashboardController.php',
         'App\\Http\\Controllers\\admin\\DoctorController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/DoctorController.php',
         'App\\Http\\Controllers\\admin\\DoctorRoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/DoctorRoleController.php',
@@ -595,10 +604,13 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         'App\\Http\\Requests\\OperationStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/OperationStoreRequest.php',
         'App\\Http\\Requests\\OperationUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/OperationUpdateRequest.php',
         'App\\Http\\Requests\\ProfileRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileRequest.php',
-        'App\\Http\\Requests\\SpecialityRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SpecialityRequest.php',
+        'App\\Http\\Requests\\SpecialityStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SpecialityStoreRequest.php',
+        'App\\Http\\Requests\\SpecialityUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SpecialityUpdateRequest.php',
         'App\\Http\\Requests\\SurgeryStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SurgeryStoreRequest.php',
         'App\\Http\\Requests\\SurgeryUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SurgeryUpdateRequest.php',
         'App\\Http\\Requests\\UserStoreRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UserStoreRequest.php',
+        'App\\Http\\Requests\\UserUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UserUpdateRequest.php',
+        'App\\Mail\\DoctorEmail' => __DIR__ . '/../..' . '/app/Mail/DoctorEmail.php',
         'App\\Models\\Doctor' => __DIR__ . '/../..' . '/app/Models/Doctor.php',
         'App\\Models\\DoctorRole' => __DIR__ . '/../..' . '/app/Models/DoctorRole.php',
         'App\\Models\\Insurance' => __DIR__ . '/../..' . '/app/Models/Insurance.php',
@@ -611,8 +623,8 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
-        'App\\Rules\\DateGreaterThanOrEqual' => __DIR__ . '/../..' . '/app/Rules/DateGreaterThanOrEqual.php',
         'App\\Traits\\HasPermission' => __DIR__ . '/../..' . '/app/Traits/HasPermission.php',
+        'App\\Traits\\RedirectNotify' => __DIR__ . '/../..' . '/app/Traits/RedirectNotify.php',
         'App\\View\\Components\\errors' => __DIR__ . '/../..' . '/app/View/Components/errors.php',
         'App\\View\\Components\\password_error' => __DIR__ . '/../..' . '/app/View/Components/password_error.php',
         'Assert\\Assert' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/Assert.php',
@@ -734,6 +746,7 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\DoctorRolesTableSeeder' => __DIR__ . '/../..' . '/database/seeders/DoctorRolesTableSeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
         'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
@@ -2001,6 +2014,8 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         'Illuminate\\Database\\DeadlockException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DeadlockException.php',
         'Illuminate\\Database\\DetectsConcurrencyErrors' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DetectsConcurrencyErrors.php',
         'Illuminate\\Database\\DetectsLostConnections' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/DetectsLostConnections.php',
+        'Illuminate\\Database\\Eloquent\\Attributes\\ObservedBy' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Attributes/ObservedBy.php',
+        'Illuminate\\Database\\Eloquent\\Attributes\\ScopedBy' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Attributes/ScopedBy.php',
         'Illuminate\\Database\\Eloquent\\BroadcastableModelEventOccurred' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/BroadcastableModelEventOccurred.php',
         'Illuminate\\Database\\Eloquent\\BroadcastsEvents' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/BroadcastsEvents.php',
         'Illuminate\\Database\\Eloquent\\BroadcastsEventsAfterCommit' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/BroadcastsEventsAfterCommit.php',
@@ -2296,6 +2311,7 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithExceptionHandling' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithExceptionHandling.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithRedis' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithRedis.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithSession' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithSession.php',
+        'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithTestCaseLifecycle' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithTestCaseLifecycle.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithTime' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithTime.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\InteractsWithViews' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithViews.php',
         'Illuminate\\Foundation\\Testing\\Concerns\\MakesHttpRequests' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/MakesHttpRequests.php',
@@ -6655,6 +6671,9 @@ class ComposerStaticInit4e933fc140dd9c8d5c7a4ebaef577ddf
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
+        'Ybazli\\Faker\\Facades\\Faker' => __DIR__ . '/..' . '/ybazli/faker/src/Facades/Faker.php',
+        'Ybazli\\Faker\\Faker' => __DIR__ . '/..' . '/ybazli/faker/src/Faker.php',
+        'Ybazli\\Faker\\FakerServiceProvider' => __DIR__ . '/..' . '/ybazli/faker/src/FakerServiceProvider.php',
         'voku\\helper\\ASCII' => __DIR__ . '/..' . '/voku/portable-ascii/src/voku/helper/ASCII.php',
     );
 

@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DoctorRolesTableSeeder extends Seeder
 {
@@ -12,22 +14,31 @@ class DoctorRolesTableSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=0; $i < rand(25,75); $i++) { 
-            DB::table('articles')->insert([
-                'title' => Faker::word(10),
-                'slug' => Str::slug(Faker::sentence(10)),
-                'summary' => Faker::sentence(2),
-                'body' => Faker::paragraph(25),
-                'image' => rand(1,8) . '.jpg',
-                'views_count' => rand(0,1000),
-                'resource_label' => Faker::sentence(1),
-                'resource_url' => 'www.youtube.com',
-                'category_id' => rand(1,5),
-                'user_id' => 1,
-                'status' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-        }
+        DB::table('doctor_roles')->insert([
+            'title' => 'جراح',
+            'required' => '1',
+            'quota' => '30',
+            'status' => '1',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('doctor_roles')->insert([
+            'title' => 'بيهوشي',
+            'required' => '1',
+            'quota' => '20',
+            'status' => '1',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('doctor_roles')->insert([
+            'title' => 'مشاور',
+            'required' => '0',
+            'quota' => '15',
+            'status' => '1',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
     }
 }

@@ -23,6 +23,18 @@ class Surgery extends Model
         'released_at',
     ];
 
+
+    public function getTotalPrice(): int
+    {
+        return (int) $this->operations->sum('price');
+    }
+
+    public function getDoctorQuotaAmount(DoctorRole $doctorRole): int
+    {
+        return round(((int) $doctorRole->quota / 100) * $this->getTotalPrice());
+    }
+
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

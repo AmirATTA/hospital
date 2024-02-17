@@ -117,12 +117,17 @@ class SurgeryController extends Controller
     {
         $surgery = Surgery::findOrFail($id);
 
+        $ultimatePrice = 0;
         $operations = $surgery->operations()->select('name', 'price')->get()->toArray();
+        foreach ($operations as $operation) {
+            $ultimatePrice += $operation['price'];
+        }
 
         $insuranceId = $surgery->basic_insurance_id != null ? $surgery->basic_insurance_id : $surgery->supp_insurance_id;
         if($insuranceId != null) {
             $insurance = Insurance::findOrFail($insuranceId);
-            $discountedPrice = $operations[0]['price'] - ($operations[0]['price'] * ($insurance->discount / 100));
+            $discountedPrice = $ultimatePrice - ($ultimatePrice * ($insurance->discount / 100));
+            $discountedPriceFromOriginal = $ultimatePrice * ($insurance->discount / 100);
             $insuranceType = $insurance->type == 'supplementary' ? 'تکمیلی' : 'پایه';
         } else {
             $insurance = null;
@@ -136,9 +141,11 @@ class SurgeryController extends Controller
             'surgery' => $surgery,
 
             'operations' => $operations,
+            'ultimatePrice' => $ultimatePrice,
             
             'insurance' => $insurance,
-            'discountedPrice' => $discountedPrice,
+            'discountedPriceFromOriginal' => round($discountedPriceFromOriginal),
+            'discountedPrice' => round($discountedPrice),
             'insuranceType' => $insuranceType,
 
             'doctors' => $doctors,

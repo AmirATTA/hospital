@@ -4,7 +4,7 @@
 <a href="{{ route('surgeries.create') }}"><button class="btn btn-primary news-btn">جراحی جدید +</button></a>
 <!-- Row -->
 <div class="row">
-    <div class="col-xl-8 col-md-12">
+    <div class="col-xl-7 col-md-12">
         <div class="card">
             <div class="card-body">
                 <div class="mb-4">
@@ -88,33 +88,40 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-4 col-md-12">
+    <div class="col-xl-5 col-md-12">
         <div class="card">
             <div class="card-body">
                 <div class="mb-4">
                     <div class="mb-1">
-                        <h3 style="font-size:2rem;">عمل</h3>
+                        <h3 style="font-size:2rem;">عمل ها</h3>
                     </div>
                     <div class="table-responsive">
-                        <table class="table row table-borderless w-100 m-0 text-nowrap">
-                            <tbody class="col-lg-12 col-xl-6 p-0">
-                                <tr>
-                                    <td><span class="font-weight-semibold">نام :</span> {{ $operations[0]['name'] }}</td>
-                                </tr>
-                                @if($insurance != null)
+                        @foreach($operations as $operation)
+                            <table class="table row table-borderless w-100 m-0 text-nowrap">
+                                <tbody class="col-lg-12 col-xl-6 p-0">
                                     <tr>
-                                        <td><span class="font-weight-semibold">قیمت اصلی :</span> {{ $operations[0]['price'] }}</td>
+                                        <td><span class="font-weight-semibold">عمل :</span> {{ $operation['name'] }}</td>
+                                        <td><span class="font-weight-semibold">قيمت :</span> {{ $operation['price'] }}</td>
                                     </tr>
-                                    <tr>
-                                        <td><span class="font-weight-semibold">با <span style="color:red;">{{ $insurance->discount }}%</span> تخفیف بیمه :</span> {{ $discountedPrice }}</td>
-                                    </tr>
-                                @else
-                                    <tr>
-                                        <td><span class="font-weight-semibold">قیمت :</span> {{ $operations[0]['price'] }}</td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        @endforeach
+                        @if($insurance != null)
+                            <hr>
+                            <table class="table row table-borderless w-100 m-0 text-nowrap">
+                                <tbody class="col-lg-12 col-xl-6 p-0">
+                                        <tr>
+                                            <td><span class="font-weight-semibold">قیمت كل :</span> {{ $ultimatePrice }} تومان</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="font-weight-semibold">تخفیف :</span> {{ $discountedPriceFromOriginal }} <span style="color:red;">({{ $insurance->discount }}%)</span> تومان</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="font-weight-semibold">جمع :</span> {{ $discountedPrice }} تومان</td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        @endif
                     </div>
                 </div>
             </div>
