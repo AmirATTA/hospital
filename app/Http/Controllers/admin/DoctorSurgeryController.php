@@ -42,14 +42,6 @@ class DoctorSurgeryController extends Controller
      */
     public function create(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
         $search = collect($request->all())->except('_token')->all();
         $doctorId = $search['doctor'];
 
@@ -57,11 +49,19 @@ class DoctorSurgeryController extends Controller
 
         $surgeries = Surgery::whereHas('doctors', function ($query) use ($doctorId) {
             $query->where('doctor_id', $doctorId);
-        })->whereBetween('released_at', [$startDate, $search['end_date']])->get();
+        })->whereBetween('created_at', [$startDate, $search['end_date']])->get();
 
         return view('admin.doctor-surgery.create')->with([
             'surgeries' => $surgeries,
         ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        dd($request->all());
     }
 
     /**

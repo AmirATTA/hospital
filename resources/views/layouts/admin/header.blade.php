@@ -43,7 +43,7 @@
 							<i class="feather feather-user ml-3 fs-16 my-auto"></i>
 							<div class="mt-1">پروفایل</div>
 						</a>
-						<a class="dropdown-item d-flex" href="#">
+						<a class="dropdown-item d-flex" href="{{ route('settings.index') }}">
 							<i class="feather feather-settings ml-3 fs-16 my-auto"></i>
 							<div class="mt-1">تنظیمات</div>
 						</a>

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\DoctorsTableSeeder;
+use Database\Seeders\SettingsTableSeeder;
 use Database\Seeders\SurgeriesTableSeeder;
 use Database\Seeders\InsurancesTableSeeder;
 use Database\Seeders\OperationsTableSeeder;
@@ -28,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SurgeriesTableSeeder::class);
         $this->call(OperationSurgeriesTableSeeder::class);
         $this->call(DoctorSurgeriesTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
     }
 }

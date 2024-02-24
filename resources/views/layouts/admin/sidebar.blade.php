@@ -155,6 +155,13 @@
 									</a>
 								</li>
 							@endif
+
+							<li class="slide">
+								<a class="side-menu__item" data-toggle="slide" href="{{ route('settings.index') }}">
+									<i class="fa-solid fa-gear sidemenu_icon"></i>
+									<span class="side-menu__label">تنظیمات</span></i>
+								</a>
+							</li>
 						</ul>
 					</div>
 				</aside>

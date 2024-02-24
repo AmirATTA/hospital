@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\DoctorController;
 use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\SurgeryController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\InsuranceController;
@@ -65,9 +66,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
 
     Route::delete('activity-logs/{activity-log}', [ActivityLogController::class, 'destroy'])->name('activity-logs.destroy');
     Route::resource('activity-logs', ActivityLogController::class);
-    
+
+    Route::post('doctor-surgeries/create', [DoctorSurgeryController::class, 'create'])->name('doctor-surgeries.create');
     Route::delete('doctor-surgeries/{doctor-surgery}', [DoctorSurgeryController::class, 'destroy'])->name('doctor-surgeries.destroy');
     Route::resource('doctor-surgeries', DoctorSurgeryController::class);
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
+
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('settings/{setting}', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::patch('settings', [SettingController::class, 'update'])->name('settings.update');
 })->name('admin');

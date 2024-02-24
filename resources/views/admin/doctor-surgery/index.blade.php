@@ -13,7 +13,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<form action="{{ route('doctor-surgeries.store') }}" id="doctor-surgery" name="doctor-surgery" method="post" >
+			<form action="{{ route('doctor-surgeries.create') }}" id="doctor-surgery" name="doctor-surgery" method="post">
 				@csrf
 				<div class="card-body">
 					<div class="row">

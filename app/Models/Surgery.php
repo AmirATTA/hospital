@@ -42,7 +42,6 @@ class Surgery extends Model
         ->setDescriptionForEvent(fn(string $eventName) => 'جراحی' . ' ' . __('custom.'. $eventName));
     }
 
-    // creating record in operation_surgery table
     public function attachOperations(?array $operationNames, $onUpdate = false)
     {
         if($operationNames != null) {
@@ -54,9 +53,9 @@ class Surgery extends Model
                 $operationIds[] = $operation->id;
                 
                 if($onUpdate == true) {
-                    $this->operations()->sync($operationIds);
+                    $this->operations()->sync($operationIds, ['amount' => '1000']);
                 } else {
-                    $this->operations()->attach($operation->id);
+                    $this->operations()->attach($operation->id, ['amount' => '1000']);
                 }
             }
         }
@@ -91,11 +90,11 @@ class Surgery extends Model
             foreach ($doctorsWithRoles as $doctorId => $doctorRoleIds) {
                 if($onUpdate == true) {
                     foreach ($doctorRoleIds as $doctorRoleId) {
-                        $this->doctors()->sync($doctorId, ['doctor_role_id' => $doctorRoleId]);
+                        $this->doctors()->sync($doctorId, ['doctor_role_id' => $doctorRoleId], ['amount' => '1000']);
                     }
                 } else {
                     foreach ($doctorRoleIds as $doctorRoleId) {
-                        $this->doctors()->attach($doctorId, ['doctor_role_id' => $doctorRoleId]);
+                        $this->doctors()->attach($doctorId, ['doctor_role_id' => $doctorRoleId], ['amount' => '1000']);
                     }
                 }
             }
