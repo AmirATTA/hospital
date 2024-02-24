@@ -17,7 +17,6 @@ class OperationSurgeriesTableSeeder extends Seeder
         DB::table('operation_surgery')->insert([
             'operation_id' => '1',
             'surgery_id' => '1',
-            'amount' => rand(10,10000000),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -25,7 +24,6 @@ class OperationSurgeriesTableSeeder extends Seeder
         DB::table('operation_surgery')->insert([
             'operation_id' => '2',
             'surgery_id' => '1',
-            'amount' => rand(10,10000000),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

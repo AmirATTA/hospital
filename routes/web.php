@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\DoctorController;
+use App\Http\Controllers\admin\InvoiceController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\SurgeryController;
@@ -70,6 +71,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::post('doctor-surgeries/create', [DoctorSurgeryController::class, 'create'])->name('doctor-surgeries.create');
     Route::delete('doctor-surgeries/{doctor-surgery}', [DoctorSurgeryController::class, 'destroy'])->name('doctor-surgeries.destroy');
     Route::resource('doctor-surgeries', DoctorSurgeryController::class);
+
+    Route::delete('invoices/{surgery}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
+    Route::resource('invoices', InvoiceController::class);
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 

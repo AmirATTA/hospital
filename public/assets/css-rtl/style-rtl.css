@@ -20,6 +20,10 @@ span,div,.form-label {
     font-size: 1rem;
 }
 
+.app-sidebar span,div,.form-label {
+  font-size: 1rem;
+}
+
 .breadcrumb-item1 a {
     font-size: 0.8rem;
 }

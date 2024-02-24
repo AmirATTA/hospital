@@ -25,8 +25,8 @@
 									<th class="border-bottom-0"></th>
 									<th class="border-bottom-0">ردیف</th>
 									<th class="border-bottom-0">نام بيمار</th>
-									<th class="border-bottom-0">جمع كل عمل ها</th>
-									<th class="border-bottom-0">سهم دكتر از جراحي</th>
+									<th class="border-bottom-0">جمع كل عمل ها (به تومان)</th>
+									<th class="border-bottom-0">سهم دكتر از جراحي (به تومان)</th>
 									<th class="border-bottom-0">نقش دكتر</th>
 								</tr>
 							</thead>
@@ -34,22 +34,29 @@
 								@foreach($surgeries as $data)
 
 									@php
-										$doctorRole = App\Models\DoctorRole::findOrFail($surgeries[0]->doctors[0]->id);
+										$doctor = App\Models\Doctor::findOrFail($doctorId);
+										$doctorRole = $doctor->doctorRoles[0];
+
+										$doctorSurgery = App\Models\DoctorSurgery::where('doctor_id', $doctorId)->where('surgery_id', $data->id)->first();
 									@endphp
 
-									<tr>
-										<td>
-											<div class="checkbox-wrapper-19" style="display: flex;align-items: center;justify-content: center;">
-												<input type="checkbox" name="invoices[]" value="{{ $surgeries[0]->doctors[0]->id }}" class="checkbox" id="cbtest-{{ $data->id }}" />
-												<label for="cbtest-{{ $data->id }}" class="check-box">
-											</div>
-										</td>
-										<td>{{ $loop->iteration }}</td>
-										<td>{{ $data->patient_name }}</td>
-										<td>{{ number_format($data->getTotalPrice()) }} ریال</td>
-										<td>{{ number_format($data->getDoctorQuotaAmount($doctorRole)) }} ریال <span style="color:red;">{{ $doctorRole->quota }}%</span></td>
-										<td>{{ $doctorRole->title }}</td>
-									</tr>
+									@if($doctorSurgery->invoice_id == null)
+
+										<tr>
+											<td>
+												<div class="checkbox-wrapper-19" style="display: flex;align-items: center;justify-content: center;">
+													<input type="checkbox" name="invoices[]" value="{{ $doctorId .', '. $data->getDoctorQuotaAmount($doctorRole) .', '. $doctorSurgery->id }}" class="checkbox" id="cbtest-{{ $data->id }}" />
+													<label for="cbtest-{{ $data->id }}" class="check-box">
+												</div>
+											</td>
+											<td>{{ $loop->iteration }}</td>
+											<td>{{ $data->patient_name }}</td>
+											<td>{{ number_format($data->getTotalPrice()) }} ریال</td>
+											<td>{{ number_format($data->getDoctorQuotaAmount($doctorRole)) }} ریال <span style="color:red;">{{ $doctorRole->quota }}%</span></td>
+											<td>{{ $doctorRole->title }}</td>
+										</tr>
+
+									@endif
 
 								@endforeach
 							</tbody>
@@ -73,8 +80,6 @@
 	<script src="{{ asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.js') }}"></script>
 	<script src="{{ asset('assets/plugins/sweet-alert/sweetalert.min.js') }}"></script>
 	<script src="{{ asset('assets/js/sweet-alert.js') }}"></script>
-	
-	<script src="{{ asset('assets/js/comma.js') }}"></script>
 
 	<script src="{{ asset('assets/js/select-all.js') }}"></script>
 @endsection

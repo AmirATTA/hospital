@@ -14,8 +14,15 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mobile' => 'required',
+            'mobile' => 'required|regex:/[0]{1}[0-9]{10}/',
             'password' => 'required',
+        ];
+    }
+      
+    public function messages()
+    {
+        return [
+            'mobile.regex' => 'فرمت شماره شما صحیح نیست',
         ];
     }
 }

@@ -1,15 +1,10 @@
 @extends('layouts.admin.master')
-@section('title', 'لیست عمل ها')
+@section('title', 'صورت حساب ها')
 @section('links')
 	<link href="{{ asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/plugins/sweet-alert/sweetalert.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
-
-@can('create operations')
-	<a href="{{ route('operations.create') }}"><button class="btn btn-primary news-btn">عمل جدید +</button></a>
-@endcan
-
 <!-- Row -->
 @can('view operations')
 <div class="row">
@@ -21,35 +16,47 @@
 						<thead>
 							<tr>
 								<th class="border-bottom-0">ردیف</th>
-								<th class="border-bottom-0">نام</th>
-								<th class="border-bottom-0">قیمت</th>
+								<th class="border-bottom-0">نام دکتر</th>
+								<th class="border-bottom-0">قیمت کل (به تومان)</th>
+								<th class="border-bottom-0">توضیحات</th>
 								<th class="border-bottom-0">وضعیت</th>
 								<th class="border-bottom-0">اقدامات</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($operations as $data)
+							@foreach($invoices as $data)
+
+								@php
+									$doctor = App\Models\Doctor::findOrFail($data->doctor_id);
+								@endphp
 
 								<tr>
 									<td>{{ $loop->iteration }}</td>
-									<td>{{ $data->name }}</td>
-									<td class="comma">{{ $data->price }}</td>
+									<td>{{ $doctor->name }}</td>
+									<td>{{ number_format($data->amount) }}</td>
+									<td>{{ $data->description }}</td>
 									@if ($data->status == '1')
 										<td>
-											<span class="badge badge-success">فعال</span>
+											<span class="badge badge-success">پرداخت شده</span>
 										</td>
 									@else
 										<td>
-											<span class="badge badge-danger">غیر فعال</span>
+											<span class="badge badge-danger">پرداخت نشده</span>
 										</td>
 									@endif
 									<td>
 										<div class="d-flex">
-											<a href="{{ route('operations.edit', $data->id) }}" class="action-btns1">
+											<a href="{{ route('invoices.show', $data->id) }}" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="نمایش">
+													<i class="feather feather-eye text-primary"></i>
+												</a>
+											<a href="{{ route('invoices.edit', $data->id) }}" class="action-btns1">
 												<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
 											</a>
-											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-operation" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
+											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-invoice" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
 												<i class="feather feather-trash-2 text-danger"></i>
+											</a>
+											<a href="#" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="پرداخت">
+												<i class="feather feather-dollar-sign text-success"></i>
 											</a>
 										</div>
 									</td>
@@ -58,11 +65,11 @@
 							@endforeach
 						</tbody>
 					</table>
-					@if(count($operations) === 0)
+					@if(count($invoices) === 0)
 						<div class="text-center text-danger" style="font-family: unset;">هیچ داده ای وجود ندارد</div>
 					@endif
 				</div>
-				{!! $operations->links('vendor.pagination.bootstrap-4') !!}
+				{!! $invoices->links('vendor.pagination.bootstrap-4') !!}
 			</div>
 		</div>
 	</div>

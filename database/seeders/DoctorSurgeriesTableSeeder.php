@@ -18,16 +18,12 @@ class DoctorSurgeriesTableSeeder extends Seeder
             'doctor_id' => '1',
             'doctor_role_id' => '1',
             'surgery_id' => '1',
-            'invoice_id' => null,
-            'amount' => rand(10,10000000),
         ]);
 
         DB::table('doctor_surgery')->insert([
             'doctor_id' => '2',
             'doctor_role_id' => '2',
             'surgery_id' => '1',
-            'invoice_id' => null,
-            'amount' => rand(10,10000000),
         ]);
     }
 }

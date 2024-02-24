@@ -4,9 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use Carbon\Carbon;
 use App\Models\Doctor;
+use App\Models\Invoice;
 use App\Models\Surgery;
 use App\Models\DoctorRole;
 use Illuminate\Http\Request;
+use App\Models\DoctorSurgery;
 use App\Traits\RedirectNotify;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Date;
@@ -51,8 +53,12 @@ class DoctorSurgeryController extends Controller
             $query->where('doctor_id', $doctorId);
         })->whereBetween('created_at', [$startDate, $search['end_date']])->get();
 
+        // dd($surgeries);
+        // $doctorSurgery = DoctorSurgery::where('doctor_id', $surgeries[0]->doctors[0]->id)->where('surgery_id', $data->id)->first();
+
         return view('admin.doctor-surgery.create')->with([
             'surgeries' => $surgeries,
+            'doctorId' => $doctorId,
         ]);
     }
 
@@ -61,7 +67,46 @@ class DoctorSurgeryController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $requestData = $request->except('_token');
+
+        if(empty($requestData)) {
+            return $this->redirectNotify('doctor-surgeries.index', 'error', 'هيچ داده اي وارد نشده.');
+        }
+
+        $invoices = $requestData['invoices'];
+
+        $doctorInvoice = [];
+
+        $doctorSurgeryIds = [];
+
+        foreach($invoices as $invoice) {
+            $doctorId = $invoice[0];
+
+            $invoice = explode(', ', $invoice);
+            $doctorInvoice[] = $invoice[1];
+
+            $doctorSurgeryIds[] = $invoice[2];
+        }
+
+        // Convert array values to integers for calculations
+        $intDoctorInvoice = array_map('intval', $doctorInvoice);
+
+        // Calculate the total sum of array elements
+        $DoctorInvoiceSum = array_sum($intDoctorInvoice);
+
+        $validated = [
+            'amount' => $DoctorInvoiceSum, 
+            'description' => null,
+            'status' => 0,
+            'doctor_id' => $doctorId,
+        ];
+        $invoice = Invoice::create($validated);
+
+        foreach ($doctorSurgeryIds as $id) {
+            DoctorSurgery::where('id', $id)->update(['invoice_id' => $invoice->id]);
+        }
+
+        return $this->redirectNotify('invoices.index', 'success', 'عملیات با موفقیت انجام شد.');
     }
 
     /**

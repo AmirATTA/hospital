@@ -15,7 +15,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'mobile' => 'required|unique:users,mobile',
+            'mobile' => 'required|unique:users,mobile|regex:/[0]{1}[0-9]{10}/',
             'email' => 'nullable',
             'password' => 'required|string|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/',
         ];
@@ -25,6 +25,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'password.regex' => 'کلمه عبور باید حتما حداقل دارای یک حروف کوچک و یک حروف بزرگ و یک عدد باشد',
+            'mobile.regex' => 'فرمت شماره شما صحیح نیست',
         ];
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('amount');
-            $table->text('description')->nullabe();
+            $table->text('description')->nullable();
             $table->boolean('status')->default(1);
 
             $table->unsignedBigInteger('doctor_id');

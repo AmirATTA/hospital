@@ -21,8 +21,14 @@
 							<div class="form-group">
 								<label class="form-label">دكتر</label>
 								<select class="form-control doctors" name="doctor">
-									@foreach($doctors as $item)										
-										<option value="{{ $item->id }}">{{ $item->name }}</option>
+									@foreach($doctors as $doctor)										
+
+									@php
+										$doctorSurgeries = App\Models\DoctorSurgery::where('doctor_id', $doctor->id)->whereNull('invoice_id')->count();
+									@endphp
+
+										<option value="{{ $doctor->id }}">{{ $doctor->name }} 
+										@if($doctorSurgeries != '0')({{ $doctorSurgeries }})@endif</option>
 									@endforeach
 								</select>
 							</div>

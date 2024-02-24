@@ -119,7 +119,7 @@
 								</li>
 							@endif
 
-							@if($user->can('view activity-logs') || $user->can('create surgeries') || $user->can('update surgeries') || $user->can('delete surgeries'))
+							@if($user->can('view surgeries') || $user->can('create surgeries') || $user->can('update surgeries') || $user->can('delete surgeries'))
 								<li class="slide">
 									<a class="side-menu__item" data-toggle="slide" href="#">
 										<i class="fa-solid fa-stethoscope sidemenu_icon"></i>
@@ -138,11 +138,11 @@
 								</li>
 							@endif
 
-							@if($user->can('view activity-logs') || $user->can('delete activity-logs'))
+							@if($user->can('view invoices') || $user->can('update invoices') || $user->can('delete invoices'))
 								<li class="slide">
-									<a class="side-menu__item" data-toggle="slide" href="{{ route('activity-logs.index') }}">
-										<i class="fa-solid fa-clock-rotate-left sidemenu_icon"></i>
-										<span class="side-menu__label">گزارش فعالیت ها</span></i>
+									<a class="side-menu__item" data-toggle="slide" href="{{ route('invoices.index') }}">
+										<i class="fa-solid fa-receipt sidemenu_icon"></i>
+										<span class="side-menu__label">صورت حساب ها</span></i>
 									</a>
 								</li>
 							@endif
@@ -156,12 +156,23 @@
 								</li>
 							@endif
 
-							<li class="slide">
-								<a class="side-menu__item" data-toggle="slide" href="{{ route('settings.index') }}">
-									<i class="fa-solid fa-gear sidemenu_icon"></i>
-									<span class="side-menu__label">تنظیمات</span></i>
-								</a>
-							</li>
+							@if($user->can('view activity-logs') || $user->can('delete activity-logs'))
+								<li class="slide">
+									<a class="side-menu__item" data-toggle="slide" href="{{ route('activity-logs.index') }}">
+										<i class="fa-solid fa-clock-rotate-left sidemenu_icon"></i>
+										<span class="side-menu__label">گزارش فعالیت ها</span></i>
+									</a>
+								</li>
+							@endif
+
+							@if($user->can('view settings') || $user->can('update settings'))
+								<li class="slide">
+									<a class="side-menu__item" data-toggle="slide" href="{{ route('settings.index') }}">
+										<i class="fa-solid fa-gear sidemenu_icon"></i>
+										<span class="side-menu__label">تنظیمات</span></i>
+									</a>
+								</li>
+							@endif
 						</ul>
 					</div>
 				</aside>

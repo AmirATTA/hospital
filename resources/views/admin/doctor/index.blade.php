@@ -41,7 +41,7 @@
 													<i class="feather feather-eye text-primary"></i>
 												</a>
 											<a href="{{ route('doctors.edit', $data->id) }}" class="action-btns1">
-												<i class="feather feather-edit-2  text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
+												<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
 											</a>
 											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-doctor" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
 												<i class="feather feather-trash-2 text-danger"></i>

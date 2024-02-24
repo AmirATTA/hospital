@@ -98,9 +98,21 @@ return new class extends Migration
             'create surguries' => 'ایجاد عمل جراحی ها',
             'edit surguries' => 'ویرایش عمل جراحی ها',
             'delete surguries' => 'حذف عمل جراحی ها',
+
+            'view doctor-surgeries' => 'نمایش پرداخت پزشک ها',
+            'create doctor-surgeries' => 'ایجاد پرداخت پزشک ها',
+            'edit doctor-surgeries' => 'ویرایش پرداخت پزشک ها',
+            'delete doctor-surgeries' => 'حذف پرداخت پزشک ها',
             
             'view activity-logs' => 'نمایش گزارش فعالیت ها',
             'delete activity-logs' => 'حذف گزارش فعالیت ها',
+                        
+            'view settings' => 'نمایش تنظیمات ها',
+            'delete settings' => 'حذف تنظیمات ها',
+                        
+            'view invoices' => 'نمایش صورت حساب ها',
+            'edit doctor-surgeries' => 'ویرایش صورت حساب ها',
+            'delete invoices' => 'حذف صورت حساب ها',
             
         ];
 

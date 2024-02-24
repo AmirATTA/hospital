@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('doctor_role_id')->constrained()->onDelete('cascade');
             $table->foreignId('surgery_id')->constrained()->onDelete('cascade');
             $table->foreignId('invoice_id')->nullable()->constrained()->onDelete('cascade');
-            $table->bigInteger('amount');
+            // $table->bigInteger('amount');
         });
     }
 

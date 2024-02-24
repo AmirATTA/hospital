@@ -19,6 +19,7 @@ class DoctorStoreRequest extends FormRequest
             'speciality_id' => 'required',
             'mobile' => [
                 'required',
+                'regex:/[0]{1}[0-9]{10}/',
                 Rule::unique('doctors')->ignore($this->route('doctor'))
             ],
             'doctorRoles' => 'required',
@@ -30,6 +31,7 @@ class DoctorStoreRequest extends FormRequest
     {
         return [
             'password.regex' => 'کلمه عبور باید حتما حداقل دارای یک حروف کوچک و یک حروف بزرگ و یک عدد باشد',
+            'mobile.regex' => 'فرمت شماره شما صحیح نیست',
         ];
     }
 }

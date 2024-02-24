@@ -19,10 +19,19 @@ class ProfileRequest extends FormRequest
             'name' => 'required',
             'mobile' => [
                 'required',
+                'regex:/[0]{1}[0-9]{10}/',
                 Rule::unique('users')->ignore($this->route('user', Auth::id()))
             ],
             'email' => 'required|email',
             'password' => 'nullable|confirmed',
+        ];
+    }
+        
+    public function messages()
+    {
+        return [
+            'password.regex' => 'کلمه عبور باید حتما حداقل دارای یک حروف کوچک و یک حروف بزرگ و یک عدد باشد',
+            'mobile.regex' => 'فرمت شماره شما صحیح نیست',
         ];
     }
 }

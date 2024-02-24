@@ -10,7 +10,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class DoctorSurgery extends Model
 {
     use HasFactory, LogsActivity;
-        
+
+    public $timestamps = false; // Disable automatic timestamp handling
+
     protected $fillable = [
         'doctor_id',
         'doctor_role_id',
@@ -25,4 +27,6 @@ class DoctorSurgery extends Model
         ->logOnly($this->fillable)
         ->setDescriptionForEvent(fn(string $eventName) => 'پرداخت پزشک' . ' ' . __('custom.'. $eventName));
     }
+
+    protected $table = 'doctor_surgery';
 }
