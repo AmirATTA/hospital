@@ -70,7 +70,13 @@
                                 <li>
                                     <div class="properties-list">
                                         <strong>{{ ucfirst(str_replace('_', ' ', $key)) }}</strong>
-                                        <span>{{ $value }}</span>
+                                        <span>
+                                            @if($value != null)
+                                                {{ $value }}
+                                            @else
+                                                خالی
+                                            @endif
+                                        </span>
                                     </div>
                                 </li>
                             @endif

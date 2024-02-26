@@ -14,12 +14,18 @@
 				</a>
 			</div>
 			<div class="d-flex order-lg-2 my-auto mr-auto">
-				<div class="dropdown header-fullscreen">
-					<a class="nav-link icon full-screen-link">
-						<i class="feather feather-maximize fullscreen-button fullscreen header-icons"></i>
+                <div class="dropdown header-fullscreen">
+                    <a class="nav-link icon full-screen-link">
+                        <i class="feather feather-maximize fullscreen-button fullscreen header-icons"></i>
 						<i class="feather feather-minimize fullscreen-button exit-fullscreen header-icons"></i>
 					</a>
 				</div>
+                <div class="dropdown header-notify">
+                    <a class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
+                        <i class="feather feather-bell header-icon"></i>
+                        <span class="bg-dot"></span>
+                    </a>
+                </div>
 				<div class="dropdown profile-dropdown">
 					<a href="#" class="nav-link pr-1 pl-0 leading-none" data-toggle="dropdown">
 						<span>
@@ -66,6 +72,40 @@
 </div>
 <!--/app header-->
 
+<!--Sidebar-right-->
+<div class="sidebar sidebar-right sidebar-animate">
+    <div class="card-header border-bottom pb-5">
+        <h4 class="card-title">اعلان ها </h4>
+        <div class="card-options">
+            <a href="#" class="btn btn-sm btn-icon btn-light text-primary"  data-toggle="sidebar-right" data-target=".sidebar-right"><i class="feather feather-x"></i> </a>
+        </div>
+    </div>
+    <div class="">
+        <div class="list-group-item  align-items-center border-0">
+            <div class="d-flex">
+                <span class="avatar avatar-lg brround m-2"></span>
+                <div class="mt-1">
+                    <a href="#" class="font-weight-semibold fs-16">Liam <span class="text-muted font-weight-normal">فرستادن پیام</span></a>
+                    <span class="clearfix"></span>
+                    <span class="text-muted fs-13 ml-auto"><i class="mdi mdi-clock text-muted mr-1"></i>2 دقیقه پیش</span>
+                </div>
+                <div class="ml-auto">
+                    <a href="" class="mr-0 option-dots" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="feather feather-more-horizontal"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-left" role="menu">
+                        <li><a href="#"><i class="feather feather-eye ml-2"></i>بازدید</a></li>
+                        <li><a href="#"><i class="feather feather-plus-circle ml-2"></i>اضافه</a></li>
+                        <li><a href="#"><i class="feather feather-trash-2 ml-2"></i>حذف</a></li>
+                        <li><a href="#"><i class="feather feather-settings ml-2"></i>بیشتر</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/Sidebar-right-->
+
 <!--Change password Modal -->
 <div class="modal fade"  id="changepasswordnmodal">
 	<div class="modal-dialog" role="document">
@@ -81,17 +121,19 @@
 					</button>
 				</div>
 				<div class="modal-body">
-				<div class="form-group">
-						<label class="form-label">گذرواژه قبلی</label>
-						<input type="password" class="form-control"name="old_password" placeholder="گذرواژه قبلی">
-					</div>
 					<div class="form-group">
-						<label class="form-label">گذرواژه جديد</label>
-						<input type="password" class="form-control"name="password" placeholder="گذرواژه جديد">
-					</div>
-					<div class="form-group">
-						<label class="form-label">تکرار گذرواژه جدید</label>
-						<input type="password" class="form-control"name="password_confirmation" placeholder="تکرار گذرواژه">
+						<div class="form-group">
+							<label class="form-label">گذرواژه قبلی</label>
+							<input type="password" class="form-control"name="old_password" placeholder="گذرواژه قبلی">
+						</div>
+						<div class="form-group">
+							<label class="form-label">گذرواژه جديد</label>
+							<input type="password" class="form-control"name="password" placeholder="گذرواژه جديد">
+						</div>
+						<div class="form-group">
+							<label class="form-label">تکرار گذرواژه جدید</label>
+							<input type="password" class="form-control"name="password_confirmation" placeholder="تکرار گذرواژه">
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">

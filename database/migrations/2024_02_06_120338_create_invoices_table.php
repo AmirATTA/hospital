@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('amount');
             $table->text('description')->nullable();
-            $table->boolean('status')->default(1);
+            $table->boolean('status')->default(0);
 
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')->references('id')->on('doctors');

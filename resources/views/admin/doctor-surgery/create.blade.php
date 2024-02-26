@@ -51,8 +51,8 @@
 											</td>
 											<td>{{ $loop->iteration }}</td>
 											<td>{{ $data->patient_name }}</td>
-											<td>{{ number_format($data->getTotalPrice()) }} ریال</td>
-											<td>{{ number_format($data->getDoctorQuotaAmount($doctorRole)) }} ریال <span style="color:red;">{{ $doctorRole->quota }}%</span></td>
+											<td>{{ number_format($data->getTotalPrice()) }} تومان</td>
+											<td>{{ number_format($data->getDoctorQuotaAmount($doctorRole)) }} تومان <span style="color:red;">{{ $doctorRole->quota }}%</span></td>
 											<td>{{ $doctorRole->title }}</td>
 										</tr>
 

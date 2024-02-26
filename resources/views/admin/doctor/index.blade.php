@@ -15,6 +15,19 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
+
+            <!-- Search & filter -->
+            <form action="{{ route('doctors.search') }}" method="GET">
+                <div class="form-group mt-5" style="width:300px;margin:10px 25px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="{{ $search ?? '' }}" name="search" placeholder="جستجو برای نام دکتر">
+                        <span class="input-group-append">
+                            <button type="submit" class="btn btn-primary">جستجو</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="job-list">

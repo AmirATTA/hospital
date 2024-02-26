@@ -65,4 +65,10 @@ class Doctor extends Model
     {
         return $this->belongsToMany(DoctorRole::class);
     }
+
+    public function doctor_surgeries()
+    {
+        return $this->belongsToMany(Surgery::class)
+            ->withPivot('invoice_id');
+    }
 }

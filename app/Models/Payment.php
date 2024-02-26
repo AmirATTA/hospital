@@ -7,14 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class Invoice extends Model
+class Payment extends Model
 {
     use HasFactory, LogsActivity;
         
     protected $fillable = [
+        'invoice_id',
         'amount',
+        'pay_type',
+        'due_date',
+        'receipt',
         'description',
-        'doctor_id',
         'status',
     ];
     
@@ -22,16 +25,6 @@ class Invoice extends Model
     {
         return LogOptions::defaults()
         ->logOnly($this->fillable)
-        ->setDescriptionForEvent(fn(string $eventName) => 'صورت حساب ها' . ' ' . __('custom.'. $eventName));
-    }
-
-    public function payments()
-    {
-        return $this->hasMany(Payment::class, 'invoice_id');
-    }
-    
-    public function paymentSum()
-    {
-        return $totalPaymentsAmount = $this->payments()->sum('amount');
+        ->setDescriptionForEvent(fn(string $eventName) => 'پرداختی' . ' ' . __('custom.'. $eventName));
     }
 }

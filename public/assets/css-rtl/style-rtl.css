@@ -284,7 +284,6 @@ input[type="range"]::-webkit-slider-thumb:active {
 
 
 
-
 .custom-loader {
     width: 48px;
     height: 48px;
@@ -528,3 +527,27 @@ input[type="range"]::-webkit-slider-thumb:active {
     -webkit-animation: dothatopcheck-19 0.4s ease 0s forwards;
     animation: dothatopcheck-19 0.4s ease 0s forwards;
   }
+
+  
+
+.amount-progress-bar {
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+    background-color: red;
+}
+.amount-finished-progress-bar {
+    margin-top: -5px;
+    width: 0%;
+    height: 5px;
+    border-radius: 5px;
+    background-color: lime;
+    z-index: 2;
+}
+
+.payment-td {
+    transition: 0.1s ease;
+}
+.payment-td:hover {
+    background: #f1f4fb;
+}

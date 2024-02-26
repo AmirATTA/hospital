@@ -9,7 +9,6 @@ $('#dp-released').MdPersianDateTimePicker({
 });
 
 
-
 $('#dp-start').MdPersianDateTimePicker({
   targetTextSelector: '#dp-start-text',
   targetDateSelector: '#dp-start-date',
@@ -18,4 +17,10 @@ $('#dp-start').MdPersianDateTimePicker({
 $('#dp-end').MdPersianDateTimePicker({
   targetTextSelector: '#dp-end-text',
   targetDateSelector: '#dp-end-date',
+});
+
+
+$('#dp-due-date').MdPersianDateTimePicker({
+  targetTextSelector: '#dp-due-date-text',
+  targetDateSelector: '#dp-due-date-date',
 });

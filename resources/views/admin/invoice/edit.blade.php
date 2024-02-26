@@ -1,5 +1,12 @@
 @extends('layouts.admin.master')
-@section('title', 'ویرایش عمل')
+@section('title', 'ویرایش توضیحات صورت حساب')
+@section('links')
+	<link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet"/>
+
+	<link href="{{ asset('assets/css/jquery.md.bootstrap.datetimepicker.style.css') }}" rel="stylesheet"/>
+
+	<link href="{{ asset('assets/plugins/wysiwyag/rte_theme_default.css') }}" rel="stylesheet" />
+@endsection
 @section('content')
 <!-- Row -->
 <div class="row">
@@ -8,34 +15,15 @@
 		<x-errors></x-errors>
 		
 		<div class="card">
-			<form action="{{ route('operations.update', $operation->id) }}" id="Speciality" name="Speciality" method="post">
+			<form action="{{ route('invoices.update', $invoice->id) }}" id="invoice" name="invoice" method="post">
 				@csrf
 				@method('PATCH')
 				<div class="card-body">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group required">
-								<label class="form-label">عنوان</label>
-								<input class="form-control" value="{{ $operation->name }}" placeholder="عنوان" name="name">
-							</div>
+					<div class="col-12">
+						<div class="form-group">
+							<label class="form-label">توضیحات</label>
+							<textarea class="content" name="description" id="example">{{ $invoice->description }}</textarea>
 						</div>
-						<div class="col-md-6">
-							<div class="form-group required">
-								<label class="form-label">قیمت</label>
-								<input class="form-control comma" value="{{ $operation->price }}" placeholder="قیمت" name="price">
-							</div>
-						</div>
-					</div>
-					<div class="custom-controls-stacked d-md-flex">
-						<label class="form-label mt-1 ml-5">وضعیت :</label>
-						<label class="custom-control custom-radio success ml-4">
-							<input type="radio" class="custom-control-input" name="status" value="1" @if($operation->status == '1') checked @endif>
-							<span class="custom-control-label">فعال</span>
-						</label>
-						<label class="custom-control custom-radio success ml-4">
-							<input type="radio" class="custom-control-input" name="status" value="0" @if($operation->status == '0') checked @endif>
-							<span class="custom-control-label">غیر فعال</span>
-						</label>
 					</div>
 				</div>
 				<div class="card-footer text-left">
@@ -49,6 +37,13 @@
 <!-- End Row -->
 @endsection
 @section('scripts')
+	<script src="{{ asset('assets/plugins/wysiwyag/rte.js') }}"></script>
+	<script src="{{ asset('assets/plugins/wysiwyag/all_plugins.js') }}"></script>
+	<script src="{{ asset('assets/js/form-editor2.js') }}"></script>
+
+	<script src="{{ asset('assets/plugins/select2.min.js') }}"></script>
+	<script src="{{ asset('assets/js/select2.js') }}"></script>
+	
 	<script src="{{ asset('assets/js/checkbox.js') }}"></script>
 
 	<script src="{{ asset('assets/js/comma.js') }}"></script>

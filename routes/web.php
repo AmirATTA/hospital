@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\DoctorController;
 use App\Http\Controllers\admin\InvoiceController;
+use App\Http\Controllers\admin\PaymentController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\SurgeryController;
@@ -33,7 +34,8 @@ Route::get('test', function(){
 });
 
 Route::post('/', [LoginController::class, 'loginPost'])->name('login.post');
-Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('PerventLogin');
+
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
@@ -50,6 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('specialities/{speciality}', [SpecialityController::class, 'destroy'])->name('specialities.destroy');
     Route::resource('specialities', SpecialityController::class);
 
+    Route::get('doctors/search', [DoctorController::class, 'search'])->name('doctors.search');
     Route::delete('doctors/{doctor}', [DoctorController::class, 'destroy'])->name('doctors.destroy');
     Route::resource('doctors', DoctorController::class);
 
@@ -65,6 +68,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('surgeries/{surgery}', [SurgeryController::class, 'destroy'])->name('surgeries.destroy');
     Route::resource('surgeries', SurgeryController::class);
 
+    Route::get('activity-logs/search', [ActivityLogController::class, 'search'])->name('activity-logs.search');
     Route::delete('activity-logs/{activity-log}', [ActivityLogController::class, 'destroy'])->name('activity-logs.destroy');
     Route::resource('activity-logs', ActivityLogController::class);
 
@@ -72,8 +76,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('doctor-surgeries/{doctor-surgery}', [DoctorSurgeryController::class, 'destroy'])->name('doctor-surgeries.destroy');
     Route::resource('doctor-surgeries', DoctorSurgeryController::class);
 
-    Route::delete('invoices/{surgery}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
+    Route::delete('invoices/{invoice}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
     Route::resource('invoices', InvoiceController::class);
+    Route::get('invoices/{invoice}/description', [InvoiceController::class, 'description'])->name('invoices.description');
+
+    Route::delete('payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
+    Route::resource('payments', PaymentController::class);
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 

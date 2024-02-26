@@ -32,11 +32,27 @@ class DoctorController extends Controller
     }
 
     /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $doctors = Doctor::where('name', 'like', '%'.$search.'%')->paginate(15);
+        
+        return view('admin.doctor.index')->with([
+            'doctors' => $doctors,
+            'search' => $search,
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $doctors = Doctor::orderBy('id', 'desc')->paginate(15);
+        
         return view('admin.doctor.index')->with([
             'doctors' => $doctors,
         ]);

@@ -124,40 +124,6 @@
 
 			@include('layouts.admin.footer')
 
-			<!--Sidebar-right-->
-			<div class="sidebar sidebar-right sidebar-animate">
-				<div class="card-header border-bottom pb-5">
-					<h4 class="card-title">اعلان ها </h4>
-					<div class="card-options">
-						<a href="#" class="btn btn-sm btn-icon btn-light text-primary"  data-toggle="sidebar-right" data-target=".sidebar-right"><i class="feather feather-x"></i> </a>
-					</div>
-				</div>
-				<div class="">
-					<div class="list-group-item  align-items-center border-0">
-						<div class="d-flex">
-							<span class="avatar avatar-lg brround mr-3"></span>
-							<div class="mt-1">
-								<a href="#" class="font-weight-semibold fs-16">Liam <span class="text-muted font-weight-normal">فرستادن پیام</span></a>
-								<span class="clearfix"></span>
-								<span class="text-muted fs-13 ml-auto"><i class="mdi mdi-clock text-muted mr-1"></i>2 دقیقه پیش</span>
-							</div>
-							<div class="ml-auto">
-								<a href="" class="mr-0 option-dots" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-									<span class="feather feather-more-horizontal"></span>
-								</a>
-								<ul class="dropdown-menu dropdown-menu-left" role="menu">
-									<li><a href="#"><i class="feather feather-eye ml-2"></i>بازدید</a></li>
-									<li><a href="#"><i class="feather feather-plus-circle ml-2"></i>اضافه</a></li>
-									<li><a href="#"><i class="feather feather-trash-2 ml-2"></i>حذف</a></li>
-									<li><a href="#"><i class="feather feather-settings ml-2"></i>بیشتر</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/Sidebar-right-->
-
 			<!--Clock-IN Modal -->
 			<div class="modal fade"  id="clockinmodal">
 				<div class="modal-dialog" role="document">

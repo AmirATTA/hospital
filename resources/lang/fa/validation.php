@@ -207,6 +207,8 @@ return [
         'doctorsInputRequired' => 'نقش دكتر ها',
         'doctorsInput' => 'نقش دكتر ها',
         'regex' => 'نقش دكتر ها',
+        'amount' => 'مبلغ',
+        'pay_type' => 'نوع پرداخت',
     ],
 
 ];

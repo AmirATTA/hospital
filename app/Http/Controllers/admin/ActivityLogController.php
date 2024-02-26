@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use Illuminate\Support\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,13 +21,57 @@ class ActivityLogController extends Controller
     }
 
     /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $search[0] = $search[0] ?? '2000-01-01';
+        $search[1] = $search[1] ?? '2099-12-31';
+        $search[2] = $search[2] ?? 'App';
+
+        // =============------------------------------=============
+        // =============------------------------------=============
+        // =============------------------------------=============
+        $activityLogs = Activity::query()
+            ->whereBetween('created_at', [$search[0], $search[1]])
+            ->when($search[2] != null, function ($query) use ($search) {
+                return $query->where('subject_type', $search[2]);
+            })
+            ->paginate(15);
+        // =============------------------------------=============
+        // =============------------------------------=============
+        // =============------------------------------=============
+
+        $subjects = Activity::pluck('subject_type');
+        $subjectsArray = $subjects->toArray();
+        $subjects = array_unique($subjectsArray);
+
+        return view('admin.activity-log.index')->with([
+            'activityLogs' => $activityLogs,
+            'search' => $search,
+            'subjects' => $subjects,
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $activityLog = Activity::orderBy('id', 'desc')->paginate(15);
+        $activityLogs = Activity::orderBy('id', 'desc')->paginate(15);
+
+        $subjects = Activity::pluck('subject_type');
+        $subjectsArray = $subjects->toArray();
+        $subjects = array_unique($subjectsArray);
+
+        $search[2] = '';
+
         return view('admin.activity-log.index')->with([
-            'activityLog' => $activityLog,
+            'activityLogs' => $activityLogs,
+            'subjects' => $subjects,
+            'search' => $search,
         ]);
     }
 

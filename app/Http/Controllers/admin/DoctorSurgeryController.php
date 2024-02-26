@@ -32,7 +32,9 @@ class DoctorSurgeryController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::all();
+        $doctors = Doctor::whereHas('doctor_surgeries', function ($query) {
+            $query->whereNull('invoice_id');
+        })->get();
 
         return view('admin.doctor-surgery.index')->with([
             'doctors' => $doctors,

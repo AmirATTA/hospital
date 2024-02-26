@@ -1,6 +1,8 @@
 @extends('layouts.admin.master')
 @section('title', 'لیست گزارش فعالیت')
 @section('links')
+	<link href="{{ asset('assets/css/jquery.md.bootstrap.datetimepicker.style.css') }}" rel="stylesheet"/>
+
 	<link href="{{ asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/plugins/sweet-alert/sweetalert.css') }}" rel="stylesheet" />
 @endsection
@@ -17,6 +19,54 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
+
+                <!-- Search & filter -->
+                <form action="{{ route('activity-logs.search') }}" method="GET">
+                    <div class="form-group mt-5 d-flex" 
+                    style="margin:10px 25px;align-items: center;justify-content: space-between;flex-wrap: wrap;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">از</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" id="dp-start">
+                                            <span class="feather feather-calendar"></span>
+                                        </div>
+                                    </div><input class="form-control fc-datepicker hasDatepicker" value="{{ old('search[]') }}" id="dp-start-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
+                                    <input type="hidden" value="{{ old('search[]') }}" id="dp-start-date" name="search[]" aria-label="date11" aria-describedby="date11">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">تا</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text" id="dp-end">
+                                            <span class="feather feather-calendar"></span>
+                                        </div>
+                                    </div><input class="form-control fc-datepicker hasDatepicker" value="{{ old('search[]') }}" id="dp-end-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
+                                    <input type="hidden" value="{{ old('search[]') }}" id="dp-end-date" name="search[]" aria-label="date11" aria-describedby="date11">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">تخصص</label>
+                                <select class="form-control custom-select select2" name="search[]" data-placeholder="انتخاب موضوع">
+                                    <option label="انتخاب موضوع"></option>
+                                    @foreach($subjects as $item)										
+                                        <option value="{{ $item }}" @selected($item == $search[2])>{{ __('custom.'. $item) }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-footer text-left" style="width: 100%;">
+                            <button type="submit" class="btn btn-primary btn-block">جستجو</button>
+                        </div>
+                    </div>
+                </form>
+
 				<div class="card-body">
 					<div class="table-responsive">
 						<table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="job-list">
@@ -30,7 +80,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($activityLog as $data)
+								@foreach($activityLogs as $data)
 
 									<tr>
 										<td>{{ $loop->iteration }}</td>
@@ -52,11 +102,11 @@
 								@endforeach
 							</tbody>
 						</table>
-						@if(count($activityLog) === 0)
+						@if(count($activityLogs) === 0)
 							<div class="text-center text-danger">هیچ داده ای وجود ندارد</div>
 						@endif
 					</div>
-					{!! $activityLog->links('vendor.pagination.bootstrap-4') !!}
+					{!! $activityLogs->links('vendor.pagination.bootstrap-4') !!}
 				</div>
 			</div>
 		</div>
@@ -65,6 +115,9 @@
 <!-- End Row -->
 @endsection
 @section('scripts')
+    <script src="{{ asset('assets/plugins/jquery.md.bootstrap.datetimepicker.js') }}"></script>
+	<script src="{{ asset('assets/js/calendar.js') }}"></script>
+
 	<script src="{{ asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.js') }}"></script>
 	<script src="{{ asset('assets/plugins/sweet-alert/sweetalert.min.js') }}"></script>
 	<script src="{{ asset('assets/js/sweet-alert.js') }}"></script>
