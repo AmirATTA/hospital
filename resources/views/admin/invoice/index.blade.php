@@ -123,7 +123,7 @@
 					<div class="form-group">
 						<div class="form-group required">
 							<div class="d-flex" style="justify-content: space-between;">
-								<small class="form-text" style="color:green;">حداقل الزام پرداخت:	25,000</small>
+								<small class="form-text" style="color:green;">حداقل الزام پرداخت:	25,000 تومان</small>
 								<small class="form-text" style="color:red;" id="amount_maximum"></small>
 							</div>
 							<label class="form-label">مبلغ برای پرداخت</label>

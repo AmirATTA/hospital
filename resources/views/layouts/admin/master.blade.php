@@ -86,23 +86,25 @@
 
 						@include('layouts.admin.header')
 
-						<ol class="breadcrumb1" style="position:absolute;top:80px;margin-right:-15px;margin-top: 20px;">
-							<li class="breadcrumb-item1"><a href="{{ route('dashboard.index') }}"><i class="feather feather-home"></i> Dashboard</a></li>
-							<?php $segments = ''; ?>
+						@if(request()->route()->getName() != 'invoices.show')
+							<ol class="breadcrumb1" style="position:absolute;top:80px;margin-right:-15px;margin-top: 20px;">
+								<li class="breadcrumb-item1"><a href="{{ route('dashboard.index') }}"><i class="feather feather-home"></i> Dashboard</a></li>
+								<?php $segments = ''; ?>
 
-							@foreach(Request::segments() as $segment)
-								@if($segment != 'admin' 
-									&& $segment != 'dashboard' 
-									&& !is_numeric($segment))
+								@foreach(Request::segments() as $segment)
+									@if($segment != 'admin' 
+										&& $segment != 'dashboard' 
+										&& !is_numeric($segment))
 
-									<?php $segments .= '/'.$segment; ?>
-									<li class="breadcrumb-item1">
-										<a href="{{ url("admin$segments") }}">{{$segment}}</a>
-									</li>
+										<?php $segments .= '/'.$segment; ?>
+										<li class="breadcrumb-item1">
+											<a href="{{ url("admin$segments") }}">{{$segment}}</a>
+										</li>
 
-								@endif
-							@endforeach
-						</ol>
+									@endif
+								@endforeach
+							</ol>
+						@endif
 						
 						<!--Page header-->
 						<div class="page-header d-xl-flex d-block" style="margin-top: 70px;">

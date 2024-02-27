@@ -14,7 +14,7 @@ function openDescriptionModal(id) {
 
 function fillPaymentVariables(id, amount) {
     document.getElementById('invoice_id').value = id;
-    document.getElementById('amount_maximum').innerHTML = 'حداکثر مبلغ قابل پرداخت: ' + amount;
+    document.getElementById('amount_maximum').innerHTML = 'حداکثر مبلغ قابل پرداخت: ' + amount + ' تومان';
 }
 
 function payTypeSelect(select) {

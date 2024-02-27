@@ -34,4 +34,10 @@ class Invoice extends Model
     {
         return $totalPaymentsAmount = $this->payments()->sum('amount');
     }
+
+    public function doctors()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
+
 }

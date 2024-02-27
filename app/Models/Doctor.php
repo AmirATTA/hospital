@@ -41,6 +41,11 @@ class Doctor extends Model
         return $this->belongsToMany(Surgery::class);
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
 
     public function attachRoles(?array $roleNames, $onUpdate = false)
     {

@@ -112,6 +112,24 @@ span,div,.form-label {
     background-color: #fff;
     margin: 0 auto;
 }
+.header-brand-image {
+  position: relative;
+  bottom: 20px;
+  font-size: 60px;
+  color: #333333;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #fff;
+  margin: 0 auto;
+}
 
 .sortable {
     cursor: grab;

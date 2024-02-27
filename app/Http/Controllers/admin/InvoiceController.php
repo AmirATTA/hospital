@@ -5,9 +5,13 @@ namespace App\Http\Controllers\admin;
 use App\Models\Doctor;
 use App\Models\Invoice;
 use App\Models\Payment;
+use App\Models\Operation;
 use Illuminate\Http\Request;
+use App\Models\DoctorSurgery;
 use App\Traits\RedirectNotify;
+use App\Models\OperationSurgery;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -59,6 +63,15 @@ class InvoiceController extends Controller
 
         $doctor = Doctor::select('id', 'name')->findOrFail($invoice->doctor_id);
 
+        $doctorSurgery = DoctorSurgery::where('invoice_id', $invoice->id)->pluck('surgery_id');
+        $operationSurgery = OperationSurgery::where('surgery_id', $doctorSurgery)->pluck('operation_id');
+
+        $operation = [];
+        foreach ($operationSurgery as $key) {
+            $operation[] = Operation::where('id', $key)->get();
+        }
+        dd($operation);
+
         $payments = Payment::query()
             ->where('invoice_id', $invoice->id)
             ->select('id', 'amount', 'created_at', 'pay_type', 'due_date')
@@ -101,7 +114,11 @@ class InvoiceController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $payment = Payment::where('invoice_id', $id)->get()->toArray();
+        if(!$payment) {
+            $invoice = Invoice::findOrFail($id);
+            $invoice->delete();
+        }
     }
 
     /**

@@ -1,9 +1,7 @@
 @extends('layouts.admin.master')
-@section('title', 'جراحی')
 @section('content')
-<a href="{{ route('surgeries.create') }}"><button class="btn btn-primary news-btn">جراحی جدید +</button></a>
 <!-- Row -->
-<div class="row">
+<!-- <div class="row">
     <div class="col-xl-7 col-md-12">
         <div class="card">
             <div class="card-body">
@@ -90,13 +88,13 @@
                                             <tr class="border-bottom">
                                                 <td class="d-flex pr-6">
                                                     <a href="{{ route('payments.show', $payment->id) }}" class="d-flex btn payment-td">
-                                                        <span class="bg-green green-border brround d-block ml-5 mt-1 h-5 w-5"></span>
-                                                        <div class="my-auto">
-                                                            <span class="mb-1 font-weight-semibold fs-17">@if($payment->pay_type == 'cheque')چک @endif
+                                                        <span class="@if($payment->pay_type == 'cheque') bg-warning warning-border @else bg-primary primary-border @endif brround d-block ml-5 mt-1 h-5 w-5"></span>
+                                                        <div class="my-auto d-flex" style="flex-direction: column;align-items: flex-start;">
+                                                            <span class="mb-1 font-weight-semibold fs-17">@if($payment->pay_type == 'cheque') چک @else نقدی @endif
                                                             <span style="color:#00cf00">{{ number_format($payment->amount) }}</span> تومان</span>
                                                             @if($payment->pay_type == 'cheque')
-                                                            <div class="clearfix"></div>
-                                                            <small class="fs-14">زمان سررسید چک: {{ convertToJalaliDate($payment->due_date, true) }}</small>
+                                                                <div class="clearfix"></div>
+                                                                <small class="fs-14">زمان سررسید چک: {{ convertToJalaliDate($payment->due_date, true) }}</small>
                                                             @endif
                                                             <div class="clearfix"></div>
                                                             <small class="text-muted fs-14">{{ $payment->created_at->diffForHumans() }}</small>
@@ -116,11 +114,95 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- End Row -->
+
+
+
+<div style="margin-bottom:25px;position: relative;bottom: 100px;">
+    <button class="btn btn-info" onclick="printDiv('yourDivId')"><i class="si si-printer"></i> Print Invoice</button>
+</div>
+
+<div class="row" style="position: relative;bottom: 100px;">
+    <div class="col-md-12">
+        <div class="card overflow-hidden">
+            <div class="card-body">
+                <a class="header-brand" style="margin:auto;display: flex;flex-direction: column;align-items: center;margin-top:25px;">
+                    <img src="{{ asset('assets/images/hospital_logo.png') }}" class="header-brand-image dark-logo" alt="Dayonelogo">
+                    <h2 class="text-muted font-weight-bold" style="margin:0;">صورت حساب</h2>
+                    <h2 class="text-muted font-weight-bold" style="margin:0;">بیمارستان</h2>
+                </a>
+                <div class="d-flex" style="flex-direction: column;">
+                    <h5 class="mb-1">شماره شناسه: <strong>{{ $invoice->id }}</strong></h5>
+                    <span>تاریخ ثبت صورت حساب: <strong>{{ convertToJalaliDate($invoice->created_at, true) }}</strong></span>
+                    <span>مدیر حساب داری بیمارستان - <strong>{{ Auth::user()->name }}</strong></span>
+                </div>
+
+                <div class="card-body pl-0 pr-0">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span class="text-muted">محل امضا مسئول</span>
+                        </div>
+                        <div class="col-sm-6 text-left">
+                            <span class="text-muted">محل امضا دکتر</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-responsive push">
+                    <h2 class="text-muted font-weight-bold">عمل ها</h2>
+                    <table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="job-list">
+						<thead>
+							<tr>
+								<th class="border-bottom-0">ردیف</th>
+								<th class="border-bottom-0">نام</th>
+								<th class="border-bottom-0">قیمت</th>
+								<th class="border-bottom-0">وضعیت</th>
+								<th class="border-bottom-0">اقدامات</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($operations as $data)
+
+								<tr>
+									<td>{{ $loop->iteration }}</td>
+									<td>{{ $data->name }}</td>
+									<td class="comma">{{ $data->price }}</td>
+									@if ($data->status == '1')
+										<td>
+											<span class="badge badge-success">فعال</span>
+										</td>
+									@else
+										<td>
+											<span class="badge badge-danger">غیر فعال</span>
+										</td>
+									@endif
+									<td>
+										<div class="d-flex">
+											<a href="{{ route('operations.edit', $data->id) }}" class="action-btns1">
+												<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
+											</a>
+											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-operation" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
+												<i class="feather feather-trash-2 text-danger"></i>
+											</a>
+										</div>
+									</td>
+								</tr>
+
+							@endforeach
+						</tbody>
+					</table>
+                </div>
+                <p class="text-muted text-center">از اینکه با ما همکاری کردید بسیار سپاسگزاریم. ما مشتاقانه منتظر همکاری مجدد با شما هستیم!</p>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('scripts')
 	<script src="{{ asset('assets/js/progress-bar.js') }}"></script>
+
+	<script src="{{ asset('assets/js/print.js') }}"></script>
     
 		<script src="{{ asset('assets/js/view-page.js') }}"></script>
 @endsection

@@ -26,7 +26,7 @@
                     style="margin:10px 25px;align-items: center;justify-content: space-between;flex-wrap: wrap;">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label">از</label>
+                                <label class="form-label">از تاریخ</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text" id="dp-start">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label">تا</label>
+                                <label class="form-label">تا تاریخ</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text" id="dp-end">
