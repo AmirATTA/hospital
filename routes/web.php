@@ -46,9 +46,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
+    Route::get('users/search', [UserController::class, 'search'])->name('users.search');
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::resource('users', UserController::class);
 
+    Route::get('specialities/search', [SpecialityController::class, 'search'])->name('specialities.search');
     Route::delete('specialities/{speciality}', [SpecialityController::class, 'destroy'])->name('specialities.destroy');
     Route::resource('specialities', SpecialityController::class);
 
@@ -56,15 +58,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('doctors/{doctor}', [DoctorController::class, 'destroy'])->name('doctors.destroy');
     Route::resource('doctors', DoctorController::class);
 
+    Route::get('doctor-roles/search', [DoctorRoleController::class, 'search'])->name('doctor-roles.search');
     Route::delete('doctor-roles/{doctor-role}', [DoctorRoleController::class, 'destroy'])->name('doctor-roles.destroy');
     Route::resource('doctor-roles', DoctorRoleController::class);
 
+    Route::get('operations/search', [OperationController::class, 'search'])->name('operations.search');
     Route::delete('operations/{operation}', [OperationController::class, 'destroy'])->name('operations.destroy');
     Route::resource('operations', OperationController::class);
 
+    Route::get('insurances/search', [InsuranceController::class, 'search'])->name('insurances.search');
     Route::delete('insurances/{insurance}', [InsuranceController::class, 'destroy'])->name('insurances.destroy');
     Route::resource('insurances', InsuranceController::class);
 
+    Route::get('surgeries/search', [SurgeryController::class, 'search'])->name('surgeries.search');
     Route::delete('surgeries/{surgery}', [SurgeryController::class, 'destroy'])->name('surgeries.destroy');
     Route::resource('surgeries', SurgeryController::class);
 

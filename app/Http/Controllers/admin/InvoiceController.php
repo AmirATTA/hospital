@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Doctor;
 use App\Models\Invoice;
 use App\Models\Payment;
+use App\Models\Surgery;
 use App\Models\Operation;
 use Illuminate\Http\Request;
 use App\Models\DoctorSurgery;
@@ -66,11 +67,12 @@ class InvoiceController extends Controller
         $doctorSurgery = DoctorSurgery::where('invoice_id', $invoice->id)->pluck('surgery_id');
         $operationSurgery = OperationSurgery::where('surgery_id', $doctorSurgery)->pluck('operation_id');
 
-        $operation = [];
+        $surgery = Surgery::where('id', $doctorSurgery)->get();
+
+        $operations = [];
         foreach ($operationSurgery as $key) {
-            $operation[] = Operation::where('id', $key)->get();
+            $operations[] = Operation::where('id', $key)->get();
         }
-        dd($operation);
 
         $payments = Payment::query()
             ->where('invoice_id', $invoice->id)
@@ -82,6 +84,8 @@ class InvoiceController extends Controller
             'invoice' => $invoice,
             'doctor' => $doctor,
             'payments' => $payments,
+            'operations' => $operations,
+            'surgery' => $surgery,
         ]);
     }
 

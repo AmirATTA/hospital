@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\InsuranceStoreRequest;
 use App\Http\Requests\InsuranceUpdateRequest;
 use App\Traits\RedirectNotify;
+use Illuminate\Database\Eloquent\Builder;
 
 class InsuranceController extends Controller
 {
@@ -21,6 +22,25 @@ class InsuranceController extends Controller
         $this->middleware('permission:view insurances')->only('index');
 
         $this->middleware('permission:create insurances')->only('create');
+    }
+
+    /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->all();
+
+        $insurances = Insurance::query()
+        ->when($search['name'], fn (Builder $query) => $query->where('name', 'like', '%'.$search['name'].'%'))
+        ->when($search['type'], fn (Builder $query) => $query->where('type', $search['type']))
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('admin.insurance.index')->with([
+            'insurances' => $insurances,
+            'search' => $search,
+        ]);
     }
 
     /**

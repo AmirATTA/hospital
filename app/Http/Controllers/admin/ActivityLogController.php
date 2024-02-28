@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Activitylog\Models\Activity;
+use Illuminate\Database\Eloquent\Builder;
 
 class ActivityLogController extends Controller
 {
@@ -25,24 +26,14 @@ class ActivityLogController extends Controller
      */
     public function search(Request $request)
     {
-        $search = $request->input('search');
+        $search = $request->all();
 
-        $search[0] = $search[0] ?? '2000-01-01';
-        $search[1] = $search[1] ?? '2099-12-31';
-        $search[2] = $search[2] ?? 'App';
-
-        // =============------------------------------=============
-        // =============------------------------------=============
-        // =============------------------------------=============
         $activityLogs = Activity::query()
-            ->whereBetween('created_at', [$search[0], $search[1]])
-            ->when($search[2] != null, function ($query) use ($search) {
-                return $query->where('subject_type', $search[2]);
-            })
-            ->paginate(15);
-        // =============------------------------------=============
-        // =============------------------------------=============
-        // =============------------------------------=============
+            ->when($search['subject'], fn (Builder $query) => $query->where('subject_type', $search['subject']))
+            ->when($search['fromDate'], fn (Builder $query) => $query->where('created_at', '>=', $search['fromDate']))
+            ->when($search['toDate'], fn (Builder $query) => $query->where('created_at', '<=', $search['toDate']))
+            ->paginate(15)
+            ->withQueryString();
 
         $subjects = Activity::pluck('subject_type');
         $subjectsArray = $subjects->toArray();
@@ -66,12 +57,9 @@ class ActivityLogController extends Controller
         $subjectsArray = $subjects->toArray();
         $subjects = array_unique($subjectsArray);
 
-        $search[2] = '';
-
         return view('admin.activity-log.index')->with([
             'activityLogs' => $activityLogs,
             'subjects' => $subjects,
-            'search' => $search,
         ]);
     }
 

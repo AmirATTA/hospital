@@ -16,6 +16,7 @@ use Spatie\Permission\Models\Permission;
 use App\Http\Requests\DoctorStoreRequest;
 use App\Http\Requests\DoctorUpdateRequest;
 use App\Traits\RedirectNotify;
+use Illuminate\Database\Eloquent\Builder;
 
 class DoctorController extends Controller
 {
@@ -36,10 +37,13 @@ class DoctorController extends Controller
      */
     public function search(Request $request)
     {
-        $search = $request->input('search');
+        $search = $request->all();
 
-        $doctors = Doctor::where('name', 'like', '%'.$search.'%')->paginate(15);
-        
+        $doctors = Doctor::query()
+            ->when($search['name'], fn (Builder $query) => $query->where('name', 'like', '%'.$search['name'].'%'))
+            ->paginate(15)
+            ->withQueryString();
+
         return view('admin.doctor.index')->with([
             'doctors' => $doctors,
             'search' => $search,

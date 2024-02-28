@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationStoreRequest;
 use App\Http\Requests\OperationUpdateRequest;
 use App\Traits\RedirectNotify;
+use Illuminate\Database\Eloquent\Builder;
 
 class OperationController extends Controller
 {
@@ -21,6 +22,24 @@ class OperationController extends Controller
         $this->middleware('permission:view operations')->only('index');
 
         $this->middleware('permission:create operations')->only('create');
+    }
+
+    /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->all();
+
+        $operations = Operation::query()
+        ->when($search['name'], fn (Builder $query) => $query->where('name', 'like', '%'.$search['name'].'%'))
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('admin.operation.index')->with([
+            'operations' => $operations,
+            'search' => $search,
+        ]);
     }
 
     /**

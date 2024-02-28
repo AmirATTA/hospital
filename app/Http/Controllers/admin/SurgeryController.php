@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SurgeryStoreRequest;
 use App\Http\Requests\SurgeryUpdateRequest;
 use App\Traits\RedirectNotify;
+use Illuminate\Database\Eloquent\Builder;
 
 class SurgeryController extends Controller
 {
@@ -28,11 +29,35 @@ class SurgeryController extends Controller
     }
 
     /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->all();
+
+        $surgeries = Surgery::query()
+            ->when($search['document_number'], fn (Builder $query) => $query->where('document_number', $search['document_number']))
+            ->when($search['patient_name'], fn (Builder $query) => $query->where('patient_name', 'like', '%'.$search['patient_name'].'%'))
+            ->when($search['fromSurgeriedDate'], fn (Builder $query) => $query->where('created_at', '>=', $search['fromSurgeriedDate']))
+            ->when($search['toSurgeriedDate'], fn (Builder $query) => $query->where('created_at', '<=', $search['toSurgeriedDate']))
+            ->when($search['fromReleasedDate'], fn (Builder $query) => $query->where('created_at', '>=', $search['fromReleasedDate']))
+            ->when($search['toReleasedDate'], fn (Builder $query) => $query->where('created_at', '<=', $search['toReleasedDate']))
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('admin.surgery.index')->with([
+            'surgeries' => $surgeries,
+            'search' => $search,
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $surgeries = Surgery::orderBy('id', 'desc')->paginate(15);
+        
         return view('admin.surgery.index')->with([
             'surgeries' => $surgeries,
         ]);

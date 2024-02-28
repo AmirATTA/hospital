@@ -32,8 +32,8 @@
                                         <div class="input-group-text" id="dp-start">
                                             <span class="feather feather-calendar"></span>
                                         </div>
-                                    </div><input class="form-control fc-datepicker hasDatepicker" value="{{ old('search[]') }}" id="dp-start-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
-                                    <input type="hidden" value="{{ old('search[]') }}" id="dp-start-date" name="search[]" aria-label="date11" aria-describedby="date11">
+                                    </div><input class="form-control fc-datepicker hasDatepicker" value="@php if(isset($search['fromDate'])){echo $search['fromDate'];}@endphp" id="dp-start-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
+                                    <input type="hidden" value="@php if(isset($search['fromDate'])){echo $search['fromDate'];}@endphp" id="dp-start-date" name="fromDate" aria-label="date11" aria-describedby="date11">
                                 </div>
                             </div>
                         </div>
@@ -45,27 +45,38 @@
                                         <div class="input-group-text" id="dp-end">
                                             <span class="feather feather-calendar"></span>
                                         </div>
-                                    </div><input class="form-control fc-datepicker hasDatepicker" value="{{ old('search[]') }}" id="dp-end-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
-                                    <input type="hidden" value="{{ old('search[]') }}" id="dp-end-date" name="search[]" aria-label="date11" aria-describedby="date11">
+                                    </div><input class="form-control fc-datepicker hasDatepicker" value="@php if(isset($search['toDate'])){echo $search['toDate'];}@endphp" id="dp-end-text" placeholder="YYYY/MM/DD" type="text" aria-label="date1" aria-describedby="date1">
+                                    <input type="hidden" value="@php if(isset($search['toDate'])){echo $search['toDate'];}@endphp" id="dp-end-date" name="toDate" aria-label="date11" aria-describedby="date11">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">تخصص</label>
-                                <select class="form-control custom-select select2" name="search[]" data-placeholder="انتخاب موضوع">
+                                <select class="form-control custom-select select2" name="subject" data-placeholder="انتخاب موضوع">
                                     <option label="انتخاب موضوع"></option>
                                     @foreach($subjects as $item)										
-                                        <option value="{{ $item }}" @selected($item == $search[2])>{{ __('custom.'. $item) }}</option>
+                                        <option value="{{ $item }}" @selected(isset($search['subject']) && $item == $search['subject'])>{{ __('custom.'. $item) }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="card-footer text-left" style="width: 100%;">
                             <button type="submit" class="btn btn-primary btn-block">جستجو</button>
+                            @if(isset($search))
+                                <button id="resetFiltersButton" type="button" class="btn btn-warning btn-block">پاک کردن فیلتر ها</button>
+                                <script>
+                                    document.getElementById('resetFiltersButton').addEventListener('click', function() {
+                                        var currentUrl = window.location.href;
+                                        var baseUrl = currentUrl.split('/search')[0];
+                                        window.location.href = baseUrl;
+                                    });
+                                </script>
+                            @endif
                         </div>
                     </div>
                 </form>
+                <!-- End Search & filter -->
 
 				<div class="card-body">
 					<div class="table-responsive">

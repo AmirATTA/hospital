@@ -55,9 +55,6 @@ class DoctorSurgeryController extends Controller
             $query->where('doctor_id', $doctorId);
         })->whereBetween('created_at', [$startDate, $search['end_date']])->get();
 
-        // dd($surgeries);
-        // $doctorSurgery = DoctorSurgery::where('doctor_id', $surgeries[0]->doctors[0]->id)->where('surgery_id', $data->id)->first();
-
         return view('admin.doctor-surgery.create')->with([
             'surgeries' => $surgeries,
             'doctorId' => $doctorId,

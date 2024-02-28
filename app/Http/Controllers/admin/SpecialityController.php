@@ -9,6 +9,7 @@ use App\Http\Requests\SpecialityRequest;
 use App\Http\Requests\SpecialityStoreRequest;
 use App\Http\Requests\SpecialityUpdateRequest;
 use App\Traits\RedirectNotify;
+use Illuminate\Database\Eloquent\Builder;
 
 class SpecialityController extends Controller
 {
@@ -22,6 +23,24 @@ class SpecialityController extends Controller
         $this->middleware('permission:view specialities')->only('index');
 
         $this->middleware('permission:create specialities')->only('create');
+    }
+
+    /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->all();
+
+        $specialities = Speciality::query()
+        ->when($search['title'], fn (Builder $query) => $query->where('title', 'like', '%'.$search['title'].'%'))
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('admin.speciality.index')->with([
+            'specialities' => $specialities,
+            'search' => $search,
+        ]);
     }
 
     /**

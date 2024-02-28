@@ -53,9 +53,9 @@ class Surgery extends Model
                 $operationIds[] = $operation->id;
                 
                 if($onUpdate == true) {
-                    $this->operations()->sync($operationIds, ['amount' => '1000']);
+                    $this->operations()->sync($operationIds);
                 } else {
-                    $this->operations()->attach($operation->id, ['amount' => '1000']);
+                    $this->operations()->attach($operation->id);
                 }
             }
         }
@@ -90,11 +90,11 @@ class Surgery extends Model
             foreach ($doctorsWithRoles as $doctorId => $doctorRoleIds) {
                 if($onUpdate == true) {
                     foreach ($doctorRoleIds as $doctorRoleId) {
-                        $this->doctors()->sync($doctorId, ['doctor_role_id' => $doctorRoleId], ['amount' => '1000']);
+                        $this->doctors()->sync($doctorId, ['doctor_role_id' => $doctorRoleId]);
                     }
                 } else {
                     foreach ($doctorRoleIds as $doctorRoleId) {
-                        $this->doctors()->attach($doctorId, ['doctor_role_id' => $doctorRoleId], ['amount' => '1000']);
+                        $this->doctors()->attach($doctorId, ['doctor_role_id' => $doctorRoleId]);
                     }
                 }
             }

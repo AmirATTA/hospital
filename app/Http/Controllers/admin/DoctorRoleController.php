@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DoctorRoleStoreRequest;
 use App\Http\Requests\DoctorRoleUpdateRequest;
 use App\Traits\RedirectNotify;
+use Illuminate\Database\Eloquent\Builder;
 
 class DoctorRoleController extends Controller
 {
@@ -21,6 +22,24 @@ class DoctorRoleController extends Controller
         $this->middleware('permission:view doctors')->only('index');
 
         $this->middleware('permission:create doctors')->only('create');
+    }
+
+    /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->all();
+
+        $doctorRoles = DoctorRole::query()
+        ->when($search['title'], fn (Builder $query) => $query->where('title', 'like', '%'.$search['title'].'%'))
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('admin.doctor-role.index')->with([
+            'doctorRoles' => $doctorRoles,
+            'search' => $search,
+        ]);
     }
 
     /**

@@ -15,6 +15,7 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Traits\RedirectNotify;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserController extends Controller
 {
@@ -28,6 +29,27 @@ class UserController extends Controller
         $this->middleware('permission:view users')->only('index');
 
         $this->middleware('permission:create users')->only('create');
+    }
+
+    /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->all();
+
+        $superAdmin = User::role('Super Admin')->first();
+        $users = User::query()
+            ->when($search['name'], fn (Builder $query) => $query->where('name', 'like', '%'.$search['name'].'%'))
+            ->when($search['mobile'], fn (Builder $query) => $query->where('mobile', 'like', '%'.$search['mobile'].'%'))
+            ->whereNotIn('id', [$superAdmin->id])
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('admin.user.index')->with([
+            'users' => $users,
+            'search' => $search,
+        ]);
     }
 
     /**
