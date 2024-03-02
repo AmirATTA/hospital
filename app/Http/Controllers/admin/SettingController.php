@@ -11,6 +11,16 @@ use App\Http\Requests\SettingUpdateRequest;
 class SettingController extends Controller
 {
     /**
+     * MiddleWares.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:view settings')->only('index');
+
+        $this->middleware('permission:create settings')->only('create');
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()

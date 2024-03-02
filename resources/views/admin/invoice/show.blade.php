@@ -19,17 +19,6 @@
                     <span>توسط مدیر بیمارستان - <strong>{{ Auth::user()->name }}</strong></span>
                     <span>دکتر مورد نظر - <strong>{{ $doctor->name }}</strong></span>
                 </div>
-
-                <div class="card-body pl-0 pr-0">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <span class="text-muted">محل امضا مدیر</span>
-                        </div>
-                        <div class="col-sm-6 text-left">
-                            <span class="text-muted">محل امضا دکتر</span>
-                        </div>
-                    </div>
-                </div>
                 
                 <div class="table-responsive push">
                     <h2 class="mb-1" style="font-size:2rem;">عمل ها</h2>
@@ -108,8 +97,21 @@
 							@endforeach
 						</tbody>
 					</table>
-                    <span>{{ number_format($invoice->paymentSum()) }} از {{ number_format($surgery[0]->getDoctorQuotaAmount($doctor->doctorRoles[0])) }} پرداخت شده!</span>
+                    <span>{{ number_format($invoice->paymentSum()) }} از {{ number_format($surgery[0]->getDoctorQuotaAmount($doctor->doctorRoles[0])) }} پرداخت شده.</span>
                 </div>
+
+
+                <div class="card-body pl-0 pr-0" style="margin-bottom:150px;">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span class="text-muted">محل امضا حسابدار</span>
+                        </div>
+                        <div class="col-sm-6 text-left">
+                            <span class="text-muted">محل امضا دکتر</span>
+                        </div>
+                    </div>
+                </div>
+
                 <p class="text-muted text-center">از اینکه با ما همکاری کردید بسیار سپاسگزاریم. ما مشتاقانه منتظر همکاری مجدد با شما هستیم!</p>
             </div>
         </div>
@@ -120,4 +122,6 @@
 	<script src="{{ asset('assets/js/progress-bar.js') }}"></script>
 
     <script src="{{ asset('assets/js/view-page.js') }}"></script>
+
+    <script src="{{ asset('assets/js/comma.js') }}"></script>
 @endsection

@@ -61,11 +61,9 @@
 								@endforeach
 							</tbody>
 						</table>
-					    @if(count($surgeries) !== 0)
-                            <div class="invoice-btn" style="display:flex;justify-content: center;margin-top:15px;">
-                                <button type="submit" class="btn btn-success btn-lg" id="invoice_btn">ثبت صورت حساب</button>
-                            </div>
-					    @endif
+						<div class="invoice-btn" style="display:flex;justify-content: center;margin-top:15px;">
+							<button type="submit" class="btn btn-success btn-lg" id="invoice_btn">ثبت صورت حساب</button>
+						</div>
 					</form>
 					@if(count($surgeries) === 0)
 						<div class="text-center text-danger" style="font-family: unset;">هیچ داده ای وجود ندارد</div>

@@ -1,17 +1,3 @@
-function openDescriptionModal(id) {
-    $.ajax({
-        url: '/admin/invoices/' + id + '/description',
-        type: "GET",
-        data: {
-            _token: csrfToken,
-        },
-        success : function(result){
-            description = result;            
-            document.getElementById('description_body').innerHTML = description;
-        }
-    });
-}
-
 function fillPaymentVariables(id, amount) {
     document.getElementById('invoice_id').value = id;
     document.getElementById('amount_maximum').innerHTML = 'حداکثر مبلغ قابل پرداخت: ' + amount + ' تومان';

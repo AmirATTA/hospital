@@ -6,8 +6,6 @@
 	
 	<link href="{{ asset('assets/css/jquery.md.bootstrap.datetimepicker.style.css') }}" rel="stylesheet"/>
 
-	<link href="{{ asset('assets/plugins/wysiwyag/rte_theme_default.css') }}" rel="stylesheet" />
-
 	<link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet"/>
 	
 	<!-- INTERNAL File Uploads css-->
@@ -19,6 +17,52 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
+
+            <!-- Search & filter -->
+            <form action="{{ route('invoices.search') }}" method="GET">
+                <div class="form-group mt-5 d-flex" 
+                style="margin:10px 25px;align-items: center;justify-content: space-between;flex-wrap: wrap;">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">دکتر</label>
+                            <select class="form-control custom-select select2" name="id" data-placeholder="انتخاب دکتر">
+                                <option label="انتخاب دکتر"></option>
+                                @foreach($invoicesSearch as $invoice)			
+                                
+                                    @php $doctorName = App\Models\Doctor::where('id', $invoice->doctor_id)->select('name')->get(); @endphp
+                                
+                                    <option value="{{ $invoice->id }}" @selected(isset($search['id']) && $invoice->id == $search['id'])>{{ $doctorName[0]['name'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">وضعیت</label>
+                            <select class="form-control custom-select select2" name="status" data-placeholder="انتخاب وضعیت">
+                                <option label="انتخاب وضعیت"></option>
+                                <option value="true" @selected(isset($search['status']) && 'true' == $search['status'])>پرداخت شده</option>
+                                <option value="false" @selected(isset($search['status']) && 'false' == $search['status'])>پرداخت نشده</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer text-left" style="width: 100%;">
+                        <button type="submit" class="btn btn-primary btn-block">جستجو</button>
+                        @if(isset($search))
+                            <button id="resetFiltersButton" type="button" class="btn btn-warning btn-block">پاک کردن فیلتر ها</button>
+                            <script>
+                                document.getElementById('resetFiltersButton').addEventListener('click', function() {
+                                    var currentUrl = window.location.href;
+                                    var baseUrl = currentUrl.split('/search')[0];
+                                    window.location.href = baseUrl;
+                                });
+                            </script>
+                        @endif
+                    </div>
+                </div>
+            </form>
+            <!-- End Search & filter -->
+
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="job-list">
@@ -51,7 +95,7 @@
 									
 									@if($data->description != null)
 										<td>
-											<a href="#" class="btn btn-warning" onclick="openDescriptionModal('{{ $data->id }}')"
+											<a href="#" class="btn btn-warning" onclick="openDescriptionModal('{{ $data->id }}', 'invoices')"
 											data-toggle="modal" data-target="#descriptionmodal">
 												<span>تماشا</span>
 											</a>
@@ -162,7 +206,7 @@
 
 						<div class="form-group">
 							<label class="form-label">توضیحات</label>
-							<textarea class="content" name="description" id="example" style="min-width: 0px;">{{ old('description') }}</textarea>
+							<textarea class="form-control" name="description" id="example" style="min-width: 0px;">{{ old('description') }}</textarea>
 						</div>
 
 						<input type="hidden" name="invoice_id" id="invoice_id">
@@ -225,13 +269,10 @@
 	<script src="{{ asset('assets/js/comma.js') }}"></script>
 
 	<script src="{{ asset('assets/js/invoice.js') }}"></script>
+
+	<script src="{{ asset('assets/js/open-description.js') }}"></script>
 	
 	<!-- INTERNAL File uploads js -->
 	<script src="{{ asset('assets/plugins/fileupload/js/dropify.js') }}"></script>
 	<script src="{{ asset('assets/js/filupload.js') }}"></script>
-
-	<!-- INTERNAL Form editor js -->
-	<script src="{{ asset('assets/plugins/wysiwyag/rte.js') }}"></script>
-	<script src="{{ asset('assets/plugins/wysiwyag/all_plugins.js') }}"></script>
-	<script src="{{ asset('assets/js/form-editor2.js') }}"></script>
 @endsection

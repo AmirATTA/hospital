@@ -16,9 +16,9 @@ class ActivityLogController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:view doctors')->only('index');
+        $this->middleware('permission:view activity-logs')->only('index');
 
-        $this->middleware('permission:create doctors')->only('create');
+        $this->middleware('permission:create activity-logs')->only('create');
     }
 
     /**

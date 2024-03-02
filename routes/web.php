@@ -18,6 +18,7 @@ use App\Http\Controllers\admin\ActivityLogController;
 use App\Http\Controllers\admin\auth\LogoutController;
 use App\Http\Controllers\admin\auth\PasswordController;
 use App\Http\Controllers\admin\DoctorSurgeryController;
+use App\Http\Controllers\admin\InsuranceReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('insurances/{insurance}', [InsuranceController::class, 'destroy'])->name('insurances.destroy');
     Route::resource('insurances', InsuranceController::class);
 
+    Route::post('insurance-reports/names', [InsuranceReportController::class, 'getInsuranceNames'])->name('insurances.getInsuranceNames');
+    Route::resource('insurance-reports', InsuranceReportController::class);
+
     Route::get('surgeries/search', [SurgeryController::class, 'search'])->name('surgeries.search');
     Route::delete('surgeries/{surgery}', [SurgeryController::class, 'destroy'])->name('surgeries.destroy');
     Route::resource('surgeries', SurgeryController::class);
@@ -82,11 +86,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('doctor-surgeries/{doctor-surgery}', [DoctorSurgeryController::class, 'destroy'])->name('doctor-surgeries.destroy');
     Route::resource('doctor-surgeries', DoctorSurgeryController::class);
 
+    Route::get('invoices/search', [InvoiceController::class, 'search'])->name('invoices.search');
     Route::delete('invoices/{invoice}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
     Route::resource('invoices', InvoiceController::class);
     Route::get('invoices/{invoice}/description', [InvoiceController::class, 'description'])->name('invoices.description');
 
+    Route::get('payments/search', [PaymentController::class, 'search'])->name('payments.search');
     Route::delete('payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
+    Route::get('payments/{payment}/description', [PaymentController::class, 'description'])->name('payments.description');
     Route::resource('payments', PaymentController::class);
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');

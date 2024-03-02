@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Doctor;
 use App\Models\Invoice;
 use App\Models\Payment;
 use Illuminate\Support\Str;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Traits\RedirectNotify;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\PaymentStoreRequest;
 
 class PaymentController extends Controller
@@ -26,11 +28,43 @@ class PaymentController extends Controller
     }
 
     /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->all();
+
+        $status = $request['status'] == 'true' ? 1 : 0;
+
+        $payments = Payment::query()
+            ->when($search['status'], fn (Builder $query) => $query->where('status', $status))
+            ->when($search['pay_type'], fn (Builder $query) => $query->where('pay_type', $search['pay_type']))
+            ->when($search['invoice_id'], fn (Builder $query) => $query->where('invoice_id', $search['invoice_id']))
+            ->paginate(15)
+            ->withQueryString();
+
+        $invoices = Invoice::select('id', 'doctor_id')->get();
+
+        return view('admin.payment.index')->with([
+            'payments' => $payments,
+            'search' => $search,
+            'invoices' => $invoices,
+        ]);
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $payments = Payment::orderBy('id', 'desc')->paginate(15);
+
+        $invoices = Invoice::select('id', 'doctor_id')->get();
+
+        return view('admin.payment.index')->with([
+            'payments' => $payments,
+            'invoices' => $invoices,
+        ]);
     }
 
     /**
@@ -58,14 +92,22 @@ class PaymentController extends Controller
             'receipt' => $receiptName,
         ]);
 
+        $payment = Payment::create($validated);
+
         $invoice = Invoice::findOrFail($request->invoice_id);
-        if($invoice->paymentSum() + $request->amount >= $invoice->amount) {
+        if($invoice->paymentSum() >= $invoice->amount) {
             $invoice->update([
                 'status' => 1,
             ]);
-        }
 
-        $payment = Payment::create($validated);
+            $payments = Payment::where('invoice_id', $request->invoice_id)->get();
+
+            foreach($payments as $payment) {
+                $payment->update([
+                    'status' => 1,
+                ]); 
+            }
+        }
 
         if(!$payment) {
             return $this->redirectNotify('payments.create', 'error', 'عملیات به مشکل مواجه شد!');
@@ -104,5 +146,14 @@ class PaymentController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    
+    /**
+     * Retrive description data.
+     */
+    public function description(string $id)
+    {
+        $payment = Payment::select('description')->findOrFail($id);
+        return response()->json($payment->description);
     }
 }

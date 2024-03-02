@@ -33,7 +33,7 @@ class SpecialityController extends Controller
         $search = $request->all();
 
         $specialities = Speciality::query()
-        ->when($search['title'], fn (Builder $query) => $query->where('title', 'like', '%'.$search['title'].'%'))
+            ->when($search['title'], fn (Builder $query) => $query->where('title', 'like', '%'.$search['title'].'%'))
             ->paginate(15)
             ->withQueryString();
 

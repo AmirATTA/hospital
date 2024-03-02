@@ -32,7 +32,7 @@ class OperationController extends Controller
         $search = $request->all();
 
         $operations = Operation::query()
-        ->when($search['name'], fn (Builder $query) => $query->where('name', 'like', '%'.$search['name'].'%'))
+            ->when($search['name'], fn (Builder $query) => $query->where('name', 'like', '%'.$search['name'].'%'))
             ->paginate(15)
             ->withQueryString();
 

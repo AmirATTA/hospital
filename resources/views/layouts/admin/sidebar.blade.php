@@ -114,6 +114,9 @@
 											@can('view insurances')
 												<li><a href="{{ route('insurances.index') }}" class="slide-item">لیست بيمه ها</a></li>
 											@endcan
+                                            @can('view insurances')
+												<li><a href="{{ route('insurance-reports.index') }}" class="slide-item">گزارش بیمه ها</a></li>
+											@endcan
 										</li>
 									</ul>
 								</li>
@@ -135,6 +138,15 @@
 											@endcan
 										</li>
 									</ul>
+								</li>
+							@endif
+
+							@if($user->can('view payments') || $user->can('update payments') || $user->can('delete payments'))
+								<li class="slide">
+									<a class="side-menu__item" data-toggle="slide" href="{{ route('payments.index') }}">
+										<i class="fa-solid fa-dollar-sign sidemenu_icon"></i>
+										<span class="side-menu__label">پرداختی ها</span></i>
+									</a>
 								</li>
 							@endif
 

@@ -13,6 +13,7 @@ use App\Traits\RedirectNotify;
 use App\Models\OperationSurgery;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 
 class InvoiceController extends Controller
 {
@@ -23,9 +24,33 @@ class InvoiceController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:view invoice')->only('index');
+        $this->middleware('permission:view invoices')->only('index');
 
-        $this->middleware('permission:create invoice')->only('create');
+        $this->middleware('permission:create invoices')->only('create');
+    }
+
+    /**
+     * Handle the search functionality.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->all();
+
+        $status = $request['status'] == 'true' ? 1 : 0;
+        
+        $invoices = Invoice::query()
+            ->when($search['status'], fn (Builder $query) => $query->where('status', $status))
+            ->when($search['id'], fn (Builder $query) => $query->where('id', $search['id']))
+            ->paginate(15)
+            ->withQueryString();
+
+        $invoicesSearch = Invoice::select('id', 'doctor_id')->get();
+
+        return view('admin.invoice.index')->with([
+            'invoices' => $invoices,
+            'search' => $search,
+            'invoicesSearch' => $invoicesSearch,
+        ]);
     }
 
     /**
@@ -34,8 +59,12 @@ class InvoiceController extends Controller
     public function index()
     {
         $invoices = Invoice::orderBy('id', 'desc')->paginate(15);
+
+        $invoicesSearch = Invoice::select('id', 'doctor_id')->get();
+
         return view('admin.invoice.index')->with([
             'invoices' => $invoices,
+            'invoicesSearch' => $invoicesSearch,
         ]);
     }
 

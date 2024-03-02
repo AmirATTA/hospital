@@ -53,8 +53,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">تخصص</label>
-                                <select class="form-control custom-select select2" name="subject" data-placeholder="انتخاب موضوع">
-                                    <option label="انتخاب موضوع"></option>
+                                <select class="form-control custom-select select2" name="subject" data-placeholder="انتخاب تخصص">
+                                    <option label="انتخاب تخصص"></option>
                                     @foreach($subjects as $item)										
                                         <option value="{{ $item }}" @selected(isset($search['subject']) && $item == $search['subject'])>{{ __('custom.'. $item) }}</option>
                                     @endforeach
