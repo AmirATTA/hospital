@@ -30,9 +30,6 @@ use App\Http\Controllers\admin\InsuranceReportController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('test', function(){
-    return view('test');
-});
 
 Route::post('/', [LoginController::class, 'loginPost'])->name('login.post');
 Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('PerventLogin');
@@ -72,6 +69,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::resource('insurances', InsuranceController::class);
 
     Route::post('insurance-reports/names', [InsuranceReportController::class, 'getInsuranceNames'])->name('insurances.getInsuranceNames');
+    Route::post('insurance-reports/create', [InsuranceReportController::class, 'create'])->name('insurance-reports.create');
     Route::resource('insurance-reports', InsuranceReportController::class);
 
     Route::get('surgeries/search', [SurgeryController::class, 'search'])->name('surgeries.search');

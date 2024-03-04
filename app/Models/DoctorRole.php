@@ -13,6 +13,7 @@ class DoctorRole extends Model
 
     protected $fillable = [
         'title',
+        'quota',
         'required',
         'status',
     ];

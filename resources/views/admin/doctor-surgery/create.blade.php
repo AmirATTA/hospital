@@ -49,7 +49,7 @@
 													<label for="cbtest-{{ $data->id }}" class="check-box">
 												</div>
 											</td>
-											<td>{{ $loop->iteration }}</td>
+                                            <td>{{ $loop->iteration }}</td>
 											<td>{{ $data->patient_name }}</td>
 											<td>{{ number_format($data->getTotalPrice()) }} تومان</td>
 											<td>{{ number_format($data->getDoctorQuotaAmount($doctorRole)) }} تومان <span style="color:red;">{{ $doctorRole->quota }}%</span></td>

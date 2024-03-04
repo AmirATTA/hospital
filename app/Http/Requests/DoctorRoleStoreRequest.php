@@ -15,6 +15,7 @@ class DoctorRoleStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:doctor_roles,title',
+            'quota' => 'required',
             'required' => 'required',
             'status' => 'required',
         ];

@@ -86,7 +86,7 @@
 
 						@include('layouts.admin.header')
 
-						@if(request()->route()->getName() != 'invoices.show')
+						@if(request()->route()->getName() != 'invoices.show' && request()->route()->getName() != 'insurance-reports.create')
 							<ol class="breadcrumb1" style="position:absolute;top:80px;margin-right:-15px;margin-top: 20px;">
 								<li class="breadcrumb-item1"><a href="{{ route('dashboard.index') }}"><i class="feather feather-home"></i> Dashboard</a></li>
 								<?php $segments = ''; ?>

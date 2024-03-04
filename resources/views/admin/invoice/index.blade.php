@@ -84,7 +84,10 @@
 								@endphp
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+									@php
+                                        $rowNumber = ($invoices->currentPage() - 1) * $invoices->perPage() + $loop->iteration;
+                                    @endphp
+                                    <td>{{ $rowNumber }}</td>
 									<td>{{ $doctor->name }}</td>
 									<td>
 										{{ number_format($data->amount) }}

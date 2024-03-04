@@ -70,7 +70,10 @@
 							@foreach($insurances as $data)
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+									@php
+                                        $rowNumber = ($insurances->currentPage() - 1) * $insurances->perPage() + $loop->iteration;
+                                    @endphp
+                                    <td>{{ $rowNumber }}</td>
 									<td>{{ $data->name }}</td>
 									<td>
 										@if($data->type == 'basic')

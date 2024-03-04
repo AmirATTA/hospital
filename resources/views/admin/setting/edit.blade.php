@@ -1,5 +1,8 @@
 @extends('layouts.admin.master')
 @section('title', "ویرایش تنظیمات - تنظیمات $title")
+@section('links')
+	<!-- INTERNAL File Uploads css-->
+	<link href="{{ asset('assets/plugins/fileupload/css/fileupload.css') }}" rel="stylesheet" type="text/css" />
 @section('content')
 <!-- Row -->
 <div class="row">
@@ -32,9 +35,7 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<label class="form-label">{{ $setting->label }}</label>
-											<input type="file" class="form-file" name="{{ $setting->name }}" id="image" accept="image/*" 
-											onchange="showPreview(event);">
-											<img src="{{ asset('storage/setting/'.$setting->value) }}" id="file-preview" style="block">
+                                            <input type="file" class="dropify" id="image" data-height="180" name="{{ $setting->name }}" accept=".jpg, .jpeg, .png" />
 										</div>
 									</div>
 								@endforeach
@@ -44,7 +45,7 @@
 				</div>
 				<div class="card-footer text-left">
 					<a onclick="window.history.back();" class="btn btn-danger btn-lg">برگشت</a>
-					<button type="submit" class="btn btn-success btn-lg">ذخيره</button>
+					<button type="submit" class="btn btn-success btn-lg">بروزرسانی</button>
 				</div>
 			</form>
 		</div>
@@ -53,5 +54,9 @@
 <!-- End Row -->
 @endsection
 @section('scripts')
-	<script src="{{ asset('assets/js/settings.js') }}"></script>
+	<script src="{{ asset('assets/js/publishFormBtn.js') }}"></script>
+
+	<!-- INTERNAL File uploads js -->
+	<script src="{{ asset('assets/plugins/fileupload/js/dropify.js') }}"></script>
+	<script src="{{ asset('assets/js/filupload.js') }}"></script>
 @endsection

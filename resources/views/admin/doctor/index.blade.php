@@ -61,7 +61,10 @@
 							@foreach($doctors as $data)
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+									@php
+                                        $rowNumber = ($doctors->currentPage() - 1) * $doctors->perPage() + $loop->iteration;
+                                    @endphp
+                                    <td>{{ $rowNumber }}</td>
 									<td>{{ $data->name }}</td>
 									<td>{{ $data->mobile }}</td>
 									<td>{{ \App\Models\Speciality::find($data->speciality_id)->title }}</td>

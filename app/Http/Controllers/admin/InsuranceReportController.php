@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Surgery;
 use App\Models\Insurance;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Traits\RedirectNotify;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 
 class InsuranceReportController extends Controller
 {
@@ -32,9 +34,33 @@ class InsuranceReportController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $search = collect($request->all())->except('_token')->all();
+
+        $insurance = Insurance::query()
+            ->when($search['insurances'], fn (Builder $query) => $query->where('id', $search['insurances']))
+            // ->when($search['from'], fn (Builder $query) => $query->where('created_at', '>=', $search['to']))
+            ->first();
+
+        $surgeries = Surgery::query()
+            ->select('id', 'patient_name', 'patient_national_code')
+            ->where('basic_insurance_id', $insurance->id)
+            ->orWhere('supp_insurance_id', $insurance->id)
+            ->with('operations')
+            ->paginate(15);
+
+        $totalPrice = 0;
+        
+        foreach ($surgeries as $surgery) {
+            $totalPrice += $surgery->operations->sum('price');
+        }
+
+        return view('admin.insurance-report.create')->with([
+            'insurance' => $insurance,
+            'surgeries' => $surgeries,
+            'totalPrice' => $totalPrice,
+        ]);
     }
 
     /**

@@ -32,7 +32,7 @@ span,div,.form-label {
 }
 
 .color-menu .app-sidebar {
-    background: #363438 !important;
+    background: linear-gradient(45deg, #1f8bcb, #46c8bc) !important;
 }
 
 .color-menu .app-sidebar .side-menu .slide a.active, .color-menu .app-sidebar .side-menu .slide a:hover {
@@ -568,4 +568,8 @@ input[type="range"]::-webkit-slider-thumb:active {
 }
 .payment-td:hover {
     background: #f1f4fb;
+}
+
+.item-show:hover {
+    color: black;
 }

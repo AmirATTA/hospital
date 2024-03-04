@@ -3,19 +3,21 @@
 namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
+use App\Traits\RedirectNotify;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
+    use RedirectNotify;
+
     public function index()
     {
-        return view('admin.dashboard');
-    }
+        $activityLogs = Activity::select('id', 'description', 'subject_type', 'causer_id')->take(5)->get();
 
-    public function test()
-    {
-        auth()->user()->givePermissionTo('view specialities');
-        // auth()->user()->revokePermissionTo('create user');
+        return view('admin.dashboard')->with([
+            'activityLogs' => $activityLogs,
+        ]);
     }
 }

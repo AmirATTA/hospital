@@ -17,7 +17,7 @@ class SurgeriesTableSeeder extends Seeder
     {
         DB::table('surgeries')->insert([
             'patient_name' => Faker::word('10'),
-            'patient_national_code' => 'basic',
+            'patient_national_code' => rand(1, 10000000000),
             'basic_insurance_id' => '1',
             'supp_insurance_id' => null,
             'document_number' => rand(10,10000000),

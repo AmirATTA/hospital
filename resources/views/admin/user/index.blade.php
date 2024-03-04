@@ -66,7 +66,10 @@
 							@foreach($users as $data)
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+									@php
+                                        $rowNumber = ($users->currentPage() - 1) * $users->perPage() + $loop->iteration;
+                                    @endphp
+                                    <td>{{ $rowNumber }}</td>
 									<td>{{ $data->name }}</td>
 									<td>{{ $data->mobile }}</td>
 									<td>{{ $data->email }}</td>

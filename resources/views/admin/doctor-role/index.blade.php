@@ -61,7 +61,10 @@
 							@foreach($doctorRoles as $data)
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+                                    @php
+                                        $rowNumber = ($doctorRoles->currentPage() - 1) * $doctorRoles->perPage() + $loop->iteration;
+                                    @endphp
+                                    <td>{{ $rowNumber }}</td>
 									<td>{{ $data->title }}</td>
 									<td>{{ $data->quota }}%</td>
 									@if ($data->required == '1')

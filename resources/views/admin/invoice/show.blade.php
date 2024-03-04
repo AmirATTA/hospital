@@ -1,5 +1,6 @@
 @extends('layouts.admin.master')
 @section('content')
+<!-- Row -->
 <div style="margin-bottom:25px;position: relative;bottom: 100px;">
     <button class="btn btn-info" onclick="javascript:window.print();"><i class="si si-printer"></i> Print Invoice</button>
 </div>
@@ -36,7 +37,7 @@
 							@foreach($operations as $data)
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+                                    <td>{{ $loop->iteration }}</td>
 									<td>{{ $data[0]->name }}</td>
 									<td class="comma">{{ $data[0]->price }}</td>
 									@if ($data[0]->status == '1')
@@ -75,7 +76,7 @@
 							@foreach($payments as $data)
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+                                    <td>{{ $loop->iteration }}</td>
 									<td class="comma">{{ $data->amount }}</td>
                                     @if($data->pay_type == 'cash')
                                         <td>
@@ -117,6 +118,7 @@
         </div>
     </div>
 </div>
+<!-- End Row -->
 @endsection
 @section('scripts')
 	<script src="{{ asset('assets/js/progress-bar.js') }}"></script>

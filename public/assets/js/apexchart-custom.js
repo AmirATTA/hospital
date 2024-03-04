@@ -341,30 +341,33 @@ var options = {
 		}
 	},
 };
+const amounts = document.getElementById('surgery_amount');
+const dateTimes = document.getElementById('date_times');
+
+let values = amounts.innerHTML.split(', ').map(value => parseInt(value));
+console.log(values);
+
 var chart = new ApexCharts(document.querySelector("#chart-timeline"), options);
 chart.render();
 var options1 = {
 	series: [{
-		name: 'series1',
-		data: [31, 40, 28, 51, 42, 109, 100]
-	}, {
-		name: 'series2',
-		data: [11, 32, 45, 32, 34, 52, 41]
+		name: 'سود عمل',
+		data: []
 	}],
-	colors: ['#3366ff','#fe7f00'],
+	colors: ['#3dd5ce'],
 	chart: {
-		height: 300,
+		height: 320,
 		type: 'area'
 	},
 	dataLabels: {
-		enabled: false
+		enabled: true
 	},
 	stroke: {
 		curve: 'smooth'
 	},
 	xaxis: {
 		type: 'datetime',
-		categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+		categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z"]
 	},
 	tooltip: {
 		x: {
@@ -377,6 +380,7 @@ var options1 = {
 };
 var chart1 = new ApexCharts(document.querySelector("#chart"), options1);
 chart1.render();
+
 
 var options2 = {
 	series: [{

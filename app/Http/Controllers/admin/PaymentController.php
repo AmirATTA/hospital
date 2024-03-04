@@ -5,8 +5,10 @@ namespace App\Http\Controllers\admin;
 use App\Models\Doctor;
 use App\Models\Invoice;
 use App\Models\Payment;
+use App\Models\DoctorRole;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\DoctorSurgery;
 use App\Traits\RedirectNotify;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -121,15 +123,32 @@ class PaymentController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $payment = Payment::findOrFail($id);
+
+        $invoice = Invoice::findOrFail($payment->invoice_id);
+
+        $doctor = Doctor::select('id', 'name')->findOrFail($invoice->doctor_id);
+
+        $doctorSurgery = DoctorSurgery::select('doctor_role_id')->where('invoice_id', $invoice->$id)->first();
+
+        $doctorRole = DoctorRole::select('title')->findOrFail($doctorSurgery->doctor_role_id);
+
+        return view('admin.payment.show')->with([
+            'payment' => $payment,
+            'invoice' => $invoice,
+            'doctor' => $doctor,
+            'doctorRole' => $doctorRole,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Payment $payment)
     {
-        //
+        return view('admin.payment.edit')->with([
+            'payment' => $payment,
+        ]);
     }
 
     /**
@@ -137,7 +156,13 @@ class PaymentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $payment = Payment::findOrFail($id);
+        
+        $payment->update([
+            'description' => $request->description,
+        ]);
+
+        return $this->redirectNotify('payments.index', 'success', 'بروزرسانی با موفقیت انجام شد.');
     }
 
     /**

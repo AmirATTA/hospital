@@ -10,9 +10,9 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('activitylog:clean')->daily();
+        $schedule->job(new SendCheckNotify())->cron('* * * * *');
     }
     
     /**
@@ -24,6 +24,8 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+
 
 
 }

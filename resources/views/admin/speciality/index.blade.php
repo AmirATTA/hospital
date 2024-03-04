@@ -59,7 +59,10 @@
 							@foreach($specialities as $data)
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+									@php
+                                        $rowNumber = ($specialities->currentPage() - 1) * $specialities->perPage() + $loop->iteration;
+                                    @endphp
+                                    <td>{{ $rowNumber }}</td>
 									<td>{{ $data->title }}</td>
 									@if ($data->status == '1')
 										<td>

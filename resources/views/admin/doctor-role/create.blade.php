@@ -18,6 +18,13 @@
 								<input class="form-control" value="{{ old('title') }}" placeholder="عنوان" name="title">
 							</div>
 						</div>
+                        <div class="col-md-6">
+							<div class="form-group required">
+								<label class="form-label">سحم</label>
+								<input class="form-control-range" id="discount_input" type="range" name="quota" max="100" min="1" value="0" step="1">
+								<span id="discount_label">0%</span>
+							</div>
+						</div>
 					</div>
 					<div class="custom-controls-stacked d-md-flex my-4">
 						<label class="form-label mt-1 ml-5">ضروری :</label>
@@ -55,5 +62,7 @@
 @section('scripts')
 	<script src="{{ asset('assets/js/checkbox.js') }}"></script>
 		
+	<script src="{{ asset('assets/js/form-elements.js') }}"></script>
+    
 	<script src="{{ asset('assets/js/publishFormBtn.js') }}"></script>
 @endsection

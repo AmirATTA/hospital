@@ -1,5 +1,5 @@
 @extends('layouts.admin.master')
-@section('title', 'لیست دکتر ها')
+@section('title', 'لیست پرداختی ها')
 @section('links')
 	<link href="{{ asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/plugins/sweet-alert/sweetalert.css') }}" rel="stylesheet" />
@@ -89,7 +89,10 @@
                                 @endphp
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+									@php
+                                        $rowNumber = ($payments->currentPage() - 1) * $payments->perPage() + $loop->iteration;
+                                    @endphp
+                                    <td>{{ $rowNumber }}</td>
 									<td>{{ $doctorName[0]['name'] }}</td>
 									<td>{{ $data->amount }}</td>
                                     @if($data->description != null)

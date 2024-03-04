@@ -101,7 +101,7 @@
                                 <tbody class="col-lg-12 col-xl-6 p-0">
                                     <tr>
                                         <td><span class="font-weight-semibold">عمل :</span> {{ $operation['name'] }}</td>
-                                        <td><span class="font-weight-semibold">قيمت :</span> {{ $operation['price'] }}</td>
+                                        <td><span class="font-weight-semibold">قيمت :</span> <span class="comma" style="color:#11e311">{{ $operation['price'] }}</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -111,13 +111,13 @@
                             <table class="table row table-borderless w-100 m-0 text-nowrap">
                                 <tbody class="col-lg-12 col-xl-6 p-0">
                                         <tr>
-                                            <td><span class="font-weight-semibold">قیمت كل :</span> {{ $ultimatePrice }} تومان</td>
+                                            <td><span class="font-weight-semibold">قیمت كل :</span> <span class="comma" style="color:#11e311">{{ $ultimatePrice }}</span> تومان</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="font-weight-semibold">تخفیف :</span> {{ $discountedPriceFromOriginal }} <span style="color:red;">({{ $insurance->discount }}%)</span> تومان</td>
+                                            <td><span class="font-weight-semibold">تخفیف :</span> <span class="comma" style="color:#11e311">{{ $discountedPriceFromOriginal }}</span> <span style="color:red;">({{ $insurance->discount }}%)</span> تومان</td>
                                         </tr>
                                         <tr>
-                                            <td><span class="font-weight-semibold">جمع :</span> {{ $discountedPrice }} تومان</td>
+                                            <td><span class="font-weight-semibold">جمع :</span> <span class="comma" style="color:#11e311">{{ $discountedPrice }}</span> تومان</td>
                                         </tr>
                                 </tbody>
                             </table>
@@ -157,5 +157,7 @@
 <!-- End Row -->
 @endsection
 @section('scripts')
-		<script src="{{ asset('assets/js/view-page.js') }}"></script>
+    <script src="{{ asset('assets/js/view-page.js') }}"></script>
+    
+    <script src="{{ asset('assets/js/comma.js') }}"></script>
 @endsection

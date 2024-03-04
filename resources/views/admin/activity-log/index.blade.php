@@ -94,7 +94,10 @@
 								@foreach($activityLogs as $data)
 
 									<tr>
-										<td>{{ $loop->iteration }}</td>
+                                        @php
+                                            $rowNumber = ($activityLogs->currentPage() - 1) * $activityLogs->perPage() + $loop->iteration;
+                                        @endphp
+                                        <td>{{ $rowNumber }}</td>
 										<td>{{ $data->description }}</td>
 										<td>{{ $data->created_at->diffForHumans() }}</td>
 										<td>{{ App\Models\User::where('id', $data->causer_id)->pluck('name')->first() }}</td>

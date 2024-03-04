@@ -60,7 +60,10 @@
 							@foreach($operations as $data)
 
 								<tr>
-									<td>{{ $loop->iteration }}</td>
+									@php
+                                        $rowNumber = ($operations->currentPage() - 1) * $operations->perPage() + $loop->iteration;
+                                    @endphp
+                                    <td>{{ $rowNumber }}</td>
 									<td>{{ $data->name }}</td>
 									<td class="comma">{{ $data->price }}</td>
 									@if ($data->status == '1')

@@ -123,7 +123,10 @@
 								@foreach($surgeries as $data)
 
 									<tr>
-										<td>{{ $loop->iteration }}</td>
+										@php
+                                            $rowNumber = ($surgeries->currentPage() - 1) * $surgeries->perPage() + $loop->iteration;
+                                        @endphp
+                                        <td>{{ $rowNumber }}</td>
 										<td>{{ $data->document_number }}</td>
 										<td>{{ $data->patient_name }}</td>
 
