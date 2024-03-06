@@ -27,7 +27,7 @@
                             <label class="form-label">دکتر</label>
                             <select class="form-control custom-select select2" name="id" data-placeholder="انتخاب دکتر">
                                 <option label="انتخاب دکتر"></option>
-                                @foreach($invoicesSearch as $invoice)			
+                                @foreach($invoicesSearch as $invoice)
                                 
                                     @php $doctorName = App\Models\Doctor::where('id', $invoice->doctor_id)->select('name')->get(); @endphp
                                 

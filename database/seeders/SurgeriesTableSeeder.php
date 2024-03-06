@@ -46,7 +46,7 @@ class SurgeriesTableSeeder extends Seeder
 
             for ($x = 0; $x < rand(2,4); $x++) {
                 DB::table('operation_surgery')->insert([
-                    'operation_id' => rand(1,3),
+                    'operation_id' => $faker->numberBetween(1, 3),
                     'surgery_id' => $surgery,
                     'created_at' => $date,
                     'updated_at' => $date,
@@ -56,12 +56,41 @@ class SurgeriesTableSeeder extends Seeder
             $roleId = 1;
             for ($z = 0; $z < 3; $z++) {
                 DB::table('doctor_surgery')->insert([
-                    'doctor_id' => rand(1,20),
+                    'doctor_id' => $faker->numberBetween(1, 20),
                     'doctor_role_id' => $roleId,
                     'surgery_id' => $surgery,
                 ]);
                 $roleId++;
             }
         }
+
+        DB::table('operation_surgery')->insert([
+            'operation_id' => 1,
+            'surgery_id' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        DB::table('operation_surgery')->insert([
+            'operation_id' => 2,
+            'surgery_id' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('invoices')->insert([
+            'amount' => 25000000,
+            'description' => $faker->paragraphs(2, true),
+            'status' => 0,
+            'doctor_id' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('doctor_surgery')->insert([
+            'doctor_id' => 1,
+            'doctor_role_id' => 1,
+            'surgery_id' => 1,
+            'invoice_id' => 1,
+        ]);
     }
 }

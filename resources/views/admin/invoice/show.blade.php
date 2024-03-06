@@ -1,8 +1,8 @@
 @extends('layouts.admin.master')
 @section('content')
 <!-- Row -->
-<div style="margin-bottom:25px;position: relative;bottom: 100px;">
-    <button class="btn btn-info" onclick="javascript:window.print();"><i class="si si-printer"></i> Print Invoice</button>
+<div style="margin-bottom:25px;position: relative;bottom: 100px;display: flex;justify-content: flex-end;">
+    <button class="btn btn-info" onclick="javascript:window.print();"><i class="si si-printer"></i> پرینت از صورت حساب</button>
 </div>
 
 <div class="row" style="position: relative;bottom: 100px;" id="invoice_container">
@@ -22,42 +22,55 @@
                 </div>
                 
                 <div class="table-responsive push">
-                    <h2 class="mb-1" style="font-size:2rem;">عمل ها</h2>
+                    <h2 class="mb-1" style="font-size:2rem;">جراحی ها</h2>
                     <table class="table  table-vcenter text-nowrap table-bordered border-bottom" id="job-list">
 						<thead>
 							<tr>
 								<th class="border-bottom-0">ردیف</th>
-								<th class="border-bottom-0">نام</th>
+								<th class="border-bottom-0">نام بیمار</th>
+								<th class="border-bottom-0">کدملی بیمار</th>
+								<th class="border-bottom-0">بیمه</th>
 								<th class="border-bottom-0">قیمت</th>
-								<th class="border-bottom-0">وضعیت</th>
-								<th class="border-bottom-0">در تاریخ</th>
+								<th class="border-bottom-0">تاریخ جراحی</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($operations as $data)
+							@foreach($surgeries as $data)
 
 								<tr>
                                     <td>{{ $loop->iteration }}</td>
-									<td>{{ $data[0]->name }}</td>
-									<td class="comma">{{ $data[0]->price }}</td>
-									@if ($data[0]->status == '1')
-										<td>
-											<span class="badge badge-success">فعال</span>
-										</td>
-									@else
-										<td>
-											<span class="badge badge-danger">غیر فعال</span>
-										</td>
-									@endif
-                                    <td>{{ convertToJalaliDate($data[0]->created_at, true) }}</td>
+									<td>{{ $data->patient_name }}</td>
+									<td>{{ $data->patient_national_code }}</td>
+                                    <?php
+                                        $insurance = ($data->basic_insurance_id != null) ? $data->basic_insurance_id : $data->supp_insurance_id;
+
+                                        $insurance = App\Models\Insurance::where('id', $insurance)->pluck('type')->first();
+
+                                        if($insurance == 'basic') {
+                                            $insurance = 'پایه';
+                                        } else if($insurance == 'supplementary') {
+                                            $insurance = 'تکمیلی';
+                                        } else {
+                                            $insurance = 'بیمار پوشش بیمه ای نیست';
+                                        }
+                                    ?>
+                                    <td @if($insurance == 'بیمار پوشش بیمه ای نیست') style="color:red;" @endif>{{ $insurance }}</td>
+									<td>{{ number_format($data->getTotalPrice()) }} تومان</td>
+                                    <td>{{ convertToJalaliDate($data->surgeried_at, true) }}</td>
 								</tr>
 
 							@endforeach
 						</tbody>
+                        <td>جمع کل</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ number_format($surgeriesTotalPrice) }} تومان</td>
 					</table>
-                    <span>جمع کل: {{ number_format($surgery[0]->getTotalPrice()) }} - سهم دكتر از جراحي: {{ number_format($surgery[0]->getDoctorQuotaAmount($doctor->doctorRoles[0])) }}</span>
                 </div>
 
+                <hr>
+                <span style="display:block;text-align:center;">سحم دکتر از جراحی: {{ number_format($doctorRoleQuotaAmount) }} تومان</span>
                 <hr>
 
                 <div class="table-responsive push">
@@ -77,7 +90,7 @@
 
 								<tr>
                                     <td>{{ $loop->iteration }}</td>
-									<td class="comma">{{ $data->amount }}</td>
+									<td>{{ number_format($data->amount) }} تومان</td>
                                     @if($data->pay_type == 'cash')
                                         <td>
                                             <span class="badge badge-success">نقدی</span>
@@ -97,8 +110,9 @@
 
 							@endforeach
 						</tbody>
+                        <td>جمع کل</td>
+                        <td>{{ number_format($invoice->paymentSum()) }} تومان</td>
 					</table>
-                    <span>{{ number_format($invoice->paymentSum()) }} از {{ number_format($surgery[0]->getDoctorQuotaAmount($doctor->doctorRoles[0])) }} پرداخت شده.</span>
                 </div>
 
 

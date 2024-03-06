@@ -116,9 +116,6 @@
 											@can('view insurances')
 												<li><a href="{{ route('insurances.index') }}" class="slide-item">لیست بيمه ها</a></li>
 											@endcan
-                                            @can('view insurances')
-												<li><a href="{{ route('insurance-reports.index') }}" class="slide-item">گزارش بیمه ها</a></li>
-											@endcan
 										</li>
 									</ul>
 								</li>
@@ -137,6 +134,31 @@
 											@endcan
 											@can('view surgeries')
 												<li><a href="{{ route('surgeries.index') }}" class="slide-item">لیست عمل ها</a></li>
+											@endcan
+										</li>
+									</ul>
+								</li>
+							@endif
+
+							@if($user->can('view activity-logs') || $user->can('delete activity-logs'))
+								<li class="slide">
+									<a class="side-menu__item" data-toggle="slide" href="#">
+										<i class="fa-solid fa-clock-rotate-left sidemenu_icon"></i>
+										<span class="side-menu__label">گزارشات</span><i class="angle fa fa-angle-left"></i>
+									</a>
+									<ul class="slide-menu">
+										<li class="sub-slide">
+											@can('view activity-logs')
+												<li><a href="{{ route('activity-logs.index') }}" class="slide-item">گزارش فعالیت ها</a></li>
+											@endcan
+											@can('view notifications')
+												<li><a href="{{ route('notifications.index') }}" class="slide-item">لیست اعلانات</a></li>
+											@endcan
+											@can('view insurances')
+												<li><a href="{{ route('insurance-reports.index') }}" class="slide-item">گزارش بیمه ها</a></li>
+											@endcan
+											@can('view doctors')
+												<li><a href="{{ route('doctors-reports.index') }}" class="slide-item">گزارش دكتر ها</a></li>
 											@endcan
 										</li>
 									</ul>
@@ -166,15 +188,6 @@
 									<a class="side-menu__item" data-toggle="slide" href="{{ route('doctor-surgeries.index') }}">
 										<i class="fa-solid fa-file-invoice-dollar sidemenu_icon"></i>
 										<span class="side-menu__label">پرداخت پزشک</span></i>
-									</a>
-								</li>
-							@endif
-
-							@if($user->can('view activity-logs') || $user->can('delete activity-logs'))
-								<li class="slide">
-									<a class="side-menu__item" data-toggle="slide" href="{{ route('activity-logs.index') }}">
-										<i class="fa-solid fa-clock-rotate-left sidemenu_icon"></i>
-										<span class="side-menu__label">گزارش فعالیت ها</span></i>
 									</a>
 								</li>
 							@endif

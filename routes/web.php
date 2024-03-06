@@ -16,6 +16,8 @@ use App\Http\Controllers\admin\DoctorRoleController;
 use App\Http\Controllers\admin\SpecialityController;
 use App\Http\Controllers\admin\ActivityLogController;
 use App\Http\Controllers\admin\auth\LogoutController;
+use App\Http\Controllers\admin\DoctorReportController;
+use App\Http\Controllers\admin\NotificationController;
 use App\Http\Controllers\admin\auth\PasswordController;
 use App\Http\Controllers\admin\DoctorSurgeryController;
 use App\Http\Controllers\admin\InsuranceReportController;
@@ -56,6 +58,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('doctors/{doctor}', [DoctorController::class, 'destroy'])->name('doctors.destroy');
     Route::resource('doctors', DoctorController::class);
 
+    Route::post('doctors-reports/create', [DoctorReportController::class, 'create'])->name('doctors-reports.create');
+    Route::resource('doctors-reports', DoctorReportController::class);
+
     Route::get('doctor-roles/search', [DoctorRoleController::class, 'search'])->name('doctor-roles.search');
     Route::delete('doctor-roles/{doctor-role}', [DoctorRoleController::class, 'destroy'])->name('doctor-roles.destroy');
     Route::resource('doctor-roles', DoctorRoleController::class);
@@ -93,6 +98,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
     Route::get('payments/{payment}/description', [PaymentController::class, 'description'])->name('payments.description');
     Route::resource('payments', PaymentController::class);
+
+    Route::get('notifications/search', [NotificationController::class, 'search'])->name('notifications.search');
+    Route::delete('notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::resource('notifications', NotificationController::class);
+    Route::get('notifications/{notification}/description', [NotificationController::class, 'description'])->name('notifications.description');
+
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');
 

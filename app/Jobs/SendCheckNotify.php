@@ -33,10 +33,11 @@ class SendCheckNotify implements ShouldQueue
         ->whereNull('notified_at')
         ->get();
         foreach ($cheques as $cheque) {
-            // ارسال اعلان
+            $dueDate = convertToJalaliDate($cheque->due_date, true);
+
             Notification::create([
                 'title' => 'موعد چک ها',
-                'body' => "چک با شناسه {$cheque->id} در تاریخ {$cheque->due_date} موعد سررسید آن است.",
+                'body' => "چک با شناسه {$cheque->id} در تاریخ {$dueDate} موعد سررسید آن است.",
             ]);
             $cheque->notified_at = now();
             $cheque->save();

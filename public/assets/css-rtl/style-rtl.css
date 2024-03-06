@@ -40,7 +40,7 @@ span,div,.form-label {
     background: #1f8bcb !important;
 }
 .color-menu .app-sidebar .side-menu .slide.is-expanded a.slide-item.active , .color-menu .app-sidebar .side-menu .sub-slide a:hover ,.color-menu .app-sidebar .side-menu .slide.is-expanded a.slide-item:hover {
-    color: #1f8bcb !important;
+    color: #fff !important;
     background: 0 0 !important;
 }
 .side-menu__item {

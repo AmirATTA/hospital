@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use App\Models\Payment;
 use App\Models\Surgery;
 use App\Models\Operation;
+use App\Models\DoctorRole;
 use Illuminate\Http\Request;
 use App\Models\DoctorSurgery;
 use App\Traits\RedirectNotify;
@@ -94,13 +95,15 @@ class InvoiceController extends Controller
         $doctor = Doctor::select('id', 'name')->findOrFail($invoice->doctor_id);
 
         $doctorSurgery = DoctorSurgery::where('invoice_id', $invoice->id)->pluck('surgery_id');
-        $operationSurgery = OperationSurgery::where('surgery_id', $doctorSurgery)->pluck('operation_id');
 
-        $surgery = Surgery::where('id', $doctorSurgery)->get();
-
-        $operations = [];
-        foreach ($operationSurgery as $key) {
-            $operations[] = Operation::where('id', $key)->get();
+        $surgeries = [];
+        $surgeriesTotalPrice = 0;
+        $doctorRoleQuotaAmount = 0;
+        foreach ($doctorSurgery as $key) {
+            $surgeries[] = Surgery::where('id', $key)->get()[0];
+            $doctorRole = DoctorRole::where('id', DoctorSurgery::where('doctor_id', $doctor->id)->where('surgery_id', end($surgeries)->id)->first()->doctor_role_id)->get()[0];
+            $surgeriesTotalPrice += end($surgeries)->getTotalPrice();
+            $doctorRoleQuotaAmount += end($surgeries)->getDoctorQuotaAmount($doctorRole);
         }
 
         $payments = Payment::query()
@@ -113,8 +116,9 @@ class InvoiceController extends Controller
             'invoice' => $invoice,
             'doctor' => $doctor,
             'payments' => $payments,
-            'operations' => $operations,
-            'surgery' => $surgery,
+            'surgeries' => $surgeries,
+            'surgeriesTotalPrice' => $surgeriesTotalPrice,
+            'doctorRoleQuotaAmount' => $doctorRoleQuotaAmount,
         ]);
     }
 

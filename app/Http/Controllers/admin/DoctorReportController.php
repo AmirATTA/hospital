@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\Surgery;
-use App\Models\Insurance;
 use Illuminate\Http\Request;
 use App\Traits\RedirectNotify;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
 
-class InsuranceReportController extends Controller
+
+class DoctorReportController extends Controller
 {
     use RedirectNotify;
     
@@ -18,9 +17,9 @@ class InsuranceReportController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('permission:view insurances')->only('index');
+        $this->middleware('permission:view doctors')->only('index');
 
-        $this->middleware('permission:create insurances')->only('create');
+        $this->middleware('permission:create doctors')->only('create');
     }
 
     /**
@@ -28,7 +27,7 @@ class InsuranceReportController extends Controller
      */
     public function index()
     {
-        return view('admin.insurance-report.index');
+        return view('admin.doctor-report.index');
     }
 
     /**
@@ -38,8 +37,12 @@ class InsuranceReportController extends Controller
     {
         $search = collect($request->all())->except('_token')->all();
 
-        $insurance = Insurance::query()
-            ->when($search['insurances'], fn (Builder $query) => $query->where('id', $search['insurances']))
+        $doctor = Doctor::query()
+            ->when($search['doctors'], fn (Builder $query) => $query->where('id', $search['doctors']))
+            ->first();
+        dd($doctor);
+        $doctorSurgery = DoctorSurgery::query()
+            ->where('doctor_id', $doctor)
             ->first();
 
         $surgeries = Surgery::query()
@@ -102,15 +105,5 @@ class InsuranceReportController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    /**
-     * Retrive insurance data's throught form ajax.
-     */
-    public function getInsuranceNames(Request $request)
-    {
-        $insurances = Insurance::select('id', 'name')->where('type', $request->data)->orderBy('id', 'desc')->get();
-
-        return response()->json($insurances);
     }
 }

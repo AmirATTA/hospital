@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $activityLogs = Activity::select('id', 'description', 'subject_type', 'causer_id')->take(5)->get();
+        $activityLogs = Activity::select('id', 'description', 'subject_type', 'causer_id')->whereNotNull('causer_id')->take(5)->get();
 
         $doctorSum = Doctor::count();
         $latestDoctor = Doctor::select('created_at')->latest()->first();
@@ -47,7 +47,9 @@ class DashboardController extends Controller
         $jsonAmount = json_encode($amountsArray);
         $jsonDate = json_encode($datesArray );
 
-        $payments = Payment::select('id', 'amount', 'pay_type', 'created_at')->take(5)->get();
+        $payments = Payment::select('id', 'amount', 'pay_type', 'created_at', 'invoice_id')->take(5)->get();
+
+        $doctorName = Doctor::where('id', Invoice::where('id', $payments[0]->invoice_id)->pluck('doctor_id'))->pluck('name');
 
         return view('admin.dashboard')->with([
             'activityLogs' => $activityLogs,
@@ -63,6 +65,7 @@ class DashboardController extends Controller
             'invoiceSum' => $invoiceSum,
 
             'payments' => $payments,
+            'doctorName' => $doctorName,
         ]);
     }
 }

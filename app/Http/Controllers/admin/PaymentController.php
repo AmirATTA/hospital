@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Requests\PaymentStoreRequest;
+use App\Http\Requests\PaymentUpdateRequest;
 
 class PaymentController extends Controller
 {
@@ -154,13 +155,46 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PaymentUpdateRequest $request, string $id)
     {
         $payment = Payment::findOrFail($id);
-        
-        $payment->update([
-            'description' => $request->description,
+
+        if($request->file('receipt')) {
+            $receiptPath = $request->file('receipt')->store('public/payment');
+            $receiptName = basename($receiptPath);
+        } else {
+            $receiptName = null;
+        }
+
+        $validated = array_merge($request->validated(), [
+            'invoice_id' => $request->invoice_id,
+            'receipt' => $receiptName,
         ]);
+
+        $payment->update($request->validated());
+
+        $payments = Payment::where('invoice_id', $request->invoice_id)->get();
+
+        $invoice = Invoice::findOrFail($request->invoice_id);
+        if($invoice->paymentSum() >= $invoice->amount) {
+            $invoice->update([
+                'status' => 1,
+            ]);
+            foreach($payments as $payment) {
+                $payment->update([
+                    'status' => 1,
+                ]); 
+            }
+        } else {
+            $invoice->update([
+                'status' => 0,
+            ]);
+            foreach($payments as $payment) {
+                $payment->update([
+                    'status' => 0,
+                ]); 
+            }
+        }
 
         return $this->redirectNotify('payments.index', 'success', 'بروزرسانی با موفقیت انجام شد.');
     }

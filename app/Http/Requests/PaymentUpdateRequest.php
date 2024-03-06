@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Models\Invoice;
+use App\Models\Payment;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PaymentStoreRequest extends FormRequest
+class PaymentUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,17 +18,18 @@ class PaymentStoreRequest extends FormRequest
     {
         return [
             'invoice_id' => 'required',
+            'payment_id' => 'required',
             'amount' => [
                 'required',
                 'gte:25000',
                 function ($attribute, $value, $fail) {
-
-                    $invoice = Invoice::select('id', 'amount')->find(request('invoice_id'));
-                    
                     $amount = intval(request('amount'));
 
-                    $invoiceAmount = $invoice->amount - intval($invoice->paymentSum());
+                    $payment = Payment::select('amount')->find(request('payment_id'));
                     
+                    $invoice = Invoice::select('id', 'amount')->find(request('invoice_id'));
+                    $invoiceAmount = $invoice->amount - intval($invoice->paymentSum()) + $payment->amount;
+
                     if ($amount > $invoiceAmount) {
                         $fail('قیمت نمیتواند از حداکثر مبلغ قابل پرداخت بیشتر باشد');
                     }

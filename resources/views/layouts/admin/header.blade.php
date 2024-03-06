@@ -91,7 +91,7 @@
 
                     <!-- route('admin.notify.show',$notify->id) -->
 
-                        <a href="#" class="font-weight-semibold fs-16"> {{$notify->title}} <span class="text-muted font-weight-normal"> {{Str::limit($notify->body)}} </span></a>
+                        <a href="{{ route('notifications.show', $notify->id) }}" class="font-weight-semibold fs-16"> {{$notify->title}} <span class="text-muted font-weight-normal"> {{Str::limit($notify->body)}} </span></a>
                         <span class="clearfix"></span>
                         <span class="text-muted fs-13 ml-auto">{{$notify->created_at->diffForHumans()}}<i class="mdi mdi-clock text-muted mr-1"></i></span>
                     </div>

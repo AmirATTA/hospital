@@ -81,7 +81,7 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group required">
-								<label class="form-label">زمان مرخصی</label>
+								<label class="form-label">زمان ترخیص</label>
 								<div class="input-group">
 									<div class="input-group-prepend">
 										<div class="input-group-text" id="dp-released">
