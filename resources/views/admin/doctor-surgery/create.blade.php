@@ -1,12 +1,11 @@
 @extends('layouts.admin.master')
-@section('title', 'پرداخت پزشک')
+@section('title', "پرداخت دکتر $doctorName->name")
 @section('links')
 	<link href="{{ asset('assets/plugins/sweet-alert/jquery.sweet-modal.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/plugins/sweet-alert/sweetalert.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
 <!-- Row -->
-@can('view doctor-surgeries')
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
@@ -15,7 +14,7 @@
 					<div class="checkbox-wrapper-19 select-all-checkbox">
 						<label for="select_all" style="cursor:pointer;">انتخاب همه</label>
 						<input type="checkbox" id="select_all" />
-						<label for="select_all" class="check-box">
+						<label for="select_all" class="check-box"></label>
 					</div>
 					<form action="{{ route('doctor-surgeries.store') }}" id="doctor-surgery" name="doctor-surgery" method="post" >
 						@csrf
@@ -35,9 +34,12 @@
 
 									@php
 										$doctor = App\Models\Doctor::findOrFail($doctorId);
-										$doctorRole = $doctor->doctorRoles[0];
+										$doctorRoleId = App\Models\DoctorSurgery::where('doctor_id', $doctorId)->where('surgery_id', $data)->pluck('doctor_role_id');
+										$doctorRole = App\Models\DoctorRole::where('id', $doctorRoleId[0])->get();
 
-										$doctorSurgery = App\Models\DoctorSurgery::where('doctor_id', $doctorId)->where('surgery_id', $data->id)->first();
+										$doctorSurgery = App\Models\DoctorSurgery::where('doctor_id', $doctorId)->where('surgery_id', $data)->get()[0];
+
+                                        $surgery = App\Models\Surgery::where('id', $data)->get()[0];
 									@endphp
 
 									@if($doctorSurgery->invoice_id == null)
@@ -45,21 +47,28 @@
 										<tr>
 											<td>
 												<div class="checkbox-wrapper-19" style="display: flex;align-items: center;justify-content: center;">
-													<input type="checkbox" name="invoices[]" value="{{ $doctorId .', '. $data->getDoctorQuotaAmount($doctorRole) .', '. $doctorSurgery->id }}" class="checkbox" id="cbtest-{{ $data->id }}" />
-													<label for="cbtest-{{ $data->id }}" class="check-box">
+													<input type="checkbox" name="invoices[]" value="{{ $doctorId .', '. $surgery->getDoctorQuotaAmount($doctorRole[0]) .', '. $doctorSurgery->id }}" class="checkbox" id="cbtest-{{ $surgery->id }}" />
+													<label for="cbtest-{{ $surgery->id }}" class="check-box"></label>
+                                                    <input type="hidden" value="{{ $surgery->getTotalPrice() }}" class="operation-sum">
+                                                    <input type="hidden" value="{{ $surgery->getDoctorQuotaAmount($doctorRole[0]) }}" class="quota-sum">
 												</div>
 											</td>
                                             <td>{{ $loop->iteration }}</td>
-											<td>{{ $data->patient_name }}</td>
-											<td>{{ number_format($data->getTotalPrice()) }} تومان</td>
-											<td>{{ number_format($data->getDoctorQuotaAmount($doctorRole)) }} تومان <span style="color:red;">{{ $doctorRole->quota }}%</span></td>
-											<td>{{ $doctorRole->title }}</td>
+											<td>{{ $surgery->patient_name }}</td>
+											<td>{{ number_format($surgery->getTotalPrice()) }} تومان</td>
+											<td>{{ number_format($surgery->getDoctorQuotaAmount($doctorRole[0])) }} تومان <span style="color:red;">{{ $doctorRole[0]->quota }}%</span></td>
+											<td>{{ $doctorRole[0]->title }}</td>
 										</tr>
 
 									@endif
 
 								@endforeach
 							</tbody>
+                            <td></td>
+                            <td>جمع کل</td>
+                            <td></td>
+                            <td id="operation_sum">0 تومان</td>
+                            <td id="quota_sum">0 تومان</td>
 						</table>
 					    @if(count($surgeries) !== 0)
                             <div class="invoice-btn" style="display:flex;justify-content: center;margin-top:15px;">
@@ -75,7 +84,6 @@
 		</div>
 	</div>
 </div>
-@endcan
 <!-- End Row -->
 @endsection
 @section('scripts')

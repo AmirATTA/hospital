@@ -1,18 +1,14 @@
 				<!--aside open-->
 
-				@php
-					$user = auth()->user();
-
-                    $logo = App\Models\Setting::where('group', 'general')->where('name', 'logo')->pluck('value');
-				@endphp
+				@php $user = auth()->user(); @endphp
 
 				<aside class="app-sidebar">
 					<div class="app-sidebar__logo p-4 mt-2" style="border:none;">
 						<a class="header-brand" href="{{ route('dashboard.index') }}">
-                            @if($logo[0] == null)
+                            @if($logo == null)
                                 <img src="{{ asset('assets/images/hospital_logo.png') }}" class="header-brand-img dark-logo" alt="Dayonelogo">
                             @else
-                                <img src="{{ asset('storage/setting/'.$logo[0]) }}" class="header-brand-img dark-logo" alt="Dayonelogo">
+                                <img src="{{ asset('storage/setting/'.$logo) }}" class="header-brand-img dark-logo" alt="Dayonelogo">
                             @endif
 						</a>
 					</div>

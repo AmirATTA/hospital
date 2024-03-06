@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Ybazli\Faker\Facades\Faker;
+use Faker\Factory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -15,13 +15,15 @@ class DoctorsTableSeeder extends Seeder
      */
     public function run(): void
     {
+        $faker = Factory::create('fa_IR');;
+
         $doctorId = DB::table('doctors')->insertGetId([
-            'name' => Faker::word(10),
-            'national_code' => rand(1, 1000000000),
-            'medical_number' => rand(1, 1000000000),
-            'email' => 'amirmohammad.sh8326@email.com',
+            'name' => $faker->name(),
+            'national_code' => $faker->nationalCode(),
+            'medical_number' => $faker->nationalCode(),
+            'email' => $faker->freeEmail(),
             'mobile' => rand(1, 10000000000),
-            'password' => Faker::sentence(1),
+            'password' => $faker->password(),
             'status' => 1,
             'speciality_id' => 1,
             'created_at' => Carbon::now(),
@@ -35,12 +37,12 @@ class DoctorsTableSeeder extends Seeder
         ]);
         
         $doctorId = DB::table('doctors')->insertGetId([
-            'name' => Faker::word(10),
-            'national_code' => rand(1, 1000000000),
-            'medical_number' => rand(1, 1000000000),
-            'email' => 'amirmohammad.sh8326@email.com',
+            'name' => $faker->name(),
+            'national_code' => $faker->nationalCode(),
+            'medical_number' => $faker->nationalCode(),
+            'email' => $faker->freeEmail(),
             'mobile' => rand(1, 10000000000),
-            'password' => Faker::sentence(1),
+            'password' => $faker->password(),
             'status' => 1,
             'speciality_id' => 2,
             'created_at' => Carbon::now(),
@@ -54,12 +56,12 @@ class DoctorsTableSeeder extends Seeder
         ]);
         
         $doctorId = DB::table('doctors')->insertGetId([
-            'name' => Faker::word(10),
-            'national_code' => rand(1, 1000000000),
-            'medical_number' => rand(1, 1000000000),
-            'email' => 'amirmohammad.sh8326@email.com',
+            'name' => $faker->name(),
+            'national_code' => $faker->nationalCode(),
+            'medical_number' => $faker->nationalCode(),
+            'email' => $faker->freeEmail(),
             'mobile' => rand(1, 10000000000),
-            'password' => Faker::sentence(1),
+            'password' => $faker->password(),
             'status' => 1,
             'speciality_id' => 3,
             'created_at' => Carbon::now(),
@@ -73,15 +75,14 @@ class DoctorsTableSeeder extends Seeder
         ]);
 
         $specialityIdIndex = 1;
-        $randValue = rand(3,10);
-        for ($i = 0; $i < $randValue; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $doctorId = DB::table('doctors')->insertGetId([
-                'name' => Faker::word(10),
-                'national_code' => rand(1, 1000000000),
-                'medical_number' => rand(1, 1000000000),
-                'email' => 'amirmohammad.sh8326@email.com',
+                'name' => $faker->name(),
+                'national_code' => $faker->nationalCode(),
+                'medical_number' => $faker->nationalCode(),
+                'email' => $faker->freeEmail(),
                 'mobile' => rand(1, 10000000000),
-                'password' => Faker::sentence(1),
+                'password' => $faker->password(),
                 'status' => 1,
                 'speciality_id' => $specialityIdIndex,
                 'created_at' => Carbon::now(),
@@ -93,12 +94,14 @@ class DoctorsTableSeeder extends Seeder
             }
 
             // Assign a role to the doctor
+            for ($z = 0; $z < rand(2, 4); $z++) {
             DB::table('doctor_doctor_role')->insert([
                 'doctor_id' => $doctorId,
                 'doctor_role_id' => rand(1,3),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+            }
         }
     }
 }

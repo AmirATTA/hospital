@@ -113,7 +113,6 @@ return new class extends Migration
             'view invoices' => 'نمایش صورت حساب ها',
             'edit doctor-surgeries' => 'ویرایش صورت حساب ها',
             'delete invoices' => 'حذف صورت حساب ها',
-            
         ];
 
         $permissionNames = $this->createPermissions($permissions);

@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Models\Notification;
+use App\Models\Payment;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -25,21 +28,18 @@ class SendCheckNotify implements ShouldQueue
      */
     public function handle(): void
     {
-        $cheques = Payment::whereNotNull('due_date')
+        $cheques = Payment::where('pay_type','cheque')
         ->whereDate('due_date', '<=', Carbon::now()->addDays(3))
         ->whereNull('notified_at')
         ->get();
-
         foreach ($cheques as $cheque) {
             // ارسال اعلان
-            $vertaDate = verta($cheque->due_date);
             Notification::create([
                 'title' => 'موعد چک ها',
-                'body' => "چک با شناسه {$cheque->id} در تاریخ {$vertaDate->format('Y/n/j')} موعد سررسید آن است.",
+                'body' => "چک با شناسه {$cheque->id} در تاریخ {$cheque->due_date} موعد سررسید آن است.",
             ]);
-        }
-        foreach ($cheques as $cheque) {
-            $cheque->update(['notified_at' => now()]);
+            $cheque->notified_at = now();
+            $cheque->save();
         }
     }
 }

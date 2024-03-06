@@ -11,8 +11,6 @@ use Database\Seeders\InsurancesTableSeeder;
 use Database\Seeders\OperationsTableSeeder;
 use Database\Seeders\DoctorRolesTableSeeder;
 use Database\Seeders\SpecialitiesTableSeeder;
-use Database\Seeders\DoctorSurgeriesTableSeeder;
-use Database\Seeders\OperationSurgeriesTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,8 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SpecialitiesTableSeeder::class);
         $this->call(DoctorsTableSeeder::class);
         $this->call(SurgeriesTableSeeder::class);
-        $this->call(OperationSurgeriesTableSeeder::class);
-        $this->call(DoctorSurgeriesTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
     }
 }

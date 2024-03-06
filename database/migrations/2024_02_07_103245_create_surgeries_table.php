@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('supp_insurance_id')->references('id')->on('insurances');
             
             $table->string('document_number')->unique();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->datetime('surgeried_at');
             $table->datetime('released_at');
 

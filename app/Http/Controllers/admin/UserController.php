@@ -76,7 +76,8 @@ class UserController extends Controller
         $chunkedArray = array_chunk($originalArray, 4, true);
 
         return view('admin.user.create')->with([
-            'permissions' => $chunkedArray
+            'admin' => $adminPermissions,
+            'permissions' => $chunkedArray,
         ]);
     }
 
@@ -85,6 +86,7 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
+        dd($request->all());
         $permission_ids = explode(',', $request->permission_ids);
         $ids = array_filter($permission_ids, function($value) {
             return $value !== '';

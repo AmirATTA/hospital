@@ -16,7 +16,7 @@ class OperationsTableSeeder extends Seeder
     {
         DB::table('operations')->insert([
             'name' => 'مغز',
-            'price' => '10000000',
+            'price' => '20000000',
             'status' => '1',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
@@ -24,7 +24,7 @@ class OperationsTableSeeder extends Seeder
 
         DB::table('operations')->insert([
             'name' => 'جراحي استخوان دست',
-            'price' => '1000000',
+            'price' => '5000000',
             'status' => '1',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
@@ -32,7 +32,7 @@ class OperationsTableSeeder extends Seeder
 
         DB::table('operations')->insert([
             'name' => 'شكستي پا',
-            'price' => '5000000',
+            'price' => '125000000',
             'status' => '1',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

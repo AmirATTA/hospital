@@ -341,37 +341,51 @@ var options = {
 		}
 	},
 };
-const amounts = document.getElementById('surgery_amount');
-const dateTimes = document.getElementById('date_times');
-
-let values = amounts.innerHTML.split(', ').map(value => parseInt(value));
-console.log(values);
 
 var chart = new ApexCharts(document.querySelector("#chart-timeline"), options);
 chart.render();
+
+var dateObjects = chartDate.map(dateStr => new Date(dateStr));
+
 var options1 = {
 	series: [{
 		name: 'سود عمل',
-		data: []
+		data: chartAmount
 	}],
 	colors: ['#3dd5ce'],
 	chart: {
 		height: 320,
 		type: 'area'
 	},
-	dataLabels: {
-		enabled: true
-	},
+    dataLabels: {
+        enabled: true,
+        formatter: function(val, opts) {
+            // Convert the number to a string and add commas for thousands separator
+            var formattedVal = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return formattedVal;
+        },
+    },
 	stroke: {
 		curve: 'smooth'
 	},
 	xaxis: {
 		type: 'datetime',
-		categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z"]
+		categories: dateObjects.map(date => date.toLocaleString()),
+        labels: {
+            format: 'MM/dd',
+        },
 	},
+    yaxis: {
+        labels: {
+            formatter: function (value) {
+                var formattedVal = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                return formattedVal + " تومان";
+            }
+        },
+    },
 	tooltip: {
 		x: {
-			format: 'dd/MM/yy HH:mm'
+			format: 'dd/MM/yy'
 		},
 	},
 	legend: {

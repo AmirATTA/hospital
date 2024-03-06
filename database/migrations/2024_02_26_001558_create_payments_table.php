@@ -21,9 +21,11 @@ return new class extends Migration
 
             $table->datetime('due_date')->nullable();
             $table->string('receipt')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->boolean('status')->default(0);
 
+            $table->timestamp('notified_at')->nullable();
+            
             $table->timestamps();
         });
     }

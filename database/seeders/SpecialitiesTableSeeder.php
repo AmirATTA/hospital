@@ -29,7 +29,7 @@ class SpecialitiesTableSeeder extends Seeder
         ]);
 
         DB::table('specialities')->insert([
-            'title' => 'مشاور',
+            'title' => 'شکستگی استخوان',
             'status' => '1',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

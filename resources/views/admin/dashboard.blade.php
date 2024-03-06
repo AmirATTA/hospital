@@ -15,9 +15,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="mt-0 text-right"> <span class="fs-14 font-weight-semibold">جمع دکتر ها</span>
-                                    <h3 class="mb-0 mt-1 mb-2">6,578</h3>
+                                    <h3 class="mb-0 mt-1 mb-2">{{ $doctorSum }}</h3>
                                     <span class="text-muted">
-                                        <span class="text-success fs-12 mt-2 ml-1"><i class="feather feather-arrow-up-right ml-1 bg-success-transparent p-1 brround"></i>2 روز پیش</span>
+                                        <span class="text-success fs-12 mt-2 ml-1"><i class="feather feather-arrow-up-right ml-1 bg-success-transparent p-1 brround"></i>{{ $latestDoctor->created_at->diffForHumans() }}</span>
                                         جدید ترین دکتر
                                     </span>
                                 </div>
@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="mt-0 text-right"> <span class="fs-14 font-weight-semibold">تعداد مدیران</span>
-                                    <h3 class="mb-0 mt-1 mb-2">124</h3>
+                                    <h3 class="mb-0 mt-1 mb-2">{{ $userSum }}</h3>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="mt-0 text-right"> <span class="fs-14 font-weight-semibold">مخارج</span>
-                                <h3 class="mb-0 mt-1  mb-2">$2,7853</h3> </div>
+                                <h3 class="mb-0 mt-1  mb-2">{{ number_format($invoiceSum) }} تومان</h3> </div>
                             </div>
                             <div class="col-4">
                                 <div class="icon1 bg-secondary-transparent brround my-auto  float-left"> <i class="feather feather-dollar-sign"></i> </div>
@@ -63,11 +63,9 @@
             <div class="col-xl-12 col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-header border-bottom-0">
-                        <div class="card-title">درآمد</div>
+                        <div class="card-title">درآمد (تا 10 جراحی قبل)</div>
                     </div>
                     <div class="card-body">
-                        <div id="surgery_amount">25000000, 1000000, 2400000, 6250000</div>
-                        <div id="date_times">"2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z"</div>
                         <div class="chartjs-wrapper-demo">
                             <div id="chart" class="h-300 mh-300"></div>
                         </div>
@@ -80,51 +78,31 @@
     <div class="col-xl-3 col-md-12 col-lg-12">
         <div class="card overflow-hidden">
             <div class="card-header border-0">
-                <h4 class="card-title">سررسید چک</h4>
+                <h4 class="card-title">آخرین پرداختی ها</h4>
             </div>
-            <div class="pt-2">
+            <div class="pt-6">
                 <div class="list-group">
-                    <div class="list-group-item d-flex pt-3 pb-3 align-items-center border-0">
-                        <div class="ml-3 ml-xs-0">
-                            <div class="calendar-icon icons">
-                                <div class="date_time bg-pink-transparent"> <span class="date">18</span> <span class="month">FEB</span> </div>
+                    @foreach($payments as $payment)
+                        <a href="{{ route('payments.show', $payment->id) }}">
+                            <div class="list-group-item d-flex pt-3 pb-3 align-items-center border-0">
+                                <div class="ml-3 ml-xs-0">
+                                    @if($payment->pay_type == 'cash')
+                                        <i class="fa-solid fa-money-bills bg-success-transparent" style="font-size:2rem; margin:5px;"></i>
+                                    @else
+                                        <i class="fa-solid fa-money-check-dollar bg-warning-transparent" style="font-size:2rem; margin:5px;"></i>
+                                    @endif
+                                </div>
+                                <div class="ml-1">
+                                    <div class="fs-14 mb-1" style="font-size:1.1rem;">{{ number_format($payment->amount) }}
+                                     تومان @php if($payment->pay_type == 'cash'){echo 'نقد';}else{echo 'چک';} @endphp</div>
+                                    <small class="text-muted">attend the  company mangers...</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class="ml-1">
-                            <div class="h5 fs-14 mb-1">Board meeting Completed</div> <small class="text-muted">attend the  company mangers...</small>
-                        </div>
-                    </div>
-                    <div class="list-group-item d-flex pt-3 pb-3 align-items-center border-0">
-                        <div class="ml-3 ml-xs-0">
-                            <div class="calendar-icon icons">
-                                <div class="date_time bg-success-transparent "> <span class="date">16</span> <span class="month">FEB</span> </div>
-                            </div>
-                        </div>
-                        <div class="ml-1">
-                            <div class="h5 fs-14 mb-1"><span class="font-weight-normal">Updated the Company</span> Policy</div>
-                            <small class="text-muted">some changes &amp; add the  terms &amp; conditions </small>
-                        </div>
-                    </div>
-                    <div class="list-group-item d-flex pt-3 pb-3 align-items-center border-0">
-                        <div class="ml-3 ml-xs-0">
-                            <div class="calendar-icon icons">
-                                <div class="date_time bg-orange-transparent "> <span class="date">17</span> <span class="month">FEB</span> </div>
-                            </div>
-                        </div>
-                        <div class="ml-1">
-                            <div class="h5 fs-14 mb-1">Office Timings Changed</div> <small class="text-muted"> this effetct  after March 01st 9:00 Am To 5:00 Pm</small>
-                        </div>
-                    </div>
-                    <div class="list-group-item d-flex pt-3 pb-5 align-items-center border-0">
-                        <div class="ml-3 ml-xs-0">
-                            <div class="calendar-icon icons">
-                                <div class="date_time bg-info-transparent "> <span class="date">26</span> <span class="month">JAN</span> </div>
-                            </div>
-                        </div>
-                        <div class="ml-1">
-                            <div class="h5 fs-15 mb-1"> Republic Day Celebrated </div> <small class="text-muted">participate the all employess </small>
-                        </div>
-                    </div>
+                        </a>
+                    @endforeach
+                    @if($payments->count() == 0)
+                        <div style="margin-right:60px;color:red;transform:translateY(-20px);">هیچ پرداختی وجود ندارد!</div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -145,7 +123,7 @@
                                     <div class="mr-3 mt-0 mt-sm-1 d-block">
                                         <h6 class="mb-1">{{ $log->description }}</h6>
                                         <span class="clearfix"></span>
-                                        <small>انجام شده توسط {{ App\Models\User::where('id', $log->causer_id)->pluck('name')[0] }}</small>
+                                        <small>انجام شده توسط {{ App\Models\User::where('id', $log->causer_id)->pluck('name') }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -706,7 +684,11 @@
 </div>
 <!-- End Row -->
 @endsection
-
+<script>
+    var chartAmount = JSON.parse('{!! $amount !!}');
+    var chartDate = {!! $date !!};
+    
+</script>
 @section('scripts')
     <!--Othercharts js-->
     <script src="{{ asset('assets/plugins/othercharts/jquery.sparkline.min.js') }}"></script>

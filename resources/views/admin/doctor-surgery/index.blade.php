@@ -28,7 +28,7 @@
 									@endphp
 
 										<option value="{{ $doctor->id }}">{{ $doctor->name }} 
-										@if($doctorSurgeries != '0')({{ $doctorSurgeries }})@endif</option>
+										({{ $doctorSurgeries }})</option>
 									@endforeach
 								</select>
 							</div>

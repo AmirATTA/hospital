@@ -49,15 +49,19 @@ class DoctorSurgeryController extends Controller
         $search = collect($request->all())->except('_token')->all();
         $doctorId = $search['doctor'];
         
+        $doctorName = Doctor::select('name')->where('id', $doctorId)->first();
+
         $startDate = $search['start_date'] == null ? Carbon::now()->toDateString() : $search['start_date'];
         
-        $surgeries = Surgery::whereHas('doctors', function ($query) use ($doctorId) {
-            $query->where('doctor_id', $doctorId);
-        })->whereBetween('created_at', [$startDate, $search['end_date']])->get();
-        
+        $surgeries = DoctorSurgery::where('doctor_id', $doctorId)->pluck('surgery_id');
+        // $surgeries = Surgery::whereHas('doctors', function ($query) use ($doctorId) {
+        //     $query->where('doctor_id', $doctorId);
+        // })->whereBetween('created_at', [$startDate, $search['end_date']])->get();
+
         return view('admin.doctor-surgery.create')->with([
             'surgeries' => $surgeries,
             'doctorId' => $doctorId,
+            'doctorName' => $doctorName,
         ]);
     }
 

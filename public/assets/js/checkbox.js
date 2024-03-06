@@ -12,3 +12,4 @@ specificCheckbox.addEventListener('click', function () {
         checkbox.checked = specificCheckbox.checked;
     });
 });
+
