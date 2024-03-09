@@ -30,15 +30,8 @@ return new class extends Migration
 
         // Create roles
         $user = User::create([
-            'name' => 'admin',
+            'name' => 'مدیر',
             'mobile' => '09924533026',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('admin'),
-        ]);
-
-        $testUser = User::create([
-            'name' => 'admin2',
-            'mobile' => '0992453302',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin'),
         ]);
@@ -47,6 +40,7 @@ return new class extends Migration
             'Super Admin' => 'مدیر ارشد',
             'Admin' => 'مدیر',
             'Doctor' => 'دکتر',
+            'Perms' => 'مجوز ها',
         ];
 
         foreach ($roles as $name => $label) {
@@ -54,13 +48,12 @@ return new class extends Migration
             $role->label = $label;
             $role->name = $name;
             $role->save();
-            if($name = 'Admin') {
+            if($name = 'Perms') {
                 $admin = $role;
             }
         }
 
         $user->assignRole('Super Admin');
-        $testUser->assignRole('Admin');
 
         // Create permissions for users
         $permissions = [
@@ -74,10 +67,10 @@ return new class extends Migration
             'edit doctors' => 'ویرایش دکتر ها',
             'delete doctors' => 'حذف دکتر ها',
             
-            'view doctor_roles' => 'نمایش نقش دکتر ها',
-            'create doctor_roles' => 'ایجاد نقش دکتر ها',
-            'edit doctor_roles' => 'ویرایش نقش دکتر ها',
-            'delete doctor_roles' => 'حذف نقش دکتر ها',
+            'view doctor-roles' => 'نمایش نقش دکتر ها',
+            'create doctor-roles' => 'ایجاد نقش دکتر ها',
+            'edit doctor-roles' => 'ویرایش نقش دکتر ها',
+            'delete doctor-roles' => 'حذف نقش دکتر ها',
 
             'view specialities' => 'نمایش تخصص ها',
             'create specialities' => 'ایجاد تخصص ها',
@@ -116,7 +109,7 @@ return new class extends Migration
         ];
 
         $permissionNames = $this->createPermissions($permissions);
-        $rolePermissions = $this->assignPermissions($permissions, 'Admin');
+        $rolePermissions = $this->assignPermissions($permissions, 'Perms');
 
         Activity::truncate();
     }

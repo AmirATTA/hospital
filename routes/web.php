@@ -58,8 +58,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::delete('doctors/{doctor}', [DoctorController::class, 'destroy'])->name('doctors.destroy');
     Route::resource('doctors', DoctorController::class);
 
-    Route::post('doctors-reports/create', [DoctorReportController::class, 'create'])->name('doctors-reports.create');
-    Route::resource('doctors-reports', DoctorReportController::class);
+    Route::get('doctor-reports/{surgery}/description', [DoctorReportController::class, 'description'])->name('doctor-reports.description');
+    Route::post('doctor-reports/create', [DoctorReportController::class, 'create'])->name('doctor-reports.create');
+    Route::resource('doctor-reports', DoctorReportController::class);
 
     Route::get('doctor-roles/search', [DoctorRoleController::class, 'search'])->name('doctor-roles.search');
     Route::delete('doctor-roles/{doctor-role}', [DoctorRoleController::class, 'destroy'])->name('doctor-roles.destroy');
@@ -90,19 +91,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'CheckLoggedIn'], function(){
     Route::resource('doctor-surgeries', DoctorSurgeryController::class);
 
     Route::get('invoices/search', [InvoiceController::class, 'search'])->name('invoices.search');
+    Route::get('invoices/{invoice}/description', [InvoiceController::class, 'description'])->name('invoices.description');
     Route::delete('invoices/{invoice}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
     Route::resource('invoices', InvoiceController::class);
-    Route::get('invoices/{invoice}/description', [InvoiceController::class, 'description'])->name('invoices.description');
 
     Route::get('payments/search', [PaymentController::class, 'search'])->name('payments.search');
-    Route::delete('payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
     Route::get('payments/{payment}/description', [PaymentController::class, 'description'])->name('payments.description');
+    Route::delete('payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
     Route::resource('payments', PaymentController::class);
 
     Route::get('notifications/search', [NotificationController::class, 'search'])->name('notifications.search');
+    Route::get('notifications/{notification}/description', [NotificationController::class, 'description'])->name('notifications.description');
     Route::delete('notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
     Route::resource('notifications', NotificationController::class);
-    Route::get('notifications/{notification}/description', [NotificationController::class, 'description'])->name('notifications.description');
 
 
     Route::put('/change-password', [PasswordController::class, 'update'])->name('change-password');

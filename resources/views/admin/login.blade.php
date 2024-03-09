@@ -12,8 +12,9 @@
 		<!-- Title -->
 		<title>صفحه ورود برنامه بیمارستان</title>
 
+        
 		<!--Favicon -->
-		<link rel="icon" href="{{ asset('assets/images/brand/favicon.ico') }}" type="image/x-icon"/>
+		<link rel="icon" href="{{ asset('assets/images/brand/favicon.png') }}" type="image/x-icon"/>
 
 		<!-- Bootstrap css -->
 		<link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet" />
@@ -46,7 +47,7 @@
 		<link href="{{ asset('assets/plugins/notify/css/notifIt.css') }}" rel="stylesheet" />
 	</head>
 
-	<body>
+	<body style="overflow-y:auto;">
 		<div class="page">
 			<div class="page-single">
 				<div class="container-login100">

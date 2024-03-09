@@ -69,7 +69,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $adminPermissions = Role::where('name', 'Admin')->first();
+        $adminPermissions = Role::where('name', 'Perms')->first();
         $permissions = $adminPermissions->permissions->pluck('id');
 
         $originalArray = $permissions->toArray();
@@ -86,7 +86,6 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-        dd($request->all());
         $permission_ids = explode(',', $request->permission_ids);
         $ids = array_filter($permission_ids, function($value) {
             return $value !== '';
@@ -102,6 +101,7 @@ class UserController extends Controller
                 $permNamesArray[] = $permName;
             }
             foreach ($permNamesArray as $permission) {
+                $user->assignRole('Admin');
                 $user->givePermissionTo($permission);
             }
         }

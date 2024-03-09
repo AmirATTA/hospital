@@ -10,6 +10,7 @@ use Database\Seeders\SettingsTableSeeder;
 use Database\Seeders\SurgeriesTableSeeder;
 use Database\Seeders\InsurancesTableSeeder;
 use Database\Seeders\OperationsTableSeeder;
+use Database\Seeders\ActivityLogTableSeeder;
 use Database\Seeders\DoctorRolesTableSeeder;
 use Database\Seeders\SpecialitiesTableSeeder;
 
@@ -28,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SurgeriesTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
         $this->call(PaymentsTableSeeder::class);
+        $this->call(ActivityLogTableSeeder::class);
     }
 }

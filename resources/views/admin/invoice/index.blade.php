@@ -251,13 +251,6 @@
 		</div>
 	</div>
 </div>
-@if (session('error'))
-	<script>
-		window.addEventListener('load', function() {
-			document.getElementById('payment_modal').click();
-		});
-	</script>	
-@endif
 <!-- End Change description modal  -->
 
 @endsection

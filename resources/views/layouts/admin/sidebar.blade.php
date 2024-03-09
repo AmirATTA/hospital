@@ -158,7 +158,7 @@
 												<li><a href="{{ route('insurance-reports.index') }}" class="slide-item">گزارش بیمه ها</a></li>
 											@endcan
 											@can('view doctors')
-												<li><a href="{{ route('doctors-reports.index') }}" class="slide-item">گزارش دكتر ها</a></li>
+												<li><a href="{{ route('doctor-reports.index') }}" class="slide-item">گزارش دكتر ها</a></li>
 											@endcan
 										</li>
 									</ul>

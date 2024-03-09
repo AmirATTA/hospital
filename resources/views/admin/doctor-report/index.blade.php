@@ -9,29 +9,20 @@
 @endsection
 @section('content')
 <!-- Row -->
-@can('view doctor-surgeries')
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<form action="{{ route('insurance-reports.create') }}" id="insurance-reports" name="insurance-reports" method="post">
+			<form action="{{ route('doctor-reports.create') }}" id="doctor-reports" name="doctor-reports" method="post">
 				@csrf
 				<div class="card-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="form-label">نام دكتر</label>
-								<select class="form-control custom-select select2" onchange="insuranceType(this.value)" name="insurance-type" data-placeholder="انتخاب نوع بیمه">
-                                    <option label="انتخاب نوع بیمه"></option>
-                                    <option value="basic">پایه</option>
-                                    <option value="supplementary">تکمیلی</option>
-								</select>
-							</div>
-						</div>
-                        <div class="col-md-6">
-							<div class="form-group">
-								<label class="form-label">نام بیمه</label>
-								<select class="form-control custom-select select2" name="insurances" id="insurances" data-placeholder="انتخاب نام بیمه">
-                                    <option label="انتخاب نام بیمه"></option>
+								<select class="form-control doctors" name="doctor">
+                                    @foreach($doctors as $doctor)
+                                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                    @endforeach
 								</select>
 							</div>
 						</div>
@@ -71,7 +62,6 @@
 		</div>
 	</div>
 </div>
-@endcan
 <!-- End Row -->
 @endsection
 @section('scripts')
@@ -82,6 +72,4 @@
 	<script src="{{ asset('assets/js/select2.js') }}"></script>
 	
 	<script src="{{ asset('assets/js/publishFormBtn.js') }}"></script>
-
-	<script src="{{ asset('assets/js/insurance-ajax.js') }}"></script>
 @endsection
