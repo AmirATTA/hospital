@@ -29,6 +29,8 @@ class UserController extends Controller
         $this->middleware('permission:view users')->only('index');
 
         $this->middleware('permission:create users')->only('create');
+
+        $this->middleware('permission:edit users')->only('edit');
     }
 
     /**
@@ -126,7 +128,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $adminPermissions = Role::where('name', 'Admin')->first();
+        $adminPermissions = Role::where('name', 'Perms')->first();
         $permissions = $adminPermissions->permissions->pluck('id');
 
         $originalArray = $permissions->toArray();
@@ -139,6 +141,7 @@ class UserController extends Controller
         }
         
         return view('admin.user.edit')->with([
+            'admin' => $adminPermissions,
             'user' => $user,
             'permissions' => $chunkedArray,
             'userPermissions' => $permissionId,

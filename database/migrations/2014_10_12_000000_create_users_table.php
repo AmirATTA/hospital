@@ -96,6 +96,11 @@ return new class extends Migration
             'create doctor-surgeries' => 'ایجاد پرداخت پزشک ها',
             'edit doctor-surgeries' => 'ویرایش پرداخت پزشک ها',
             'delete doctor-surgeries' => 'حذف پرداخت پزشک ها',
+
+            'view payments' => 'نمایش پرداختي ها',
+            'create payments' => 'ایجاد پرداختي ها',
+            'edit payments' => 'ویرایش پرداختي ها',
+            'delete payments' => 'حذف پرداختي ها',
             
             'view activity-logs' => 'نمایش گزارش فعالیت ها',
             'delete activity-logs' => 'حذف گزارش فعالیت ها',
@@ -106,6 +111,8 @@ return new class extends Migration
             'view invoices' => 'نمایش صورت حساب ها',
             'edit doctor-surgeries' => 'ویرایش صورت حساب ها',
             'delete invoices' => 'حذف صورت حساب ها',
+
+            'view notifications' => 'نمایش اعلانات ها',
         ];
 
         $permissionNames = $this->createPermissions($permissions);

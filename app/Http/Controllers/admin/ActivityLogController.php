@@ -19,6 +19,8 @@ class ActivityLogController extends Controller
         $this->middleware('permission:view activity-logs')->only('index');
 
         $this->middleware('permission:create activity-logs')->only('create');
+
+        $this->middleware('permission:edit activity-logs')->only('edit');
     }
 
     /**

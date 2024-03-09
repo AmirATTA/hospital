@@ -7,7 +7,14 @@
 @section('content')
 <!-- Row -->
 <div class="row">
-    <div class="col-xl-9 col-md-12 col-lg-12">
+
+    @php $user = auth()->user(); @endphp
+
+    @if($user->can('view payments') || $user->can('view activity-logs'))
+        <div class="col-xl-9 col-md-12 col-lg-12">
+    @else
+        <div class="col-xl-12 col-md-12 col-lg-12">
+    @endif
         <div class="row">
             <div class="col-xl-4 col-lg-6 col-md-12">
                 <div class="card" style="height: 160px;">
@@ -77,34 +84,37 @@
 
     <div class="col-xl-3 col-md-12 col-lg-12">
         <div class="card overflow-hidden">
-            <div class="card-header border-0">
-                <h4 class="card-title">آخرین پرداختی ها</h4>
-            </div>
-            <div class="pt-6">
-                <div class="list-group">
-                    @foreach($payments as $payment)
-                        <a href="{{ route('payments.show', $payment->id) }}">
-                            <div class="list-group-item d-flex pt-3 pb-3 align-items-center border-0">
-                                <div class="ml-3 ml-xs-0">
-                                    @if($payment->pay_type == 'cash')
-                                        <i class="fa-solid fa-money-bills bg-success-transparent" style="font-size:2rem; margin:5px;"></i>
-                                    @else
-                                        <i class="fa-solid fa-money-check-dollar bg-warning-transparent" style="font-size:2rem; margin:5px;"></i>
-                                    @endif
-                                </div>
-                                <div class="ml-1">
-                                    <div class="fs-14 mb-1" style="font-size:1.1rem;">{{ number_format($payment->amount) }}
-                                     تومان @php if($payment->pay_type == 'cash'){echo 'نقد';}else{echo 'چک';} @endphp</div>
-                                    <small class="text-muted">برای دکتر {{ $doctorName[0] }}</small>
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
-                    @if($payments->count() == 0)
-                        <div style="margin-right:60px;color:red;transform:translateY(-20px);">هیچ پرداختی وجود ندارد!</div>
-                    @endif
+            @can('view payments')
+                <div class="card-header border-0">
+                    <h4 class="card-title">آخرین پرداختی ها</h4>
                 </div>
-            </div>
+                <div class="pt-6">
+                    <div class="list-group">
+                        @foreach($payments as $payment)
+                            <a href="{{ route('payments.show', $payment->id) }}">
+                                <div class="list-group-item d-flex pt-3 pb-3 align-items-center border-0">
+                                    <div class="ml-3 ml-xs-0">
+                                        @if($payment->pay_type == 'cash')
+                                            <i class="fa-solid fa-money-bills bg-success-transparent" style="font-size:2rem; margin:5px;"></i>
+                                        @else
+                                            <i class="fa-solid fa-money-check-dollar bg-warning-transparent" style="font-size:2rem; margin:5px;"></i>
+                                        @endif
+                                    </div>
+                                    <div class="ml-1">
+                                        <div class="fs-14 mb-1" style="font-size:1.1rem;">{{ number_format($payment->amount) }}
+                                        تومان @php if($payment->pay_type == 'cash'){echo 'نقد';}else{echo 'چک';} @endphp</div>
+                                        <small class="text-muted">برای دکتر {{ $doctorName[0] }}</small>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                        @if($payments->count() == 0)
+                            <div style="margin-right:60px;color:red;transform:translateY(-20px);">هیچ پرداختی وجود ندارد!</div>
+                        @endif
+                    </div>
+                </div>
+            @endcan
+            @can('view activity-logs')
             <div class="mb-4">
                 <div class="card-header border-bottom-0 pt-2 pl-0">
                     <h4 class="card-title">گزارش فعالیت های اخیر</h4>
@@ -130,6 +140,7 @@
                     @endforeach
                 </ul>
             </div>
+            @endcan
         </div>
     </div>
 </div>

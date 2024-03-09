@@ -7,7 +7,6 @@
 	<link href="{{ asset('assets/plugins/sweet-alert/sweetalert.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
-<!-- Row -->
 
 @can('delete activity-logs')
 	<a href="#" data-id="all" class="action-btns1 role-activity-log"><button class="btn btn-danger news-btn">حذف همه
@@ -15,7 +14,7 @@
 	</button></a>
 @endcan
 
-@can('view activity-logs')
+<!-- Row -->
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card">
@@ -106,9 +105,11 @@
 												<a href="{{ route('activity-logs.show', $data->id) }}" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="نمایش">
 													<i class="feather feather-eye text-primary"></i>
 												</a>
-												<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-activity-log" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
-													<i class="feather feather-trash-2 text-danger"></i>
-												</a>
+											    @can('delete activity-logs')
+                                                    <a href="#" data-id="{{ $data->id }}" class="action-btns1 role-activity-log" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
+                                                        <i class="feather feather-trash-2 text-danger"></i>
+                                                    </a>
+											    @endcan
 											</div>
 										</td>
 									</tr>
@@ -125,7 +126,6 @@
 			</div>
 		</div>
 	</div>
-@endcan
 <!-- End Row -->
 @endsection
 @section('scripts')

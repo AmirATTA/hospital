@@ -94,7 +94,7 @@
                                     @endphp
                                     <td>{{ $rowNumber }}</td>
 									<td>{{ $doctorName[0]['name'] }}</td>
-									<td>{{ $data->amount }}</td>
+									<td>{{ number_format($data->amount) }} تومان</td>
                                     @if($data->description != null)
 										<td>
 											<a href="#" class="btn btn-warning" onclick="openDescriptionModal('{{ $data->id }}', 'payments')"
@@ -133,9 +133,11 @@
 											<a href="{{ route('payments.show', $data->id) }}" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="نمایش">
 													<i class="feather feather-eye text-primary"></i>
 												</a>
-											<a href="{{ route('payments.edit', $data->id) }}" class="action-btns1">
-												<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
-											</a>
+                                            @can('edit payments')
+                                                <a href="{{ route('payments.edit', $data->id) }}" class="action-btns1">
+                                                    <i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
+                                                </a>
+                                            @endcan
 										</div>
 									</td>
 								</tr>

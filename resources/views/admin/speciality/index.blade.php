@@ -11,7 +11,6 @@
 @endcan
 
 <!-- Row -->
-@can('view specialities')
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
@@ -75,12 +74,16 @@
 									@endif
 									<td>
 										<div class="d-flex">
-											<a href="{{ route('specialities.edit', $data->id) }}" class="action-btns1">
-												<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
-											</a>
-											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-speciality" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
-												<i class="feather feather-trash-2 text-danger"></i>
-											</a>
+											@can('edit specialities')
+												<a href="{{ route('specialities.edit', $data->id) }}" class="action-btns1">
+													<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
+												</a>
+											@endcan
+											@can('delete specialities')
+												<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-speciality" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
+													<i class="feather feather-trash-2 text-danger"></i>
+												</a>
+											@endcan
 										</div>
 									</td>
 								</tr>
@@ -97,7 +100,6 @@
 		</div>
 	</div>
 </div>
-@endcan
 <!-- End Row -->
 @endsection
 @section('scripts')

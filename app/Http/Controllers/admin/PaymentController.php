@@ -28,6 +28,8 @@ class PaymentController extends Controller
         $this->middleware('permission:view payments')->only('index');
 
         $this->middleware('permission:create payments')->only('create');
+        
+        $this->middleware('permission:edit payments')->only('edit');
     }
 
     /**

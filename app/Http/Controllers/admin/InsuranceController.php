@@ -22,6 +22,8 @@ class InsuranceController extends Controller
         $this->middleware('permission:view insurances')->only('index');
 
         $this->middleware('permission:create insurances')->only('create');
+        
+        $this->middleware('permission:edit insurances')->only('edit');
     }
 
     /**

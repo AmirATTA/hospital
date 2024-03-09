@@ -22,6 +22,8 @@ class OperationController extends Controller
         $this->middleware('permission:view operations')->only('index');
 
         $this->middleware('permission:create operations')->only('create');
+        
+        $this->middleware('permission:edit operations')->only('edit');
     }
 
     /**

@@ -66,7 +66,6 @@ class Surgery extends Model
         return $this->belongsToMany(Operation::class);
     }
 
-
     // creating record in doctor_surgery table
     public function attachDoctors(?array $ids, $onUpdate = false)
     {
@@ -90,7 +89,7 @@ class Surgery extends Model
             foreach ($doctorsWithRoles as $doctorId => $doctorRoleIds) {
                 if($onUpdate == true) {
                     foreach ($doctorRoleIds as $doctorRoleId) {
-                        $this->doctors()->sync($doctorId, ['doctor_role_id' => $doctorRoleId]);
+                        $this->doctors()->attach($doctorId, ['doctor_role_id' => $doctorRoleId]);
                     }
                 } else {
                     foreach ($doctorRoleIds as $doctorRoleId) {

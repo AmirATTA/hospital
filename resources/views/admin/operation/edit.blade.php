@@ -22,7 +22,10 @@
 						<div class="col-md-6">
 							<div class="form-group required">
 								<label class="form-label">قیمت</label>
-								<input class="form-control comma" value="{{ $operation->price }}" placeholder="قیمت" name="price">
+								<div style="display: flex;gap:10px;">
+									<input class="form-control comma" value="{{ $operation->price }}" placeholder="قیمت" name="price">
+									<span> تومان</span>
+								</div>
 							</div>
 						</div>
 					</div>

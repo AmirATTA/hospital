@@ -31,7 +31,6 @@
 							</thead>
 							<tbody>
 								@foreach($surgeries as $data)
-
 									@php
 										$doctor = App\Models\Doctor::findOrFail($doctorId);
 										$doctorRoleId = App\Models\DoctorSurgery::where('doctor_id', $doctorId)->where('surgery_id', $data)->pluck('doctor_role_id');
@@ -63,6 +62,7 @@
 									@endif
 
 								@endforeach
+
 							</tbody>
                             <td></td>
                             <td>جمع کل</td>

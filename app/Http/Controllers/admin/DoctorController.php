@@ -30,6 +30,8 @@ class DoctorController extends Controller
         $this->middleware('permission:view doctors')->only('index');
 
         $this->middleware('permission:create doctors')->only('create');
+
+        $this->middleware('permission:edit doctors')->only('edit');
     }
 
     /**

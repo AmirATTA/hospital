@@ -19,9 +19,8 @@
 									<i class="feather feather-home sidemenu_icon"></i>
 									<span class="side-menu__label">داشبورد</span></i>
 								</a>
-							</li>
-
-							@if($user->can('view users') || $user->can('create users') || $user->can('update users') || $user->can('delete users'))
+							</li>					
+							@if($user->can('view users') || $user->can('create users'))
 								<li class="slide">
 									<a class="side-menu__item" data-toggle="slide" href="#">
 										<i class="fa-solid fa-user-tie sidemenu_icon"></i>
@@ -38,7 +37,7 @@
 								</li>
 							@endif
 
-							@if($user->can('view specialities') || $user->can('create specialities') || $user->can('update specialities') || $user->can('delete specialities'))
+							@if($user->can('view specialities') || $user->can('create specialities'))
 								<li class="slide">
 									<a class="side-menu__item" data-toggle="slide" href="#">
 										<i class="fa-solid fa-certificate sidemenu_icon"></i>
@@ -55,7 +54,7 @@
 								</li>
 							@endif
 
-							@if($user->can('view doctors') || $user->can('create doctors') || $user->can('update doctors') || $user->can('delete doctors'))
+							@if($user->can('view doctors') || $user->can('create doctors') || $user->can('view doctor-roles') || $user->can('create doctor-roles'))
 								<li class="slide">
 									<a class="side-menu__item" data-toggle="slide" href="#">
 										<i class="fa-solid fa-user-doctor sidemenu_icon"></i>
@@ -83,7 +82,7 @@
 								</li>
 							@endif
 
-							@if($user->can('view operations') || $user->can('create operations') || $user->can('update operations') || $user->can('delete operations'))
+							@if($user->can('view operations') || $user->can('create operations'))
 								<li class="slide">
 									<a class="side-menu__item" data-toggle="slide" href="#">
 										<i class="fa-solid fa-users-gear sidemenu_icon"></i>
@@ -102,7 +101,7 @@
 								</li>
 							@endif
 
-							@if($user->can('view insurances') || $user->can('create insurances') || $user->can('update insurances') || $user->can('delete insurances'))
+							@if($user->can('view insurances') || $user->can('create insurances'))
 								<li class="slide">
 									<a class="side-menu__item" data-toggle="slide" href="#">
 										<i class="fa-solid fa-hospital sidemenu_icon"></i>
@@ -121,7 +120,7 @@
 								</li>
 							@endif
 
-							@if($user->can('view surgeries') || $user->can('create surgeries') || $user->can('update surgeries') || $user->can('delete surgeries'))
+							@if($user->can('view surgeries') || $user->can('create surgeries'))
 								<li class="slide">
 									<a class="side-menu__item" data-toggle="slide" href="#">
 										<i class="fa-solid fa-stethoscope sidemenu_icon"></i>
@@ -140,7 +139,10 @@
 								</li>
 							@endif
 
-							@if($user->can('view activity-logs') || $user->can('delete activity-logs'))
+							@if($user->can('view activity-logs') 
+							|| $user->can('view notifications') 
+							|| $user->can('view insurance')
+							|| $user->can('view doctors'))
 								<li class="slide">
 									<a class="side-menu__item" data-toggle="slide" href="#">
 										<i class="fa-solid fa-clock-rotate-left sidemenu_icon"></i>

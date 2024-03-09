@@ -22,6 +22,8 @@ class DoctorRoleController extends Controller
         $this->middleware('permission:view doctor-roles')->only('index');
 
         $this->middleware('permission:create doctor-roles')->only('create');
+
+        $this->middleware('permission:edit doctor-roles')->only('edit');
     }
 
     /**

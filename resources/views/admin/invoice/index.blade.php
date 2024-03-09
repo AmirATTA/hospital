@@ -13,7 +13,6 @@
 @endsection
 @section('content')
 <!-- Row -->
-@can('view operations')
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
@@ -82,7 +81,6 @@
 								@php
 									$doctor = App\Models\Doctor::findOrFail($data->doctor_id);
 								@endphp
-
 								<tr>
 									@php
                                         $rowNumber = ($invoices->currentPage() - 1) * $invoices->perPage() + $loop->iteration;
@@ -121,12 +119,16 @@
 											<a href="{{ route('invoices.show', $data->id) }}" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="نمایش">
 													<i class="feather feather-eye text-primary"></i>
 												</a>
-											<a href="{{ route('invoices.edit', $data->id) }}" class="action-btns1">
-												<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
-											</a>
-											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-invoice" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
-												<i class="feather feather-trash-2 text-danger"></i>
-											</a>
+											@can('edit invoices')
+												<a href="{{ route('invoices.edit', $data->id) }}" class="action-btns1">
+													<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
+												</a>
+											@endcan
+											@can('delete invoices')
+												<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-invoice" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
+													<i class="feather feather-trash-2 text-danger"></i>
+												</a>
+											@endcan
 
                                             @if($data->status != 1)
                                                 <a href="#" class="action-btns1" data-toggle="modal" id="payment_modal" 
@@ -150,7 +152,6 @@
 		</div>
 	</div>
 </div>
-@endcan
 <!-- End Row -->
 
 <!--Store payment modal -->

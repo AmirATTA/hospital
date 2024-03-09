@@ -6,7 +6,7 @@
 @endsection
 @section('content')
 
-@can('create doctors')
+@can('create doctor-roles')
 	<a href="{{ route('doctor-roles.create') }}"><button class="btn btn-primary news-btn">نقش جدید +</button></a>
 @endcan
 
@@ -86,12 +86,16 @@
 									@endif
 									<td>
 										<div class="d-flex">
-											<a href="{{ route('doctor-roles.edit', $data->id) }}" class="action-btns1">
-												<i class="feather feather-edit-2  text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
-											</a>
-											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-doctor-role" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
-												<i class="feather feather-trash-2 text-danger"></i>
-											</a>
+											@can('edit doctor-roles')
+												<a href="{{ route('doctor-roles.edit', $data->id) }}" class="action-btns1">
+													<i class="feather feather-edit-2  text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
+												</a>
+											@endcan
+											@can('delete doctor-roles')
+												<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-doctor-role" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
+													<i class="feather feather-trash-2 text-danger"></i>
+												</a>
+											@endcan
 										</div>
 									</td>
 								</tr>

@@ -22,6 +22,8 @@ class SettingController extends Controller
         $this->middleware('permission:view settings')->only('index');
 
         $this->middleware('permission:create settings')->only('create');
+        
+        $this->middleware('permission:edit settings')->only('edit');
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
-use App\Rules\DateGreaterThanOrEqual;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SurgeryUpdateRequest extends FormRequest
@@ -33,14 +32,8 @@ class SurgeryUpdateRequest extends FormRequest
                 },
             ],
             'doctorsInput' => 'nullable',  
-            'surgeried_at' => [
-                'required',
-                new DateGreaterThanOrEqual
-            ],
-            'released_at' => [
-                'required',
-                new DateGreaterThanOrEqual
-            ],
+            'surgeried_at' => 'required|date|after_or_equal:today',
+            'released_at' => 'required|after_or_equal:surgeried_at',
         ];
     }
 }

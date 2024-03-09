@@ -21,8 +21,11 @@
 						<div class="col-md-6">
 							<div class="form-group required">
 								<label class="form-label">قیمت</label>
-								<input class="form-control comma" value="{{ old('price') }}" 
-								name="price" style="font-weight:bold;font-size:1.2rem;">
+								<div style="display: flex;gap:10px;">
+									<input class="form-control comma" value="{{ old('price') }}" 
+									name="price" style="font-weight:bold;font-size:1.2rem;">
+									<span> تومان</span>
+								</div>
 							</div>
 						</div>
 					</div>

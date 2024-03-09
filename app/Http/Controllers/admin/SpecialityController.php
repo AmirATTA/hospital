@@ -23,6 +23,8 @@ class SpecialityController extends Controller
         $this->middleware('permission:view specialities')->only('index');
 
         $this->middleware('permission:create specialities')->only('create');
+        
+        $this->middleware('permission:edit specialities')->only('edit');
     }
 
     /**

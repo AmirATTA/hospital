@@ -11,7 +11,6 @@
 @endcan
 
 <!-- Row -->
-@can('view operations')
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
@@ -65,7 +64,7 @@
                                     @endphp
                                     <td>{{ $rowNumber }}</td>
 									<td>{{ $data->name }}</td>
-									<td class="comma">{{ $data->price }}</td>
+									<td>{{ number_format($data->price) }} تومان</td>
 									@if ($data->status == '1')
 										<td>
 											<span class="badge badge-success">فعال</span>
@@ -77,12 +76,16 @@
 									@endif
 									<td>
 										<div class="d-flex">
-											<a href="{{ route('operations.edit', $data->id) }}" class="action-btns1">
-												<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
-											</a>
-											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-operation" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
-												<i class="feather feather-trash-2 text-danger"></i>
-											</a>
+											@can('edit operations')
+												<a href="{{ route('operations.edit', $data->id) }}" class="action-btns1">
+													<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
+												</a>
+											@endcan
+											@can('delete operations')
+												<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-operation" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
+													<i class="feather feather-trash-2 text-danger"></i>
+												</a>
+											@endcan
 										</div>
 									</td>
 								</tr>
@@ -99,7 +102,6 @@
 		</div>
 	</div>
 </div>
-@endcan
 <!-- End Row -->
 @endsection
 @section('scripts')

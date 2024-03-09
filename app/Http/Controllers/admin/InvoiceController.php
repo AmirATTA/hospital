@@ -28,6 +28,8 @@ class InvoiceController extends Controller
         $this->middleware('permission:view invoices')->only('index');
 
         $this->middleware('permission:create invoices')->only('create');
+        
+        $this->middleware('permission:edit invoices')->only('edit');
     }
 
     /**

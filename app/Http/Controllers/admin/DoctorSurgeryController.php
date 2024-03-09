@@ -25,6 +25,8 @@ class DoctorSurgeryController extends Controller
         $this->middleware('permission:view doctor-surgeries')->only('index');
 
         $this->middleware('permission:create doctor-surgeries')->only('create');
+
+        $this->middleware('permission:edit doctor-surgeries')->only('edit');
     }
 
     /**
@@ -47,6 +49,7 @@ class DoctorSurgeryController extends Controller
     public function create(Request $request)
     {
         $search = collect($request->all())->except('_token')->all();
+
         $doctorId = $search['doctor'];
         
         $doctorName = Doctor::select('name')->where('id', $doctorId)->first();
@@ -79,13 +82,13 @@ class DoctorSurgeryController extends Controller
         $invoices = $requestData['invoices'];
 
         $doctorInvoice = [];
-
         $doctorSurgeryIds = [];
 
         foreach($invoices as $invoice) {
-            $doctorId = $invoice[0];
-
             $invoice = explode(', ', $invoice);
+
+            $doctorId = intval($invoice[0]);
+
             $doctorInvoice[] = $invoice[1];
 
             $doctorSurgeryIds[] = $invoice[2];

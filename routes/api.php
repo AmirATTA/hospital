@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Doctor\AuthController;
+use App\Http\Controllers\Api\Doctor\SurgeryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::name('api')->prefix('doctor')->middleware('guest')->group(function() {
+    Route::post('/login',[AuthController::class,'login'])->name('doctor.login');
+});
+
+Route::name('api')->prefix('doctor')->middleware('auth:doctor-api')->group(function() {
+    Route::post('/logout',[AuthController::class,'logout'])->name('doctor.logout');
+    
+    Route::get('/surgeries',[SurgeryController::class,'index'])->name('surgeries.index');
+    Route::get('/surgeries/{surgery}', [SurgeryController::class,'show'])->name('surgeries.show');
 });

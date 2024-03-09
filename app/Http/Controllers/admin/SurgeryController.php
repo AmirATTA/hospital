@@ -26,6 +26,8 @@ class SurgeryController extends Controller
         $this->middleware('permission:view surgeries')->only('index');
 
         $this->middleware('permission:create surgeries')->only('create');
+        
+        $this->middleware('permission:edit surgeries')->only('edit');
     }
 
     /**
@@ -62,6 +64,7 @@ class SurgeryController extends Controller
             'surgeries' => $surgeries,
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -238,7 +241,6 @@ class SurgeryController extends Controller
         } else {
             $validated = array_merge($request->validated());
         }
-
 
         $surgery->update($validated);
         $surgery->attachOperations($operations, true);

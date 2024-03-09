@@ -19,6 +19,7 @@ class DoctorRoleUpdateRequest extends FormRequest
                 'required',
                 Rule::unique('doctor_roles')->ignore($this->route('doctor_role'))
             ],
+            'quota' => 'required',
             'required' => 'required',
             'status' => 'required',
         ];

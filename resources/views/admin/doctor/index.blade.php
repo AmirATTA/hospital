@@ -11,7 +11,6 @@
 @endcan
 
 <!-- Row -->
-@can('view doctors')
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
@@ -73,12 +72,16 @@
 											<a href="{{ route('doctors.show', $data->id) }}" class="action-btns1" data-toggle="tooltip" data-placement="top" title="" data-original-title="نمایش">
 													<i class="feather feather-eye text-primary"></i>
 												</a>
-											<a href="{{ route('doctors.edit', $data->id) }}" class="action-btns1">
-												<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
-											</a>
-											<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-doctor" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
-												<i class="feather feather-trash-2 text-danger"></i>
-											</a>
+											@can('edit doctors')
+												<a href="{{ route('doctors.edit', $data->id) }}" class="action-btns1">
+													<i class="feather feather-edit-2  text-warning" data-toggle="tooltip" data-placement="top" title="" data-original-title="ویرایش"></i>
+												</a>
+											@endcan
+											@can('delete doctors')
+												<a href="#" data-id="{{ $data->id }}" class="action-btns1 role-doctor" data-toggle="tooltip" data-placement="top" title="" data-original-title="حذف">
+													<i class="feather feather-trash-2 text-danger"></i>
+												</a>
+											@endcan
 										</div>
 									</td>
 								</tr>
@@ -95,7 +98,6 @@
 		</div>
 	</div>
 </div>
-@endcan
 <!-- End Row -->
 @endsection
 @section('scripts')
